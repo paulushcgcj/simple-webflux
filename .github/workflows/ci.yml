@@ -70,3 +70,9 @@ jobs:
         with:
           name: jacoco-report
           path: target/coverage-reports/merged-test-report/
+
+      - name: Qualitygate
+        run: mvn -B clean verify package sonar:sonar org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=paulushcgcj_simple-webflux -D sonar.coverage.jacoco.xmlReportPaths=target/coverage-reports/merged-test-report/jacoco.xml --file pom.xml
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
