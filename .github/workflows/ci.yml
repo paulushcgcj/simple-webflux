@@ -21,3 +21,27 @@ jobs:
 
       - name: Code Validation
         run: mvn -B validate --file pom.xml
+
+      - name: Code Compilation
+        run: mvn -B clean compile --file pom.xml
+
+      - name: Checkstyle
+        run: mvn -B checkstyle:checkstyle -Dcheckstyle.skip=false --file pom.xml
+
+      - name: Archive Checkstyle
+        uses: actions/upload-artifact@v2
+        with:
+          name: checkstyle
+          path: target/site/checkstyle.html
+          retention-days: 5
+
+      - name: Unit Tests
+        run: mvn -B test --file pom.xml
+
+      - name: Integration Tests
+        run: mvn -B verify -P integration-test --file pom.xml
+
+      - name: Code Coverage
+        run: mvn -B clean verify -P all-tests coveralls:report --file pom.xml
+        env:
+          COVERALLS_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
