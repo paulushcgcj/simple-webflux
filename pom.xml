@@ -14,6 +14,13 @@
 	<name>simple-webflux</name>
 	<description>Demo project for Spring Boot</description>
 
+	<licenses>
+		<license>
+			<name>GNU GENERAL PUBLIC LICENSE, Version 3</name>
+			<url>https://raw.githubusercontent.com/paulushcgcj/simple-webflux/master/LICENSE</url>
+		</license>
+	</licenses>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -26,6 +33,8 @@
 		<jacoco.output.data>${project.build.directory}/coverage-reports</jacoco.output.data>
 		<timestamp>${maven.build.timestamp}</timestamp>
 		<maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
+		<sonar.organization>paulushcgcj-github</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
 
 	<profiles>
