@@ -42,6 +42,13 @@ jobs:
         run: mvn -B verify -P integration-test --file pom.xml
 
       - name: Code Coverage
-        run: mvn -B clean verify -P all-tests coveralls:report --file pom.xml
-        env:
-          COVERALLS_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
+        run: mvn -B clean verify -P all-tests --file pom.xml
+
+      - name: Add coverage
+        id: jacoco
+        uses: madrapps/jacoco-report@v1.2
+        with:
+          paths: ${{ github.workspace }}/target/coverage-reports/merged-test-report/jacoco.xml
+          token: ${{ secrets.GITHUB_TOKEN }}
+          min-coverage-overall: 40
+          min-coverage-changed-files: 60
