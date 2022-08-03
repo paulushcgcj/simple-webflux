@@ -1,14 +1,16 @@
 package io.github.paulushcgcj.devopsdemo.endpoints;
 
-import io.github.paulushcgcj.devopsdemo.models.Company;
-import io.github.paulushcgcj.devopsdemo.services.CompanyService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import io.github.paulushcgcj.devopsdemo.models.Company;
+import io.github.paulushcgcj.devopsdemo.services.CompanyService;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/companies")

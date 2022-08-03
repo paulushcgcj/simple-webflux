@@ -1,19 +1,20 @@
 package io.github.paulushcgcj.devopsdemo.services;
 
-import io.github.paulushcgcj.devopsdemo.exceptions.CompanyAlreadyExistException;
-import io.github.paulushcgcj.devopsdemo.exceptions.CompanyNotFoundException;
-import io.github.paulushcgcj.devopsdemo.exceptions.NullCompanyException;
-import io.github.paulushcgcj.devopsdemo.models.Company;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Service;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Service;
+
+import io.github.paulushcgcj.devopsdemo.exceptions.CompanyAlreadyExistException;
+import io.github.paulushcgcj.devopsdemo.exceptions.CompanyNotFoundException;
+import io.github.paulushcgcj.devopsdemo.exceptions.NullCompanyException;
+import io.github.paulushcgcj.devopsdemo.models.Company;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
