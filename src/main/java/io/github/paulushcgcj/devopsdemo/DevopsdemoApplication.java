@@ -1,13 +1,13 @@
-package io.github.paulushcgj.simplewebflux;
+package io.github.paulushcgcj.devopsdemo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SimpleWebfluxApplication {
+public class DevopsdemoApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SimpleWebfluxApplication.class, args);
+		SpringApplication.run(DevopsdemoApplication.class, args);
 	}
 
 }

@@ -1,10 +1,10 @@
-package io.github.paulushcgj.simplewebflux;
+package io.github.paulushcgcj.devopsdemo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SimpleWebfluxApplicationTests {
+class DevopsdemoApplicationTests {
 
 	@Test
 	void contextLoads() {
