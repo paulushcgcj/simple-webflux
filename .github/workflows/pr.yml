@@ -1,0 +1,9 @@
+name: Project CI
+on: [pull_request]
+jobs:
+  pr-validation:
+    name: Pull Request Validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for Conventional Commits
+        uses: webiny/action-conventional-commits@v1.0.5
