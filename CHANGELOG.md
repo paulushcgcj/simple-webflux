@@ -1,3 +1,12 @@
+## [0.2.3](https://github.com/paulushcgcj/simple-webflux/compare/v0.2.2...v0.2.3) (2022-08-10)
+
+
+### Bug Fixes
+
+* release ([55d47bd](https://github.com/paulushcgcj/simple-webflux/commit/55d47bdf44c2c7e1a3a1502c2e0eaf412c61408d))
+
+
+
 ## [0.2.2](https://github.com/paulushcgcj/simple-webflux/compare/v0.2.1...v0.2.2) (2022-08-10)
 
 
