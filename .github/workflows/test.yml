@@ -15,6 +15,7 @@ jobs:
           output-file: 'CHANGELOG.md'
           skip-version-file: 'true'
           skip-commit: 'true'
+          git-push: 'false'
 
       - name: Check file
         run: cat ./CHANGELOG.md
