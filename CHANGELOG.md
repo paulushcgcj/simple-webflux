@@ -1,3 +1,12 @@
+## [0.4.1](https://github.com/paulushcgcj/simple-webflux/compare/v0.4.0...v0.4.1) (2022-08-10)
+
+
+### Bug Fixes
+
+* changing workflow for release ([47f02cc](https://github.com/paulushcgcj/simple-webflux/commit/47f02ccc5a93d0819b7fdb171cdd0c332b269439))
+
+
+
 # [0.4.0](https://github.com/paulushcgcj/simple-webflux/compare/v0.3.0...v0.4.0) (2022-08-10)
 
 
@@ -32,15 +41,6 @@
 ### Bug Fixes
 
 * readding pom updater ([8b35214](https://github.com/paulushcgcj/simple-webflux/commit/8b35214735fbc3160073f115b0deb878eedd490b))
-
-
-
-## [0.2.1](https://github.com/paulushcgcj/simple-webflux/compare/v0.2.0...v0.2.1) (2022-08-10)
-
-
-### Bug Fixes
-
-* fixing release ci ([05dca12](https://github.com/paulushcgcj/simple-webflux/commit/05dca125f72bfe5f69af61cf23109350aaef1d11))
 
 
 
