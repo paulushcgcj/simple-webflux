@@ -161,15 +161,29 @@ jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
+    if: github.ref_name == 'feat/changelogs'
     needs:
       - security
       - test
     steps:
-      - name: Test0
-        run: echo ${{github.ref}} ${{endsWith('{{github.ref}}', 'feat/changelogs')}}
       - name: Test1
-        if: github.ref == 'refs/heads/feat/changelogs'
+        if: github.ref_name == 'feat/changelogs'
         run: echo Success
       - name: Test2
-        if: github.ref == 'main'
+        if: github.ref_name == 'main'
+        run: echo Success
+
+  release-two:
+    name: Release
+    runs-on: ubuntu-latest
+    if: github.ref_name == 'main'
+    needs:
+      - security
+      - test
+    steps:
+      - name: Test1
+        if: github.ref_name == 'feat/changelogs'
+        run: echo Success
+      - name: Test2
+        if: github.ref_name == 'main'
         run: echo Success
