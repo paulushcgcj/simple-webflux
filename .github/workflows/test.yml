@@ -10,6 +10,7 @@ jobs:
 
       - name: Change my log
         uses: softprops/action-gh-release@v1
+        continue-on-error: true
         with:
           body_path: ${{ github.workspace }}-CHANGELOG.txt
           token: ${{ github.token }}
