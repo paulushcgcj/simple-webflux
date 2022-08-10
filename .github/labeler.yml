@@ -1,14 +1,11 @@
-version: 1
-labels:
-  - label: "WIP"
-    title: "^WIP:.*"
-    mergeable: false
-  - label: "S"
-    size-below: 10
-  - label: "M"
-    size-above: 9
-    size-below: 100
-  - label: "L"
-    size-above: 100
-  - label: "Feature"
-    branch: "^feat.*/.*"
+automation:
+  - .github/*
+
+coverage:
+  - src/test/**/*.java
+
+source:
+  - src/main/**/*.java
+
+docker:
+  - any: ['Dockerfile','dockerfile-entrypoint.sh']

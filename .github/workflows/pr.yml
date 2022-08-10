@@ -4,6 +4,9 @@ jobs:
   pr-validation:
     name: Pull Request Validation
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
       - name: Check for Conventional Commits
         uses: webiny/action-conventional-commits@v1.0.5
@@ -34,8 +37,14 @@ jobs:
           comment_includes: '# Current changelog'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Label PR
-        uses: serubin/labeler@master
+      - name: Pull request size and stability labels
+        uses: actions/labeler@v4
         continue-on-error: true
-        env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: label
+        uses: action-runner/conventional-labeler@v1
+        continue-on-error: true
+        with:
+          access_token: ${{ secrets.GITHUB_TOKEN }}
