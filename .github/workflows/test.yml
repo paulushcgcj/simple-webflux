@@ -35,7 +35,6 @@ jobs:
         with:
           github-token: ${{ github.token }}
           output-file: 'CHANGELOG.md'
-          skip-version-file: 'true'
           skip-commit: 'true'
           git-push: 'false'
           version-file: './version.yml'
