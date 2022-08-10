@@ -191,6 +191,12 @@ jobs:
           skip-commit: 'true'
           git-push: 'false'
 
+      - name: Set new version
+        run: mvn versions:set -DnewVersion='${{ steps.changelog.outputs.version }}' -f pom.xml -DskipTests -Dtests.skip=true -Dskip.unit.tests=true
+
+      - name: Update POM
+        run: mvn versions:commit
+
       - name: Update resources
         uses: test-room-7/action-update-file@v1
         with:
