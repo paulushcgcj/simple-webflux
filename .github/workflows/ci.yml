@@ -166,7 +166,7 @@ jobs:
       - test
     steps:
       - name: Test0
-        run: echo ${{github.ref}}
+        run: echo ${{github.ref}} ${{endsWith('{{github.ref}}', 'feat/changelog')}}
       - name: Test1
         if: github.ref == 'feat/changelog'
         run: echo Success
