@@ -12,6 +12,7 @@
 
 * adding new things to report ([b734ae6](https://github.com/paulushcgcj/simple-webflux/commit/b734ae6efc8a647fe2052d2b52a120ac664a58c2))
 * adding pom change ([43c71fc](https://github.com/paulushcgcj/simple-webflux/commit/43c71fc9a1f0bc890ba54395be82170b58d34fcf))
+* adding release ([a31e88c](https://github.com/paulushcgcj/simple-webflux/commit/a31e88ce8616c95e0d8a27ecbc3fe471aa4d3b30))
 * adding release ([794d97b](https://github.com/paulushcgcj/simple-webflux/commit/794d97bdefc5eb6aedd4357a12f787d8e5cc71bf))
 * adding security checks ([caf6f2f](https://github.com/paulushcgcj/simple-webflux/commit/caf6f2fa177dcf87321a9d727c7d70bf1c2f24a8))
 * adding sonar ([5e0f561](https://github.com/paulushcgcj/simple-webflux/commit/5e0f5610cf8772ef53047846fbcf9b7a6c1e330a))
