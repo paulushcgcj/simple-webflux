@@ -162,7 +162,8 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     needs:
-      - validate
+      - security
+      - test
     steps:
       - name: Test1
         if: github.ref == 'feat/changelog'
