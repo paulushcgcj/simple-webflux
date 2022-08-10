@@ -8,28 +8,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Change my log
-        uses: softprops/action-gh-release@v1
-        continue-on-error: true
+      - name: Conventional Changelog Action
+        uses: TriPSs/conventional-changelog-action@v3
         with:
-          body_path: ${{ github.workspace }}-CHANGELOG.txt
-          token: ${{ github.token }}
-
-      - name: Update CHANGELOG
-        continue-on-error: true
-        uses: Requarks/changelog-action@v1
-        with:
-          token: ${{ github.token }}
-          tag: ${{ github.ref_name }}
-
-
-      - name: Changelog
-        uses: yashanand1910/standard-release-notes@v1.2.1
-        continue-on-error: true
-        id: get_release_notes
-        with:
-          changelog_path: ./CHANGELOG.md # Optional
-          version: ${{ github.ref }} # Required
+          github-token: ${{ github.token }}
+          output-file: 'CHANGELOG.md'
+          skip-version-file: 'true'
+          skip-commit: 'true'
 
       - name: Check file
         run: cat ./CHANGELOG.md
