@@ -1,3 +1,12 @@
+## [0.4.4](https://github.com/paulushcgcj/simple-webflux/compare/v0.4.3...v0.4.4) (2022-08-10)
+
+
+### Bug Fixes
+
+* changing token and adding security ([3cc4358](https://github.com/paulushcgcj/simple-webflux/commit/3cc4358fc92337df6ce90ed68208d3763aa17ff7))
+
+
+
 ## [0.4.3](https://github.com/paulushcgcj/simple-webflux/compare/v0.4.2...v0.4.3) (2022-08-10)
 
 
@@ -31,16 +40,6 @@
 ### Features
 
 * fixing image release ([e0924c9](https://github.com/paulushcgcj/simple-webflux/commit/e0924c9a83eb02232b789edab7e60cb92202ebd3))
-
-
-
-# [0.3.0](https://github.com/paulushcgcj/simple-webflux/compare/v0.2.3...v0.3.0) (2022-08-10)
-
-
-### Features
-
-* adding docker release as parte of main ci ([c62a9dc](https://github.com/paulushcgcj/simple-webflux/commit/c62a9dc60f1df6972289eb444bef24eab9c79031))
-* adding docker release as parte of main ci ([d5410af](https://github.com/paulushcgcj/simple-webflux/commit/d5410af96c3267eca05fa091fce5f2a7ff21fc18))
 
 
 
