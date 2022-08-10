@@ -21,8 +21,8 @@ jobs:
         continue-on-error: true
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          ignored_types: ["chore","pr"]
-          type_labels: {"feat": "feature", "fix": "fix", "bug": "fix", "doc": "documentation", "ci": "ci", "chore": "chore", "breaking": "breaking", "BREAKING CHANGE": "breaking"}
+          ignored_types: '["chore","pr"]'
+          type_labels: '{"feat": "feature", "fix": "fix", "bug": "fix", "doc": "documentation", "ci": "ci", "chore": "chore", "breaking": "breaking", "BREAKING CHANGE": "breaking"}'
 
       - name: Checkout branch
         uses: actions/checkout@v3
