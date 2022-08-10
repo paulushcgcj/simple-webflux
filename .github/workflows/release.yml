@@ -1,6 +1,9 @@
 name: Post Release
 
-on: [release]
+on:
+  label:
+    types:
+      - created
 
 jobs:
   push_to_registry:
