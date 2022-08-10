@@ -1,14 +1,12 @@
-name: Post Release
+name: Release
 
-on:
-  push:
-    tags:
-      - '*'
+on: [push,workflow_dispatch]
 
 jobs:
   push_to_registry:
     name: Push Docker image
     runs-on: ubuntu-latest
+    if: startsWith(github.ref_name,'v')
     permissions:
       packages: write
       contents: read
