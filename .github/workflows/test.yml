@@ -21,6 +21,12 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
 
+      - name: Change my log
+        uses: softprops/action-gh-release@v1
+        with:
+          body_path: ${{ github.workspace }}-CHANGELOG.txt
+          token: ${{ github.token }}
+
       - name: Update CHANGELOG
         continue-on-error: true
         uses: Requarks/changelog-action@v1
