@@ -2,6 +2,10 @@ name: Project CI
 on:
   pull_request:
   push:
+    branches:
+      - '*'
+      - '*/*'
+      - '**'
     tags-ignore:
       - '**'
 jobs:
