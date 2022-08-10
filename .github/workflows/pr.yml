@@ -1,4 +1,4 @@
-name: Project CI
+name: Pull Request Automation
 on: [pull_request]
 jobs:
   pr-validation:
@@ -7,3 +7,4 @@ jobs:
     steps:
       - name: Check for Conventional Commits
         uses: webiny/action-conventional-commits@v1.0.5
+        continue-on-error: true
