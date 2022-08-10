@@ -1,6 +1,11 @@
 name: Release
 
-on: [push,workflow_dispatch]
+on:
+  push:
+    tags:
+      - '*'
+  workflow_dispatch:
+
 
 jobs:
   push_to_registry:
