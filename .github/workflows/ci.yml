@@ -168,7 +168,7 @@ jobs:
       - name: Test0
         run: echo ${{github.ref}} ${{endsWith('{{github.ref}}', 'feat/changelogs')}}
       - name: Test1
-        if: github.ref == 'feat/changelogs'
+        if: github.ref == 'refs/heads/feat/changelogs'
         run: echo Success
       - name: Test2
         if: github.ref == 'main'
