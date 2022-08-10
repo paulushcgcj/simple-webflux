@@ -42,15 +42,17 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
       - name: Image Scan
-        uses: aquasecurity/trivy-action@0.3.0
+        uses: aquasecurity/trivy-action@master
+        continue-on-error: true
         with:
           image-ref: ghcr.io/${{ github.repository }}
           ignore-unfixed: true
           severity: CRITICAL
-          format: "sarif"
-          output: "docker-result.sarif"
+          format: 'sarif'
+          output: 'docker-result.sarif'
 
       - name: Upload Security results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v2
+        continue-on-error: true
         with:
           sarif_file: "docker-result.sarif"

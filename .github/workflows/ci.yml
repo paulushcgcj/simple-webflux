@@ -1,5 +1,9 @@
 name: Project CI
-on: [push, pull_request]
+on:
+  pull_request:
+  push:
+    tags-ignore:
+      - '**'
 jobs:
   cancel-prev-runs:
     name: Cancel Previous Runs
