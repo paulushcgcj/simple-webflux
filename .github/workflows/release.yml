@@ -2,7 +2,7 @@ name: Post Release
 
 on:
   release:
-    types: [published]
+    types: [released]
 
 jobs:
   push_to_registry:
