@@ -165,6 +165,8 @@ jobs:
       - security
       - test
     steps:
+      - name: Test0
+        run: echo ${{github.ref}}
       - name: Test1
         if: github.ref == 'feat/changelog'
         run: echo Success
