@@ -44,5 +44,17 @@ jobs:
       - name: Check file
         run: cat ./CHANGELOG.md
 
-      - name: Check Outs
-        run: echo Version ${{ steps.changelog.outputs.version }} generated then
+      - name: Set new version
+        run: mvn versions:set -DnewVersion='${{ steps.changelog.outputs.version }}' -f pom.xml -DskipTests -Dtests.skip=true -Dskip.unit.tests=true
+
+      - name: Update POM
+        run: mvn versions:commit
+
+      - name: Update resources
+        uses: test-room-7/action-update-file@v1
+        with:
+          file-path: |
+            pom.xml
+            CHANGELOG.md
+          commit-msg: "doc: updating pom to ${{ steps.changelog.outputs.version }} [skip ci]"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
