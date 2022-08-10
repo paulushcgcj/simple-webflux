@@ -1,3 +1,12 @@
+## [0.4.3](https://github.com/paulushcgcj/simple-webflux/compare/v0.4.2...v0.4.3) (2022-08-10)
+
+
+### Bug Fixes
+
+* release to tag ([2c4c2e3](https://github.com/paulushcgcj/simple-webflux/commit/2c4c2e3e124fb696caddd37edb772efd67f4b69d))
+
+
+
 ## [0.4.2](https://github.com/paulushcgcj/simple-webflux/compare/v0.4.1...v0.4.2) (2022-08-10)
 
 
@@ -32,15 +41,6 @@
 
 * adding docker release as parte of main ci ([c62a9dc](https://github.com/paulushcgcj/simple-webflux/commit/c62a9dc60f1df6972289eb444bef24eab9c79031))
 * adding docker release as parte of main ci ([d5410af](https://github.com/paulushcgcj/simple-webflux/commit/d5410af96c3267eca05fa091fce5f2a7ff21fc18))
-
-
-
-## [0.2.3](https://github.com/paulushcgcj/simple-webflux/compare/v0.2.2...v0.2.3) (2022-08-10)
-
-
-### Bug Fixes
-
-* release ([55d47bd](https://github.com/paulushcgcj/simple-webflux/commit/55d47bdf44c2c7e1a3a1502c2e0eaf412c61408d))
 
 
 
