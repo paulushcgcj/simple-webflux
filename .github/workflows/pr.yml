@@ -25,6 +25,7 @@ jobs:
           skip-version-file: 'true'
           skip-commit: 'true'
           git-push: 'false'
+          git-branch: ${{ github.head_ref }}
 
       - name: Comment PR
         continue-on-error: true
