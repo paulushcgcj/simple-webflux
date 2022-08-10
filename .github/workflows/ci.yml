@@ -157,3 +157,16 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           args: --severity-threshold=high --sarif-file-output=snyk.sarif
+
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    needs:
+      - validate
+    steps:
+      - name: Test1
+        if: github.ref == 'feat/changelog'
+        run: echo Success
+      - name: Test2
+        if: github.ref == 'main'
+        run: echo Success
