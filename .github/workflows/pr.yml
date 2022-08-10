@@ -9,11 +9,29 @@ jobs:
       pull-requests: write
     steps:
       - uses: actions/checkout@v3
+
       - name: Check for Conventional Commits
         uses: webiny/action-conventional-commits@v1.0.5
         continue-on-error: true
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Pull request size and stability labels
+        uses: actions/labeler@v4
+        continue-on-error: true
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Conventional Label
+        uses: action-runner/conventional-labeler@v1
+        continue-on-error: true
+        with:
+          access_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Checkout branch
+        uses: actions/checkout@v3
+        with:
+          ref: refs/heads/${{ github.head_ref }}
 
       - name: Conventional Changelog Update
         continue-on-error: true
@@ -27,6 +45,11 @@ jobs:
           git-push: 'false'
           git-branch: refs/heads/${{ github.head_ref }}
 
+      - name: Checkout pr
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.ref }}
+
       - name: Comment PR
         continue-on-error: true
         uses: thollander/actions-comment-pull-request@v1
@@ -39,14 +62,4 @@ jobs:
           comment_includes: '# Current changelog'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Pull request size and stability labels
-        uses: actions/labeler@v4
-        continue-on-error: true
-        with:
-          repo-token: "${{ secrets.GITHUB_TOKEN }}"
 
-      - name: label
-        uses: action-runner/conventional-labeler@v1
-        continue-on-error: true
-        with:
-          access_token: ${{ secrets.GITHUB_TOKEN }}
