@@ -11,12 +11,6 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Dependabot issue for PRs
-        continue-on-error: true
-        uses: goatandsheep/dependabot-issue-action@v1.0.1
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Conventional Changelog Update
         continue-on-error: true
         uses: TriPSs/conventional-changelog-action@v3
