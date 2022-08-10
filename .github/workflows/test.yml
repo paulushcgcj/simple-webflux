@@ -37,8 +37,7 @@ jobs:
           output-file: 'CHANGELOG.md'
           skip-commit: 'true'
           git-push: 'false'
-          version-file: './version.yml'
-          version-path: 'version'
+          skip-version-file: 'true'
 
       - name: Check file
         run: cat ./CHANGELOG.md
