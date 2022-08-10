@@ -8,3 +8,36 @@ jobs:
       - name: Check for Conventional Commits
         uses: webiny/action-conventional-commits@v1.0.5
         continue-on-error: true
+
+      - name: Dependabot issue for PRs
+        continue-on-error: true
+        uses: goatandsheep/dependabot-issue-action@v1.0.1
+
+      - name: Conventional Changelog Update
+        continue-on-error: true
+        uses: TriPSs/conventional-changelog-action@v3
+        id: changelog
+        with:
+          github-token: ${{ github.token }}
+          output-file: 'CHANGELOG.md'
+          skip-version-file: 'true'
+          skip-commit: 'true'
+          git-push: 'false'
+
+      - name: Comment PR
+        continue-on-error: true
+        uses: thollander/actions-comment-pull-request@v1
+        if: ${{ steps.changelog.outputs.skipped == 'false' }}
+        with:
+          message: |
+            # Current changelog
+            
+            ${{ steps.changelog.outputs.clean_changelog }}
+          comment_includes: '# Current changelog'
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Label PR
+        uses: serubin/labeler@master
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
