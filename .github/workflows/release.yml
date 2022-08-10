@@ -1,9 +1,9 @@
 name: Post Release
 
 on:
-  label:
-    types:
-      - created
+  push:
+    tags:
+      - '*'
 
 jobs:
   push_to_registry:
