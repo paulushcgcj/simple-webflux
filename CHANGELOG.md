@@ -1,3 +1,12 @@
+## [0.4.6](https://github.com/paulushcgcj/simple-webflux/compare/v0.4.5...v0.4.6) (2022-08-15)
+
+
+### Bug Fixes
+
+* jacoco config ([edcb210](https://github.com/paulushcgcj/simple-webflux/commit/edcb210a56c8aa825c9ddc50c0f3919e1405f4bc))
+
+
+
 ## [0.4.5](https://github.com/paulushcgcj/simple-webflux/compare/v0.4.4...v0.4.5) (2022-08-10)
 
 
@@ -32,15 +41,6 @@
 ### Bug Fixes
 
 * changing workflow for release ([e95a1e8](https://github.com/paulushcgcj/simple-webflux/commit/e95a1e8259e307cb891625d69ae1122fcbd404b8))
-
-
-
-## [0.4.1](https://github.com/paulushcgcj/simple-webflux/compare/v0.4.0...v0.4.1) (2022-08-10)
-
-
-### Bug Fixes
-
-* changing workflow for release ([47f02cc](https://github.com/paulushcgcj/simple-webflux/commit/47f02ccc5a93d0819b7fdb171cdd0c332b269439))
 
 
 
