@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import io.github.paulushcgcj.devopsdemo.models.Company;
 import io.github.paulushcgcj.devopsdemo.services.CompanyService;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -17,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CompanyController {
 
+  @Getter
   private final CompanyService service;
 
   @GetMapping
@@ -49,6 +51,6 @@ public class CompanyController {
   @DeleteMapping("/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void removeCompany(@PathVariable String id){
-    service.removeCOmpany(id);
+    service.removeCompany(id);
   }
 }

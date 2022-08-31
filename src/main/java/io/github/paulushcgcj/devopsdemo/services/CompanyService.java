@@ -14,12 +14,14 @@ import io.github.paulushcgcj.devopsdemo.exceptions.CompanyAlreadyExistException;
 import io.github.paulushcgcj.devopsdemo.exceptions.CompanyNotFoundException;
 import io.github.paulushcgcj.devopsdemo.exceptions.NullCompanyException;
 import io.github.paulushcgcj.devopsdemo.models.Company;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
 public class CompanyService {
 
+  @Getter
   private final Map<String, Company> companyRepository = new HashMap<>();
 
   public List<Company> listCompanies(long page, long size, String name) {
@@ -64,7 +66,7 @@ public class CompanyService {
       throw new NullCompanyException();
   }
 
-  public void removeCOmpany(String id) {
+  public void removeCompany(String id) {
     Company company = getCompany(id);
     companyRepository.remove(company.getId());
   }
