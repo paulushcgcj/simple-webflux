@@ -155,10 +155,10 @@
 					<excludes>
 						<exclude>**/configuration/**</exclude>
 						<exclude>**/exceptions/**</exclude>
-						<exclude>**/endpoints/**</exclude>
 						<exclude>**/models/**</exclude>
 						<exclude>**/repositories/**</exclude>
 						<exclude>**/*$*Builder*</exclude>
+						<exclude>**/DevopsdemoApplication*</exclude>
 					</excludes>
 				</configuration>
 				<executions>
@@ -245,7 +245,7 @@
 										<limit>
 											<counter>LINE</counter>
 											<value>COVEREDRATIO</value>
-											<minimum>0%</minimum>
+											<minimum>80%</minimum>
 										</limit>
 									</limits>
 								</rule>
