@@ -190,6 +190,9 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
 
+      - name: Backing up Changelog
+        run: cp CHANGELOG.md OLD.CHANGELOG.md
+
       - name: Conventional Changelog Update
         uses: TriPSs/conventional-changelog-action@v3
         id: changelog
@@ -205,6 +208,9 @@ jobs:
 
       - name: Update POM
         run: mvn versions:commit
+
+      - name: Merging Changelog
+        run: cat CHANGELOG.md OLD.CHANGELOG.md > CHANGELOG.md
 
       - name: Update resources
         uses: test-room-7/action-update-file@v1
