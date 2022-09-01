@@ -1,4 +1,4 @@
-# [0.5.0](https://github.com/paulushcgcj/simple-webflux/compare/v0.4.8...v0.5.0) (2022-09-01)
+# [0.6.0](https://github.com/paulushcgcj/simple-webflux/compare/v0.5.0...v0.6.0) (2022-09-01)
 
 
 ### Bug Fixes
@@ -10,17 +10,8 @@
 
 ### Features
 
+* **functional:** changing from annotation to functional ([1b1a98b](https://github.com/paulushcgcj/simple-webflux/commit/1b1a98b9b635971918f556dca68ba561d150811a))
 * moving code to mono ([d278336](https://github.com/paulushcgcj/simple-webflux/commit/d27833671c9db231aca61567d66588ef62820a87))
-
-
-
-## [0.4.5](https://github.com/paulushcgcj/simple-webflux/compare/v0.4.4...v0.4.5) (2022-08-10)
-
-
-### Bug Fixes
-
-* changing execution of automation ([45f5a4d](https://github.com/paulushcgcj/simple-webflux/commit/45f5a4dddf6257f67592eb698506ecca2c320e5e))
-* setting branch run ([20ae349](https://github.com/paulushcgcj/simple-webflux/commit/20ae349b86a038ae97078ac5beb1ae6a4271fbe1))
 
 
 
