@@ -27,6 +27,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.paulushcgcj.devopsdemo.exceptions.CompanyAlreadyExistException;
 import io.github.paulushcgcj.devopsdemo.exceptions.CompanyNotFoundException;
 import io.github.paulushcgcj.devopsdemo.models.Company;
+import io.github.paulushcgcj.devopsdemo.services.CompanyService;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
@@ -42,7 +43,7 @@ class CompanyControllerIntegrationTest {
   private WebTestClient client;
 
   @Autowired
-  CompanyController controller;
+  CompanyService service;
 
   private final ObjectMapper mapper = new ObjectMapper();
 
@@ -70,7 +71,7 @@ class CompanyControllerIntegrationTest {
 
   @BeforeEach
   public void setUp() throws JsonProcessingException {
-    controller.getService().getCompanyRepository().clear();
+    service.getCompanyRepository().clear();
   }
 
   @Test
@@ -190,8 +191,8 @@ class CompanyControllerIntegrationTest {
   @DisplayName("Get company when Exists")
   void shouldGetExistingCompany() throws Exception {
     shouldAddCompany();
-    String id = controller
-        .getService()
+    String id = service
+        
         .listCompanies(0, 1, "DaCompany")
         .map(companies -> companies.get(0))
         .map(Company::getId)
@@ -232,8 +233,8 @@ class CompanyControllerIntegrationTest {
     if (exception == null) {
 
       shouldAddCompany();
-      String myid = controller
-          .getService()
+      String myid = service
+          
           .listCompanies(0, 1, "DaCompany")
           .map(companies -> companies.get(0))
           .map(Company::getId)
@@ -271,8 +272,8 @@ class CompanyControllerIntegrationTest {
   @DisplayName("Remove company")
   void shouldRemoveCompany() throws Exception {
     shouldAddCompany();
-    String id = controller
-        .getService()
+    String id = service
+        
         .listCompanies(0, 1, "DaCompany")
         .map(companies -> companies.get(0))
         .map(Company::getId)

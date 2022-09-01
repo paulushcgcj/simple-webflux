@@ -27,15 +27,12 @@ public class CompanyService {
     log.info("Listing companies {} {} {}", page, size, name);
     return
         Flux.fromIterable(companyRepository.values())
-            .doOnNext(logger())
             .filter(filterByName(name))
-            .doOnNext(logger())
             .skip(page * size)
-            .doOnNext(logger())
             .take(size)
-            .doOnNext(logger())
             .collectList()
-            .switchIfEmpty(Mono.just(new ArrayList<>()));
+            .switchIfEmpty(Mono.just(new ArrayList<>()))
+            .doOnNext(companies -> log.info("{} companies found", companies.size()));
   }
 
 
@@ -44,43 +41,42 @@ public class CompanyService {
     if (company != null) {
       return
           listCompanies(0, 1, company.getName())
-              .doOnNext(logger())
               .filter(companies -> !companies.isEmpty())
+              .doOnNext(companies -> log.error("A company already exists with name {}", company.getName()))
               .flatMap(companies -> Mono.error(new CompanyAlreadyExistException(company.getName())))
-              .doOnNext(logger())
               .map(String.class::cast)
-              .doOnNext(logger())
-              .switchIfEmpty(saveCompany(company))
-              .doOnNext(logger());
+              .switchIfEmpty(saveCompany(company));
     }
     return Mono.error(new NullCompanyException());
   }
 
   public Mono<Company> getCompany(String id) {
+    log.info("Searching for company with id {}", id);
     return
         Flux
             .fromIterable(companyRepository.values())
-            .doOnNext(logger())
             .filter(company -> company.getId().equalsIgnoreCase(id))
-            .doOnNext(logger())
             .next()
-            .doOnNext(logger())
             .switchIfEmpty(Mono.error(new CompanyNotFoundException(id)));
   }
 
   public Mono<Void> updateCompany(String id, Company company) {
+    log.info("Updating company with ID {} to {}",id, company);
     if (company != null) {
       return
           getCompany(id)
-              .doOnNext(logger())
-              .map(_company -> companyRepository.put(id, company.withId(id)))
-              .doOnNext(logger())
+              .map(_company ->
+                  Optional
+                      .ofNullable(companyRepository.put(id, company.withId(id)))
+                      .orElse(company)
+              )
               .then();
     }
     return Mono.error(new NullCompanyException());
   }
 
   public Mono<Void> removeCompany(String id) {
+    log.info("Removing company with id {}", id);
     return
         getCompany(id)
             .doOnNext(logger())
@@ -93,9 +89,7 @@ public class CompanyService {
     return
         Mono
             .just(company)
-            .doOnNext(logger())
             .map(_company -> _company.withId(UUID.randomUUID().toString()))
-            .doOnNext(logger())
             .map(_company ->
                 Optional
                     .ofNullable(companyRepository.put(_company.getId(), _company))
