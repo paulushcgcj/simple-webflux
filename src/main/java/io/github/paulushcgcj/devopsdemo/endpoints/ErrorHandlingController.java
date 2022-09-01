@@ -1,65 +1,70 @@
 package io.github.paulushcgcj.devopsdemo.endpoints;
 
-import java.util.function.Function;
-import java.util.stream.Collectors;
+import java.util.Map;
 
-import org.springframework.context.support.DefaultMessageSourceResolvable;
-import org.springframework.http.HttpHeaders;
+import org.springframework.boot.autoconfigure.web.WebProperties;
+import org.springframework.boot.autoconfigure.web.reactive.error.AbstractErrorWebExceptionHandler;
+import org.springframework.boot.web.error.ErrorAttributeOptions;
+import org.springframework.boot.web.reactive.error.ErrorAttributes;
+import org.springframework.context.ApplicationContext;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.http.MediaType;
+import org.springframework.http.codec.ServerCodecConfigurer;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.reactive.function.BodyInserters;
+import org.springframework.web.reactive.function.server.*;
 import org.springframework.web.server.ResponseStatusException;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import lombok.extern.slf4j.Slf4j;
+import reactor.core.publisher.Mono;
 
 @RestControllerAdvice
 @ControllerAdvice
 @Slf4j
-public class ErrorHandlingController extends ResponseEntityExceptionHandler {
+@Component
+@Order(-2)
+public class ErrorHandlingController extends AbstractErrorWebExceptionHandler {
 
-  @ExceptionHandler(value = {Exception.class,ResponseStatusException.class})
-  protected ResponseEntity<Object> handleResponseStatusException(Exception ex, WebRequest request) {
-
-    log.error("Received an exception from the application {}",
-        ex.getMessage(),
-        ex
-    );
-
-    if(ex instanceof ResponseStatusException){
-      return handleExceptionInternal(ex, ((ResponseStatusException)ex).getReason(), new HttpHeaders(), ((ResponseStatusException)ex).getStatus(), request);
-    }
-
-    return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
-
+  public ErrorHandlingController(
+      ErrorAttributes errorAttributes,
+      WebProperties webProperties,
+      ApplicationContext applicationContext,
+      ServerCodecConfigurer configurer
+  ) {
+    super(errorAttributes, webProperties.getResources(), applicationContext);
+    this.setMessageWriters(configurer.getWriters());
   }
 
   @Override
-  protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-
-    return handleExceptionInternal(ex, ex
-        .getAllErrors()
-        .stream()
-        .map(convert())
-        .collect(Collectors.toList()), new HttpHeaders(), HttpStatus.PRECONDITION_FAILED, request);
+  protected RouterFunction<ServerResponse> getRoutingFunction(
+      ErrorAttributes errorAttributes) {
+    return RouterFunctions.route(
+        RequestPredicates.all(), request -> renderErrorResponse(request, errorAttributes));
   }
 
-  private Function<ObjectError,String> convert(){
-    return objectError -> {
+  private Mono<ServerResponse> renderErrorResponse(
+      ServerRequest request,
+      ErrorAttributes errorAttributes) {
 
-      if(objectError instanceof DefaultMessageSourceResolvable){
-        DefaultMessageSourceResolvable message = objectError;
-        DefaultMessageSourceResolvable subMessage = (DefaultMessageSourceResolvable) message.getArguments()[0];
-        return (subMessage.getDefaultMessage() + " " + message.getDefaultMessage());
-      }
+    Throwable exception = errorAttributes.getError(request).fillInStackTrace();
 
-      return objectError.toString();
+    if (exception instanceof ResponseStatusException) {
+      ResponseStatusException responseStatusException = (ResponseStatusException) exception;
 
-    };
+      return ServerResponse.status(responseStatusException.getStatus())
+          .contentType(MediaType.APPLICATION_JSON)
+          .body(BodyInserters.fromValue(responseStatusException.getReason()));
+    }
+
+    Map<String, Object> errorPropertiesMap = getErrorAttributes(request,
+        ErrorAttributeOptions.defaults());
+
+    return ServerResponse.status(HttpStatus.BAD_REQUEST)
+        .contentType(MediaType.APPLICATION_JSON)
+        .body(BodyInserters.fromValue(errorPropertiesMap));
   }
+
 }
