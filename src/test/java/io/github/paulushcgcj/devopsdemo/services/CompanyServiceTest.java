@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.UUID;
 import java.util.stream.Stream;
 
-import io.github.paulushcgcj.devopsdemo.repositories.CompanyRepository;
-import io.github.paulushcgcj.devopsdemo.repositories.CompanyRepositoryImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,6 +16,8 @@ import io.github.paulushcgcj.devopsdemo.exceptions.CompanyAlreadyExistException;
 import io.github.paulushcgcj.devopsdemo.exceptions.CompanyNotFoundException;
 import io.github.paulushcgcj.devopsdemo.exceptions.NullCompanyException;
 import io.github.paulushcgcj.devopsdemo.models.Company;
+import io.github.paulushcgcj.devopsdemo.repositories.CompanyRepository;
+import io.github.paulushcgcj.devopsdemo.repositories.CompanyRepositoryImpl;
 import reactor.test.StepVerifier;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
