@@ -1,11 +1,9 @@
 package io.github.paulushcgcj.devopsdemo.endpoints;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import io.github.paulushcgcj.devopsdemo.exceptions.CompanyAlreadyExistException;
-import io.github.paulushcgcj.devopsdemo.exceptions.CompanyNotFoundException;
-import io.github.paulushcgcj.devopsdemo.models.Company;
-import io.github.paulushcgcj.devopsdemo.services.CompanyService;
-import lombok.extern.slf4j.Slf4j;
+import java.net.URI;
+import java.util.UUID;
+import java.util.stream.Stream;
+
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -19,11 +17,13 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.server.ResponseStatusException;
-import reactor.core.publisher.Mono;
 
-import java.net.URI;
-import java.util.UUID;
-import java.util.stream.Stream;
+import io.github.paulushcgcj.devopsdemo.exceptions.CompanyAlreadyExistException;
+import io.github.paulushcgcj.devopsdemo.exceptions.CompanyNotFoundException;
+import io.github.paulushcgcj.devopsdemo.models.Company;
+import io.github.paulushcgcj.devopsdemo.services.CompanyService;
+import lombok.extern.slf4j.Slf4j;
+import reactor.core.publisher.Mono;
 
 @AutoConfigureWebTestClient(timeout = "1000")
 @ExtendWith({SpringExtension.class})
