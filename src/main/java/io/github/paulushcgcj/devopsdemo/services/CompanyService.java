@@ -4,7 +4,10 @@ import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
+import io.github.paulushcgcj.devopsdemo.repositories.CompanyRepository;
+import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import io.github.paulushcgcj.devopsdemo.exceptions.CompanyAlreadyExistException;
@@ -13,20 +16,22 @@ import io.github.paulushcgcj.devopsdemo.exceptions.NullCompanyException;
 import io.github.paulushcgcj.devopsdemo.models.Company;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
 @Slf4j
 public class CompanyService {
 
+  @Autowired
   @Getter
-  private final Map<String, Company> companyRepository = new HashMap<>();
+  @Setter
+  private CompanyRepository companyRepository;
 
   public Mono<List<Company>> listCompanies(long page, long size, String name) {
     log.info("Listing companies {} {} {}", page, size, name);
     return
-        Flux.fromIterable(companyRepository.values())
+        companyRepository
+            .findAll()
             .filter(filterByName(name))
             .skip(page * size)
             .take(size)
@@ -53,49 +58,35 @@ public class CompanyService {
   public Mono<Company> getCompany(String id) {
     log.info("Searching for company with id {}", id);
     return
-        Flux
-            .fromIterable(companyRepository.values())
-            .filter(company -> company.getId().equalsIgnoreCase(id))
-            .next()
+        companyRepository
+            .findById(id)
             .switchIfEmpty(Mono.error(new CompanyNotFoundException(id)));
   }
 
   public Mono<Void> updateCompany(String id, Company company) {
-    log.info("Updating company with ID {} to {}",id, company);
+    log.info("Updating company with ID {} to {}", id, company);
     if (company != null) {
       return
           getCompany(id)
-              .map(_company ->
-                  Optional
-                      .ofNullable(companyRepository.put(id, company.withId(id)))
-                      .orElse(company)
-              )
-              .then();
+              .flatMap(company1 ->
+                  companyRepository
+                      .save(company.withId(id))
+                      .then()
+              );
     }
     return Mono.error(new NullCompanyException());
   }
 
   public Mono<Void> removeCompany(String id) {
     log.info("Removing company with id {}", id);
-    return
-        getCompany(id)
-            .doOnNext(logger())
-            .map(company -> companyRepository.remove(company.getId()))
-            .doOnNext(logger())
-            .then();
+    return companyRepository.deleteById(id);
   }
 
   private Mono<String> saveCompany(Company company) {
     return
-        Mono
-            .just(company)
-            .map(_company -> _company.withId(UUID.randomUUID().toString()))
-            .map(_company ->
-                Optional
-                    .ofNullable(companyRepository.put(_company.getId(), _company))
-                    .map(Company::getId)
-                    .orElse(_company.getId())
-            )
+        companyRepository
+            .save(company)
+            .map(Company::getId)
             .doOnNext(logger());
   }
 
