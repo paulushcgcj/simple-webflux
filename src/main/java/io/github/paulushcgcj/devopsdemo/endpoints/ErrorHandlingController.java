@@ -54,6 +54,8 @@ public class ErrorHandlingController extends AbstractErrorWebExceptionHandler {
     if (exception instanceof ResponseStatusException) {
       ResponseStatusException responseStatusException = (ResponseStatusException) exception;
 
+      log.info("An error was encountered {}",exception.getMessage(),responseStatusException);
+
       return ServerResponse.status(responseStatusException.getStatus())
           .contentType(MediaType.APPLICATION_JSON)
           .body(BodyInserters.fromValue(responseStatusException.getReason()));

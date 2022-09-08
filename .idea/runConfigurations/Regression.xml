@@ -18,7 +18,7 @@
         <option name="INCLUDE" value="false" />
       </pattern>
       <pattern>
-        <option name="PATTERN" value="io.github.paulushcgcj.devopsdemo.repositories.*" />
+        <option name="PATTERN" value="io.github.paulushcgcj.devopsdemo.*" />
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>

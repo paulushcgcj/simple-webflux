@@ -23,7 +23,6 @@ import reactor.core.publisher.Mono;
 public class CompanyService {
 
   @Autowired
-  @Getter
   @Setter
   private CompanyRepository companyRepository;
 
@@ -46,11 +45,11 @@ public class CompanyService {
     if (company != null) {
       return
           listCompanies(0, 1, company.getName())
-              .filter(companies -> !companies.isEmpty())
-              .doOnNext(companies -> log.error("A company already exists with name {}", company.getName()))
-              .flatMap(companies -> Mono.error(new CompanyAlreadyExistException(company.getName())))
-              .map(String.class::cast)
-              .switchIfEmpty(saveCompany(company));
+              .filter(List::isEmpty)
+              .doOnNext(logger())
+              .flatMap(companies -> saveCompany(company.withId(UUID.randomUUID().toString()).withNewData(true)))
+              .doOnNext(id -> log.info("Company added with ID {}", id))
+              .switchIfEmpty(Mono.error(new CompanyAlreadyExistException(company.getName())));
     }
     return Mono.error(new NullCompanyException());
   }
@@ -71,23 +70,26 @@ public class CompanyService {
               .flatMap(company1 ->
                   companyRepository
                       .save(company.withId(id))
-                      .then()
-              );
+              )
+              .then();
     }
     return Mono.error(new NullCompanyException());
   }
 
   public Mono<Void> removeCompany(String id) {
     log.info("Removing company with id {}", id);
-    return companyRepository.deleteById(id);
+    return
+        getCompany(id)
+            .flatMap(company -> companyRepository.deleteById(id))
+            .then();
   }
 
   private Mono<String> saveCompany(Company company) {
     return
-        companyRepository
-            .save(company)
-            .map(Company::getId)
-            .doOnNext(logger());
+        companyRepository.save(company)
+            .doOnNext(logger())
+            .doOnError(logger())
+            .map(Company::getId);
   }
 
   private Predicate<Company> filterByName(String name) {
