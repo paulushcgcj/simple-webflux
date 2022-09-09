@@ -1,0 +1,42 @@
+version: '3.4'
+services:
+
+  database:
+    image: mariadb:10.3
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    healthcheck:
+      test: [ "CMD", "mysql", "-u", "root", "-proot", "-e", "SHOW databases;" ]
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    logging:
+      driver: "json-file"
+      options:
+        max-size: 10m
+        max-file: "3"
+
+  service:
+    image: ghcr.io/paulushcgcj/simple-webflux:${SIMPLEWEBFLUX}
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      IO_GITHUB_PAULUSHCGCJ_HOST: company
+      IO_GITHUB_PAULUSHCGCJ_DATABASE: database
+      IO_GITHUB_PAULUSHCGCJ_USERNAME: root
+      IO_GITHUB_PAULUSHCGCJ_PASSWORD: root
+    healthcheck:
+      test: wget --spider -S http://127.0.0.1:8080/health || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    logging:
+      driver: "json-file"
+      options:
+        max-size: 10m
+        max-file: "3"
