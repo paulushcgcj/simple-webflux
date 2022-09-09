@@ -15,19 +15,11 @@ public abstract class AbstractTestContainerIntegrationTest {
   @DynamicPropertySource
   static void registerDynamicProperties(DynamicPropertyRegistry registry) {
 
-
-
-    registry.add("io.github.paulushcgcj.database", AbstractTestContainerIntegrationTest::r2dbcUrl);
+    registry.add("io.github.paulushcgcj.database", database::getDatabaseName);
+    registry.add("io.github.paulushcgcj.host", () -> String.format("%s:%d",database.getHost(),database.getMappedPort(3306)) );
     registry.add("io.github.paulushcgcj.username", database::getUsername);
     registry.add("io.github.paulushcgcj.password", database::getPassword);
 
-  }
-
-  private static String r2dbcUrl() {
-    return String.format("mariadb://%s:%s/%s?TC_IMAGE_TAG=10.3",
-        database.getHost(),
-        database.getMappedPort(3306),
-        database.getDatabaseName());
   }
 
 }
