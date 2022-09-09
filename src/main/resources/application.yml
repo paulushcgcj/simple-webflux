@@ -1,13 +1,14 @@
-io:
-  github:
-    paulushcgcj:
-      database: mariadb://127.0.0.1:3306/company
-      username: root
-      password: root
-
+server:
+  error:
+    whitelabel:
+      enabled: false
 spring:
+  main:
+    lazy-initialization: false
+    banner-mode: "off"
+    allow-bean-definition-overriding: true
   r2dbc:
-    url: r2dbc:${io.github.paulushcgcj.database}
+    url: r2dbc:mariadb://${io.github.paulushcgcj.host}/${io.github.paulushcgcj.database}
     username: ${io.github.paulushcgcj.username}
     password: ${io.github.paulushcgcj.password}
   flyway:
@@ -16,4 +17,16 @@ spring:
     validate-on-migrate: true
     user: ${io.github.paulushcgcj.username}
     password: ${io.github.paulushcgcj.password}
-    url: jdbc:${io.github.paulushcgcj.database}?createDatabaseIfNotExist=true
+    url: jdbc:mariadb://${io.github.paulushcgcj.host}/${io.github.paulushcgcj.database}?createDatabaseIfNotExist=true
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      path-mapping:
+        prometheus: metrics
+      base-path: /
+      exposure:
+        include: health,info,prometheus,httptrace
