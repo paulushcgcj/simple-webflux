@@ -5,28 +5,31 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import io.github.paulushcgcj.devopsdemo.exceptions.CompanyAlreadyExistException;
 import io.github.paulushcgcj.devopsdemo.exceptions.CompanyNotFoundException;
 import io.github.paulushcgcj.devopsdemo.exceptions.NullCompanyException;
 import io.github.paulushcgcj.devopsdemo.models.Company;
-import lombok.Getter;
+import io.github.paulushcgcj.devopsdemo.repositories.CompanyRepository;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
 @Slf4j
 public class CompanyService {
 
-  @Getter
-  private final Map<String, Company> companyRepository = new HashMap<>();
+  @Autowired
+  @Setter
+  private CompanyRepository companyRepository;
 
   public Mono<List<Company>> listCompanies(long page, long size, String name) {
     log.info("Listing companies {} {} {}", page, size, name);
     return
-        Flux.fromIterable(companyRepository.values())
+        companyRepository
+            .findAll()
             .filter(filterByName(name))
             .skip(page * size)
             .take(size)
@@ -41,11 +44,11 @@ public class CompanyService {
     if (company != null) {
       return
           listCompanies(0, 1, company.getName())
-              .filter(companies -> !companies.isEmpty())
-              .doOnNext(companies -> log.error("A company already exists with name {}", company.getName()))
-              .flatMap(companies -> Mono.error(new CompanyAlreadyExistException(company.getName())))
-              .map(String.class::cast)
-              .switchIfEmpty(saveCompany(company));
+              .filter(List::isEmpty)
+              .doOnNext(logger())
+              .flatMap(companies -> saveCompany(company.withId(UUID.randomUUID().toString()).withNewData(true)))
+              .doOnNext(id -> log.info("Company added with ID {}", id))
+              .switchIfEmpty(Mono.error(new CompanyAlreadyExistException(company.getName())));
     }
     return Mono.error(new NullCompanyException());
   }
@@ -53,22 +56,19 @@ public class CompanyService {
   public Mono<Company> getCompany(String id) {
     log.info("Searching for company with id {}", id);
     return
-        Flux
-            .fromIterable(companyRepository.values())
-            .filter(company -> company.getId().equalsIgnoreCase(id))
-            .next()
+        companyRepository
+            .findById(id)
             .switchIfEmpty(Mono.error(new CompanyNotFoundException(id)));
   }
 
   public Mono<Void> updateCompany(String id, Company company) {
-    log.info("Updating company with ID {} to {}",id, company);
+    log.info("Updating company with ID {} to {}", id, company);
     if (company != null) {
       return
           getCompany(id)
-              .map(_company ->
-                  Optional
-                      .ofNullable(companyRepository.put(id, company.withId(id)))
-                      .orElse(company)
+              .flatMap(company1 ->
+                  companyRepository
+                      .save(company.withId(id))
               )
               .then();
     }
@@ -79,24 +79,16 @@ public class CompanyService {
     log.info("Removing company with id {}", id);
     return
         getCompany(id)
-            .doOnNext(logger())
-            .map(company -> companyRepository.remove(company.getId()))
-            .doOnNext(logger())
+            .flatMap(company -> companyRepository.deleteById(id))
             .then();
   }
 
   private Mono<String> saveCompany(Company company) {
     return
-        Mono
-            .just(company)
-            .map(_company -> _company.withId(UUID.randomUUID().toString()))
-            .map(_company ->
-                Optional
-                    .ofNullable(companyRepository.put(_company.getId(), _company))
-                    .map(Company::getId)
-                    .orElse(_company.getId())
-            )
-            .doOnNext(logger());
+        companyRepository.save(company)
+            .doOnNext(logger())
+            .doOnError(logger())
+            .map(Company::getId);
   }
 
   private Predicate<Company> filterByName(String name) {

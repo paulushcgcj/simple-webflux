@@ -4,10 +4,7 @@ import java.net.URI;
 import java.util.UUID;
 import java.util.stream.Stream;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -20,9 +17,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.server.ResponseStatusException;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.github.paulushcgcj.devopsdemo.exceptions.CompanyAlreadyExistException;
 import io.github.paulushcgcj.devopsdemo.exceptions.CompanyNotFoundException;
@@ -37,6 +31,7 @@ import reactor.core.publisher.Mono;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @Slf4j
 @DisplayName("Integrated Test | Company Controller")
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class CompanyControllerIntegrationTest {
 
   @Autowired
@@ -44,8 +39,6 @@ class CompanyControllerIntegrationTest {
 
   @Autowired
   CompanyService service;
-
-  private final ObjectMapper mapper = new ObjectMapper();
 
   private static final Company daCompany =
       Company
@@ -69,16 +62,11 @@ class CompanyControllerIntegrationTest {
           .overview("Over view")
           .build();
 
-  @BeforeEach
-  public void setUp() throws JsonProcessingException {
-    service.getCompanyRepository().clear();
-  }
 
   @Test
   @DisplayName("One Company after Insert")
+  @Order(3)
   void shouldListCreatedCompany() throws Exception {
-    shouldHaveNoCompaniesOnList();
-    shouldAddCompany();
     client
         .get()
         .uri(URI.create("/api/companies"))
@@ -92,8 +80,8 @@ class CompanyControllerIntegrationTest {
 
   @Test
   @DisplayName("Look for DaCompany, not Gork")
+  @Order(4)
   void shouldListCompanyByName() throws Exception {
-    shouldAddCompany();
 
     client
         .get()
@@ -135,6 +123,7 @@ class CompanyControllerIntegrationTest {
 
   @Test
   @DisplayName("No Companies at the beginning")
+  @Order(1)
   void shouldHaveNoCompaniesOnList() throws Exception {
 
     client
@@ -150,6 +139,7 @@ class CompanyControllerIntegrationTest {
 
   @Test
   @DisplayName("Insert works")
+  @Order(2)
   void shouldAddCompany() throws Exception {
 
     client
@@ -167,30 +157,10 @@ class CompanyControllerIntegrationTest {
         .isEmpty();
   }
 
-  @ParameterizedTest
-  @MethodSource("invalidAddCases")
-  @DisplayName("Invalid Add Cases")
-  void shoulNotInsertInvalidCompany(Company company, ResponseStatusException exception) throws Exception {
-    shouldAddCompany();
-
-    client
-        .post()
-        .uri("/api/companies")
-        .headers(httpHeaders -> httpHeaders.putAll(getHttpHeaders()))
-        .contentType(MediaType.APPLICATION_JSON)
-        .accept(MediaType.APPLICATION_JSON)
-        .body(Mono.just(company), Company.class)
-        .exchange()
-        .expectStatus().isEqualTo(exception.getRawStatusCode())
-        .expectBody(String.class)
-        .isEqualTo(exception.getReason());
-
-  }
-
   @Test
   @DisplayName("Get company when Exists")
+  @Order(5)
   void shouldGetExistingCompany() throws Exception {
-    shouldAddCompany();
     String id = service
         
         .listCompanies(0, 1, "DaCompany")
@@ -211,6 +181,7 @@ class CompanyControllerIntegrationTest {
 
   @Test
   @DisplayName("Get no Company with unexpected ID")
+  @Order(6)
   void shouldGetNoCompanyWithId() throws Exception {
     UUID id = UUID.randomUUID();
 
@@ -228,11 +199,11 @@ class CompanyControllerIntegrationTest {
   @ParameterizedTest
   @MethodSource("updateCases")
   @DisplayName("Update and see what happens")
+  @Order(7)
   void shouldExecuteUpdateAndHopeForTheBest(String id, Company company, ResponseStatusException exception) throws Exception {
 
     if (exception == null) {
 
-      shouldAddCompany();
       String myid = service
           
           .listCompanies(0, 1, "DaCompany")
@@ -270,11 +241,12 @@ class CompanyControllerIntegrationTest {
 
   @Test
   @DisplayName("Remove company")
+  @Order(8)
   void shouldRemoveCompany() throws Exception {
-    shouldAddCompany();
+
     String id = service
         
-        .listCompanies(0, 1, "DaCompany")
+        .listCompanies(0, 1, leCompany.getName())
         .map(companies -> companies.get(0))
         .map(Company::getId)
         .block();
@@ -294,6 +266,7 @@ class CompanyControllerIntegrationTest {
 
   @Test
   @DisplayName("Don't remove cuz it's not there")
+  @Order(9)
   void shouldNotRemoveCompany() throws Exception {
     UUID id = UUID.randomUUID();
 

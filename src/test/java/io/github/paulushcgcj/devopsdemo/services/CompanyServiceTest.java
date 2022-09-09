@@ -16,19 +16,27 @@ import io.github.paulushcgcj.devopsdemo.exceptions.CompanyAlreadyExistException;
 import io.github.paulushcgcj.devopsdemo.exceptions.CompanyNotFoundException;
 import io.github.paulushcgcj.devopsdemo.exceptions.NullCompanyException;
 import io.github.paulushcgcj.devopsdemo.models.Company;
+import io.github.paulushcgcj.devopsdemo.repositories.CompanyRepository;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @DisplayName("Unit Test | Company Service")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class CompanyServiceTest {
 
   private final CompanyService service = new CompanyService();
+  private final CompanyRepository repository = mock(CompanyRepository.class);
 
   @BeforeEach
   public void setUp() {
-    service.getCompanyRepository().clear();
+    service.setCompanyRepository(repository);
   }
 
   @Test
@@ -62,6 +70,9 @@ class CompanyServiceTest {
   @Test
   @DisplayName("No Companies at the beginning")
   void shouldHaveNoCompaniesOnList() {
+    when(repository.findAll())
+        .thenReturn(Flux.empty());
+
     StepVerifier
         .create(service.listCompanies(0, 10, null))
         .expectNext(new ArrayList<>())
@@ -72,38 +83,27 @@ class CompanyServiceTest {
   @DisplayName("Insert works")
   void shouldAddCompany() {
 
+    when(repository.save(any(Company.class)))
+        .thenReturn(Mono.just(Company.builder().id(UUID.randomUUID().toString()).name("DaCompany").build()));
+
+    when(repository.findAll())
+        .thenReturn(Flux.empty());
+
     StepVerifier
         .create(service.addCompany(Company.builder().name("DaCompany").build()))
         .expectNextCount(1)
         .verifyComplete();
   }
 
-  @ParameterizedTest
-  @MethodSource("invalidAddCases")
-  @DisplayName("Invalid Add Cases")
-  void shoulNotInsertInvalidCompany(Company company, Class exception) {
-    shouldAddCompany();
-
-    StepVerifier
-        .create(service.addCompany(company))
-        .expectError(exception)
-        .verify();
-
-  }
-
   @Test
   @DisplayName("Get company when Exists")
   void shouldGetExistingCompany() {
-    shouldAddCompany();
+
+    when(repository.findById(anyString()))
+        .thenReturn(Mono.just(Company.builder().name("DaCompany").build()));
 
     StepVerifier
-        .create(
-            service
-                .listCompanies(0, 1, "DaCompany")
-                .map(companies -> companies.get(0))
-                .map(Company::getId)
-                .flatMap(service::getCompany)
-        )
+        .create(service.getCompany(UUID.randomUUID().toString()))
         .assertNext(company ->
             assertThat(company)
                 .isNotNull()
@@ -116,6 +116,9 @@ class CompanyServiceTest {
   @Test
   @DisplayName("Get no Company with unexpected ID")
   void shouldGetNoCompanyWithId() {
+    when(repository.findById(anyString()))
+        .thenReturn(Mono.empty());
+
     StepVerifier
         .create(service.getCompany(UUID.randomUUID().toString()))
         .expectError(CompanyNotFoundException.class)
@@ -129,27 +132,11 @@ class CompanyServiceTest {
 
     if (exception == null) {
 
-      shouldAddCompany();
-      StepVerifier
-          .create(
-              service
-                  .listCompanies(0, 1, "DaCompany")
-                  .map(companies -> companies.get(0))
-                  .map(Company::getId)
-                  .flatMap(myId -> service.updateCompany(myId, company))
-          )
-          .verifyComplete();
+      when(repository.findById(anyString()))
+          .thenReturn(Mono.just(company.withId(id)));
 
       StepVerifier
-          .create(
-              service
-                  .listCompanies(0, 1, company.getName())
-                  .map(companies -> companies.get(0))
-                  .map(Company::getId)
-                  .flatMap(service::getCompany)
-                  .map(Company::getName)
-          )
-          .expectNext(company.getName())
+          .create(service.updateCompany(id, company))
           .verifyComplete();
 
     } else {
@@ -164,24 +151,26 @@ class CompanyServiceTest {
   @Test
   @DisplayName("Remove company")
   void shouldRemoveCompany() {
-    shouldAddCompany();
+
+    when(repository.findById(anyString()))
+        .thenReturn(Mono.just(Company.builder().id(UUID.randomUUID().toString()).name("DaCompany").build()));
+
+    when(repository.deleteById(anyString()))
+        .thenReturn(Mono.empty());
 
     StepVerifier
-        .create(
-            service
-                .listCompanies(0, 1, "DaCompany")
-                .map(companies -> companies.get(0))
-                .map(Company::getId)
-                .flatMap(service::removeCompany)
-        )
+        .create(service.removeCompany(UUID.randomUUID().toString()))
         .verifyComplete();
 
-    shouldHaveNoCompaniesOnList();
   }
 
   @Test
   @DisplayName("Don't remove cuz it's not there")
   void shouldNotRemoveCompany() {
+
+    when(repository.findById(anyString()))
+        .thenReturn(Mono.empty());
+
     StepVerifier
         .create(service.removeCompany(UUID.randomUUID().toString()))
         .expectError(CompanyNotFoundException.class)
@@ -193,8 +182,7 @@ class CompanyServiceTest {
         Stream.of(
             Arguments.of(null, null, NullCompanyException.class),
             Arguments.of(UUID.randomUUID().toString(), null, NullCompanyException.class),
-            Arguments.of(null, Company.builder().name("LeCompany").build(), CompanyNotFoundException.class),
-            Arguments.of(null, Company.builder().name("LeCompany").build(), null)
+            Arguments.of(UUID.randomUUID().toString(), Company.builder().name("LeCompany").build(), null)
         );
   }
 
