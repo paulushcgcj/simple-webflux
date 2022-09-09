@@ -1,3 +1,34 @@
+# [0.9.0](https://github.com/paulushcgcj/simple-webflux/compare/v0.8.1...v0.9.0) (2022-09-09)
+
+
+### Features
+
+* **actuator:** adding actuator for health and other monitoring things ([ce4cf50](https://github.com/paulushcgcj/simple-webflux/commit/ce4cf500fe9b39e5fd81769d1c0ac65bd786878e))
+
+
+
+## [0.8.1](https://github.com/paulushcgcj/simple-webflux/compare/v0.8.0...v0.8.1) (2022-09-09)
+
+
+### Bug Fixes
+
+* **changelog:** changing changelog generation ([0484bfa](https://github.com/paulushcgcj/simple-webflux/commit/0484bfa547245e45702b8bd16df3c264fd14daab))
+
+
+
+# [0.8.0](https://github.com/paulushcgcj/simple-webflux/compare/v0.7.0...v0.8.0) (2022-09-09)
+
+
+### Features
+
+* **db:h2:** adding h2 database support ([a5b9dbf](https://github.com/paulushcgcj/simple-webflux/commit/a5b9dbf31323387bc948a3592f6a6341392ebc71))
+* **db:maria:** moving database to mariadb ([4c4311b](https://github.com/paulushcgcj/simple-webflux/commit/4c4311b207ed8255b9a4853f771317a98a521fab))
+* **db:** adding migration and mariadb ([8cda57b](https://github.com/paulushcgcj/simple-webflux/commit/8cda57b68593cffc80441651cccb31e2a7842215))
+* **db:** adding testcontainer support ([da8e5d9](https://github.com/paulushcgcj/simple-webflux/commit/da8e5d93b76771b1d197ea9c9ffd93b59de28bc3))
+* **functional:** changing from annotation to functional ([1b1a98b](https://github.com/paulushcgcj/simple-webflux/commit/1b1a98b9b635971918f556dca68ba561d150811a))
+
+
+
 ## [0.8.1](https://github.com/paulushcgcj/simple-webflux/compare/v0.8.0...v0.8.1) (2022-09-09)
 
 
