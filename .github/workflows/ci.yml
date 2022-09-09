@@ -191,14 +191,16 @@ jobs:
           distribution: 'adopt'
 
       - name: Backing up Changelog
-        run: cp CHANGELOG.md OLD.CHANGELOG.md
+        run: |
+            mv CHANGELOG.md OLD.CHANGELOG.md
+            touch RELEASE.md
 
       - name: Conventional Changelog Update
         uses: TriPSs/conventional-changelog-action@v3
         id: changelog
         with:
           github-token: ${{ github.token }}
-          output-file: 'CHANGELOG.md'
+          output-file: 'RELEASE.md'
           skip-version-file: 'true'
           skip-commit: 'true'
           git-push: 'false'
@@ -210,7 +212,7 @@ jobs:
         run: mvn versions:commit
 
       - name: Merging Changelog
-        run: cat CHANGELOG.md OLD.CHANGELOG.md > CHANGELOG.md
+        run: cat RELEASE.md OLD.CHANGELOG.md > CHANGELOG.md
 
       - name: Update resources
         uses: test-room-7/action-update-file@v1
