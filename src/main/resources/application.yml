@@ -1,0 +1,5 @@
+spring:
+  r2dbc:
+    url: r2dbc:mariadb://127.0.0.1:3306/company
+    username: root
+    password: root
