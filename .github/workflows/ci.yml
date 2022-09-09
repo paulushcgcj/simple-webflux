@@ -211,6 +211,9 @@ jobs:
       - name: Update POM
         run: mvn versions:commit
 
+      - name: Updating Compose version
+        run: sed -i -E "s/SIMPLEWEBFLUX=.*/SIMPLEWEBFLUX=${{ steps.changelog.outputs.version }}/g" .env
+
       - name: Merging Changelog
         run: cat RELEASE.md OLD.CHANGELOG.md > CHANGELOG.md
 
