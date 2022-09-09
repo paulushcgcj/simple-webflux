@@ -4,8 +4,6 @@ services:
   database:
     image: mariadb:10.3
     restart: always
-    ports:
-      - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: root
     healthcheck:
@@ -26,8 +24,8 @@ services:
       - "8080:8080"
     environment:
       MYSQL_ROOT_PASSWORD: root
-      IO_GITHUB_PAULUSHCGCJ_HOST: company
-      IO_GITHUB_PAULUSHCGCJ_DATABASE: database
+      IO_GITHUB_PAULUSHCGCJ_HOST: database
+      IO_GITHUB_PAULUSHCGCJ_DATABASE: company
       IO_GITHUB_PAULUSHCGCJ_USERNAME: root
       IO_GITHUB_PAULUSHCGCJ_PASSWORD: root
     healthcheck:
