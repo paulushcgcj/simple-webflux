@@ -2,16 +2,18 @@ io:
   github:
     paulushcgcj:
       database: mariadb://127.0.0.1:3306/company
+      username: root
+      password: root
 
 spring:
   r2dbc:
     url: r2dbc:${io.github.paulushcgcj.database}
-    username: root
-    password: root
+    username: ${io.github.paulushcgcj.username}
+    password: ${io.github.paulushcgcj.password}
   flyway:
     locations: classpath:db/migration
     enabled: true
     validate-on-migrate: true
-    user: ${spring.r2dbc.username}
-    password: ${spring.r2dbc.password}
+    user: ${io.github.paulushcgcj.username}
+    password: ${io.github.paulushcgcj.password}
     url: jdbc:${io.github.paulushcgcj.database}?createDatabaseIfNotExist=true
