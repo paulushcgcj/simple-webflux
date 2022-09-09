@@ -25,14 +25,13 @@ import io.github.paulushcgcj.devopsdemo.services.CompanyService;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
-@AutoConfigureWebTestClient(timeout = "1000")
+@AutoConfigureWebTestClient(timeout = "36000")
 @ExtendWith({SpringExtension.class})
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @Slf4j
 @DisplayName("Integrated Test | Company Controller")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class CompanyControllerIntegrationTest {
+class CompanyControllerIntegrationTest extends AbstractTestContainerIntegrationTest {
 
   @Autowired
   private WebTestClient client;
