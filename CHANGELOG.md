@@ -1,3 +1,20 @@
+# [0.8.0](https://github.com/paulushcgcj/simple-webflux/compare/v0.7.0...v0.8.0) (2022-09-09)
+
+### Features
+
+* **db:maria:** moving database to mariadb ([4c4311b](https://github.com/paulushcgcj/simple-webflux/commit/4c4311b207ed8255b9a4853f771317a98a521fab))
+* **db:** adding migration and mariadb ([8cda57b](https://github.com/paulushcgcj/simple-webflux/commit/8cda57b68593cffc80441651cccb31e2a7842215))
+* **db:** adding testcontainer support ([da8e5d9](https://github.com/paulushcgcj/simple-webflux/commit/da8e5d93b76771b1d197ea9c9ffd93b59de28bc3)))
+
+
+
+# [0.7.0](https://github.com/paulushcgcj/simple-webflux/compare/v0.6.0...v0.7.0) (2022-09-09)
+
+### Features
+
+* **db:h2:** adding h2 database support ([a5b9dbf](https://github.com/paulushcgcj/simple-webflux/commit/a5b9dbf31323387bc948a3592f6a6341392ebc71))
+
+
 # [0.6.0](https://github.com/paulushcgcj/simple-webflux/compare/v0.5.0...v0.6.0) (2022-09-01)
 
 
@@ -19,7 +36,7 @@
 
 
 ### Bug Fixes
-	@@ -8,23 +8,19 @@
+
 * **maven:** fixing checkstyle configuration ([a7a2c6e](https://github.com/paulushcgcj/simple-webflux/commit/a7a2c6efb70e1af5e199c35c3b7754e0e9873c3a))
 
 
@@ -33,7 +50,7 @@
 
 
 ### Bug Fixes
-	@@ -8,23 +8,19 @@
+
 * **maven:** fixing checkstyle configuration ([a7a2c6e](https://github.com/paulushcgcj/simple-webflux/commit/a7a2c6efb70e1af5e199c35c3b7754e0e9873c3a))
 
 
