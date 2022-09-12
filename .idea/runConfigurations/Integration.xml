@@ -18,7 +18,7 @@
         <option name="INCLUDE" value="false" />
       </pattern>
       <pattern>
-        <option name="PATTERN" value="io.github.paulushcgcj.devopsdemo.*" />
+        <option name="PATTERN" value="io.github.paulushcgcj.devopsdemo.endpoints.routes.*" />
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>
