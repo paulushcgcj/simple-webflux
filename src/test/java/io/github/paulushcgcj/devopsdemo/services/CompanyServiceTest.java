@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.UUID;
 import java.util.stream.Stream;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -17,6 +16,7 @@ import io.github.paulushcgcj.devopsdemo.exceptions.CompanyNotFoundException;
 import io.github.paulushcgcj.devopsdemo.exceptions.NullCompanyException;
 import io.github.paulushcgcj.devopsdemo.models.Company;
 import io.github.paulushcgcj.devopsdemo.repositories.CompanyRepository;
+import io.github.paulushcgcj.devopsdemo.validators.CompanyValidator;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
@@ -31,13 +31,10 @@ import static org.mockito.Mockito.when;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class CompanyServiceTest {
 
-  private final CompanyService service = new CompanyService();
   private final CompanyRepository repository = mock(CompanyRepository.class);
+  private final CompanyValidator validator = mock(CompanyValidator.class);
 
-  @BeforeEach
-  public void setUp() {
-    service.setCompanyRepository(repository);
-  }
+  private final CompanyService service = new CompanyService(repository,validator);
 
   @Test
   @DisplayName("One Company after Insert")

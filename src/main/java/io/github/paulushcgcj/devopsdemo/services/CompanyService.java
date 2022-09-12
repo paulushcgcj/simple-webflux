@@ -1,29 +1,41 @@
 package io.github.paulushcgcj.devopsdemo.services;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BeanPropertyBindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 
 import io.github.paulushcgcj.devopsdemo.exceptions.CompanyAlreadyExistException;
 import io.github.paulushcgcj.devopsdemo.exceptions.CompanyNotFoundException;
+import io.github.paulushcgcj.devopsdemo.exceptions.CompanyPersistenceException;
 import io.github.paulushcgcj.devopsdemo.exceptions.NullCompanyException;
 import io.github.paulushcgcj.devopsdemo.models.Company;
 import io.github.paulushcgcj.devopsdemo.repositories.CompanyRepository;
-import lombok.Setter;
+import io.github.paulushcgcj.devopsdemo.validators.CompanyValidator;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class CompanyService {
 
-  @Autowired
-  @Setter
-  private CompanyRepository companyRepository;
+  @Getter
+  private final CompanyRepository companyRepository;
+
+  @Getter
+  private final CompanyValidator validator;
 
   public Mono<List<Company>> listCompanies(long page, long size, String name) {
     log.info("Listing companies {} {} {}", page, size, name);
@@ -84,11 +96,24 @@ public class CompanyService {
   }
 
   private Mono<String> saveCompany(Company company) {
+
+    Errors errors = new BeanPropertyBindingResult(company, Company.class.getName());
+    validator.validate(company, errors);
+
+    if (!errors.hasErrors())
+      return
+          companyRepository.save(company)
+              .doOnNext(logger())
+              .doOnError(logger())
+              .map(Company::getId);
+
     return
-        companyRepository.save(company)
-            .doOnNext(logger())
-            .doOnError(logger())
-            .map(Company::getId);
+        Flux
+            .fromIterable(errors.getAllErrors())
+            .map(FieldError.class::cast)
+            .map(DefaultMessageSourceResolvable::getCode)
+            .reduce((m1, m2) -> String.join(",", new String[]{m1, m2}))
+            .flatMap(v -> Mono.error(new CompanyPersistenceException(v)));
   }
 
   private Predicate<Company> filterByName(String name) {
