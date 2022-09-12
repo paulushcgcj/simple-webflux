@@ -1,30 +1,30 @@
-package io.github.paulushcgcj.devopsdemo.endpoints;
+package io.github.paulushcgcj.devopsdemo.handlers;
 
 import java.net.URI;
 import java.util.List;
-import java.util.function.Consumer;
 
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
-import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import org.springframework.web.server.ResponseStatusException;
 
 import io.github.paulushcgcj.devopsdemo.models.Company;
 import io.github.paulushcgcj.devopsdemo.services.CompanyService;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import io.github.paulushcgcj.devopsdemo.validators.CompanyValidator;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
 @Component
-@RequiredArgsConstructor
 @Slf4j
-public class CompanyHandler {
+public class CompanyHandler extends AbstractValidatedHandler<Company, CompanyValidator> {
 
-  @Getter
   private final CompanyService service;
+
+  public CompanyHandler(CompanyValidator validator, CompanyService service) {
+    super(Company.class, validator);
+    this.service = service;
+  }
 
   public Mono<ServerResponse> listCompanies(ServerRequest request) {
 
@@ -37,7 +37,9 @@ public class CompanyHandler {
     return ServerResponse
         .ok()
         .contentType(MediaType.APPLICATION_JSON)
-        .body(service.listCompanies(page, size, name), List.class);
+        .body(service.listCompanies(page, size, name), List.class)
+        .doOnError(ResponseStatusException.class, handleStatusResponse())
+        .doOnError(handleError());
   }
 
   public Mono<ServerResponse> getCompany(ServerRequest request) {
@@ -53,7 +55,8 @@ public class CompanyHandler {
                         .contentType(MediaType.APPLICATION_JSON)
                         .body(Mono.just(company), Company.class)
             )
-            .doOnError(ResponseStatusException.class, generateErrorResponse());
+            .doOnError(ResponseStatusException.class, handleStatusResponse())
+            .doOnError(handleError());
   }
 
   public Mono<ServerResponse> addCompany(ServerRequest request) {
@@ -62,13 +65,15 @@ public class CompanyHandler {
         request
             .bodyToMono(Company.class)
             .doOnNext(company -> log.info("Creating company {}", company))
+            .flatMap(validate())
             .flatMap(service::addCompany)
             .flatMap(companyId ->
                 ServerResponse
                     .created(URI.create(String.format("/api/companies/%s", companyId)))
                     .build()
             )
-            .doOnError(ResponseStatusException.class, generateErrorResponse());
+            .doOnError(ResponseStatusException.class, handleStatusResponse())
+            .doOnError(handleError());
   }
 
   public Mono<ServerResponse> updateCompany(ServerRequest request) {
@@ -78,9 +83,11 @@ public class CompanyHandler {
         request
             .bodyToMono(Company.class)
             .doOnNext(company -> log.info("Updating company {}", company))
+            .flatMap(validate())
             .flatMap(company -> service.updateCompany(request.pathVariable("id"),company))
             .then(ServerResponse.accepted().build())
-            .doOnError(ResponseStatusException.class, generateErrorResponse());
+            .doOnError(ResponseStatusException.class, handleStatusResponse())
+            .doOnError(handleError());
   }
 
   public Mono<ServerResponse> removeCompany(ServerRequest request) {
@@ -90,13 +97,9 @@ public class CompanyHandler {
         service
             .removeCompany(request.pathVariable("id"))
             .then(ServerResponse.noContent().build())
-            .doOnError(ResponseStatusException.class, generateErrorResponse());
+            .doOnError(ResponseStatusException.class, handleStatusResponse())
+            .doOnError(handleError());
   }
 
-  private static Consumer<ResponseStatusException> generateErrorResponse() {
-    return t -> ServerResponse
-        .status(t.getStatus())
-        .body(BodyInserters.fromValue(t.getReason()));
-  }
 
 }
