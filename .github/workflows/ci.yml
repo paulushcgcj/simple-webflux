@@ -212,7 +212,7 @@ jobs:
         run: mvn versions:commit
 
       - name: Updating Compose version
-        run: sed -i -E "s/SIMPLEWEBFLUX=.*/SIMPLEWEBFLUX=${{ steps.changelog.outputs.version }}/g" .env
+        run: sed -i -E "s/SIMPLEWEBFLUX=.*/SIMPLEWEBFLUX=${{ steps.changelog.outputs.version }}/g" docs/environment/.env
 
       - name: Merging Changelog
         run: cat RELEASE.md OLD.CHANGELOG.md > CHANGELOG.md
