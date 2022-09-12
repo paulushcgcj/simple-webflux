@@ -20,6 +20,7 @@ import io.github.paulushcgcj.devopsdemo.exceptions.NullCompanyException;
 import io.github.paulushcgcj.devopsdemo.models.Company;
 import io.github.paulushcgcj.devopsdemo.repositories.CompanyRepository;
 import io.github.paulushcgcj.devopsdemo.validators.CompanyValidator;
+import io.micrometer.core.annotation.Timed;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,6 +38,7 @@ public class CompanyService {
   @Getter
   private final CompanyValidator validator;
 
+  @Timed(value = "service.service",longTask = true,description = "Monitors the service that process a request")
   public Mono<List<Company>> listCompanies(long page, long size, String name) {
     log.info("Listing companies {} {} {}", page, size, name);
     return
@@ -50,7 +52,7 @@ public class CompanyService {
             .doOnNext(companies -> log.info("{} companies found", companies.size()));
   }
 
-
+  @Timed(value = "service.service",longTask = true,description = "Monitors the service that process a request")
   public Mono<String> addCompany(Company company) {
     log.info("Adding company {}", company);
     if (company != null) {
@@ -65,6 +67,7 @@ public class CompanyService {
     return Mono.error(new NullCompanyException());
   }
 
+  @Timed(value = "service.service",longTask = true,description = "Monitors the service that process a request")
   public Mono<Company> getCompany(String id) {
     log.info("Searching for company with id {}", id);
     return
@@ -73,6 +76,7 @@ public class CompanyService {
             .switchIfEmpty(Mono.error(new CompanyNotFoundException(id)));
   }
 
+  @Timed(value = "service.service",longTask = true,description = "Monitors the service that process a request")
   public Mono<Void> updateCompany(String id, Company company) {
     log.info("Updating company with ID {} to {}", id, company);
     if (company != null) {
@@ -87,6 +91,7 @@ public class CompanyService {
     return Mono.error(new NullCompanyException());
   }
 
+  @Timed(value = "service.service",longTask = true,description = "Monitors the service that process a request")
   public Mono<Void> removeCompany(String id) {
     log.info("Removing company with id {}", id);
     return

@@ -12,6 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 import io.github.paulushcgcj.devopsdemo.models.Company;
 import io.github.paulushcgcj.devopsdemo.services.CompanyService;
 import io.github.paulushcgcj.devopsdemo.validators.CompanyValidator;
+import io.micrometer.core.annotation.Timed;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
@@ -26,6 +27,7 @@ public class CompanyHandler extends AbstractValidatedHandler<Company, CompanyVal
     this.service = service;
   }
 
+  @Timed(value = "service.handler",longTask = true,description = "Monitors the handler that receives a request")
   public Mono<ServerResponse> listCompanies(ServerRequest request) {
 
     long page = request.queryParam("page").map(Long::parseLong).orElse(0L);
@@ -42,6 +44,7 @@ public class CompanyHandler extends AbstractValidatedHandler<Company, CompanyVal
         .doOnError(handleError());
   }
 
+  @Timed(value = "service.handler",longTask = true,description = "Monitors the handler that receives a request")
   public Mono<ServerResponse> getCompany(ServerRequest request) {
     log.info("Requesting company details {}", request.pathVariable("id"));
 
@@ -59,6 +62,7 @@ public class CompanyHandler extends AbstractValidatedHandler<Company, CompanyVal
             .doOnError(handleError());
   }
 
+  @Timed(value = "service.handler",longTask = true,description = "Monitors the handler that receives a request")
   public Mono<ServerResponse> addCompany(ServerRequest request) {
 
     return
@@ -76,6 +80,7 @@ public class CompanyHandler extends AbstractValidatedHandler<Company, CompanyVal
             .doOnError(handleError());
   }
 
+  @Timed(value = "service.handler",longTask = true,description = "Monitors the handler that receives a request")
   public Mono<ServerResponse> updateCompany(ServerRequest request) {
     log.info("Requesting company update {}", request.pathVariable("id"));
 
@@ -90,6 +95,7 @@ public class CompanyHandler extends AbstractValidatedHandler<Company, CompanyVal
             .doOnError(handleError());
   }
 
+  @Timed(value = "service.handler",longTask = true,description = "Monitors the handler that receives a request")
   public Mono<ServerResponse> removeCompany(ServerRequest request) {
     log.info("Requesting company delete {}", request.pathVariable("id"));
 
