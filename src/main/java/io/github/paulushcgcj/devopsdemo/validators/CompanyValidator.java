@@ -5,6 +5,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import io.github.paulushcgcj.devopsdemo.models.Company;
+import io.micrometer.core.annotation.Timed;
 import lombok.extern.slf4j.Slf4j;
 
 @Component
@@ -16,6 +17,7 @@ public class CompanyValidator implements Validator {
   }
 
   @Override
+  @Timed(value = "service.validator",longTask = true,description = "Monitors the validator that validates a request")
   public void validate(Object target, Errors errors) {
   }
 }
