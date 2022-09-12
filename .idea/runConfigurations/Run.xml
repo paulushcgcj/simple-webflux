@@ -4,7 +4,7 @@
     <module name="simple-webflux" />
     <extension name="coverage">
       <pattern>
-        <option name="PATTERN" value="io.github.paulushcgcj.devopsdemo.*" />
+        <option name="PATTERN" value="io.github.paulushcgcj.devopsdemo.endpoints.routes.*" />
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>
