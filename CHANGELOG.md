@@ -1,3 +1,57 @@
+# [0.11.0](https://github.com/paulushcgcj/simple-webflux/compare/v0.10.0...v0.11.0) (2022-09-13)
+
+
+### Features
+
+* **tracing:** adding tracing dependencies and configuration ([fe0c2cc](https://github.com/paulushcgcj/simple-webflux/commit/fe0c2ccb3858c44b4d91c943b276259b6a791cd1))
+* **tracing:** adding tracing functionality and external config ([7a77349](https://github.com/paulushcgcj/simple-webflux/commit/7a77349b580c25f0cb4745a866e01013c8bc9325))
+
+
+
+# [0.10.0](https://github.com/paulushcgcj/simple-webflux/compare/v0.9.0...v0.10.0) (2022-09-12)
+
+
+### Bug Fixes
+
+* **release:** fixing env updater ([e062c33](https://github.com/paulushcgcj/simple-webflux/commit/e062c33e0f1a898f88e068e579ed34b486a61a0b))
+
+
+### Features
+
+* **metrics:** adding metrics ([5584714](https://github.com/paulushcgcj/simple-webflux/commit/5584714377606df36ef2f50095f9617198ef5747))
+* **validator:** adding company validator ([45e7e24](https://github.com/paulushcgcj/simple-webflux/commit/45e7e24a4fd031c058104789754ab5c34711d272))
+
+
+
+# [0.9.0](https://github.com/paulushcgcj/simple-webflux/compare/v0.8.1...v0.9.0) (2022-09-09)
+
+
+### Features
+
+* **actuator:** adding actuator for health and other monitoring things ([ce4cf50](https://github.com/paulushcgcj/simple-webflux/commit/ce4cf500fe9b39e5fd81769d1c0ac65bd786878e))
+
+
+
+## [0.8.1](https://github.com/paulushcgcj/simple-webflux/compare/v0.8.0...v0.8.1) (2022-09-09)
+
+
+### Bug Fixes
+
+* **changelog:** changing changelog generation ([0484bfa](https://github.com/paulushcgcj/simple-webflux/commit/0484bfa547245e45702b8bd16df3c264fd14daab))
+
+
+
+# [0.8.0](https://github.com/paulushcgcj/simple-webflux/compare/v0.7.0...v0.8.0) (2022-09-09)
+
+
+### Features
+
+* **db:maria:** moving database to mariadb ([4c4311b](https://github.com/paulushcgcj/simple-webflux/commit/4c4311b207ed8255b9a4853f771317a98a521fab))
+* **db:** adding migration and mariadb ([8cda57b](https://github.com/paulushcgcj/simple-webflux/commit/8cda57b68593cffc80441651cccb31e2a7842215))
+* **db:** adding testcontainer support ([da8e5d9](https://github.com/paulushcgcj/simple-webflux/commit/da8e5d93b76771b1d197ea9c9ffd93b59de28bc3))
+
+
+
 # [0.10.0](https://github.com/paulushcgcj/simple-webflux/compare/v0.9.0...v0.10.0) (2022-09-12)
 
 
