@@ -5,3 +5,7 @@ io:
       host: 127.0.0.1:3306
       username: root
       password: root
+
+spring:
+  zipkin:
+    baseUrl: http://127.0.0.1:9411/
