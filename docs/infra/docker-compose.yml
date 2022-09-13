@@ -16,6 +16,8 @@ services:
   grafana:
     image: grafana/grafana
     user: "104"
+    depends_on:
+      - prometheus
     ports:
       - 3000:3000
     volumes:
@@ -46,7 +48,7 @@ services:
       - cadvisor:cadvisor
       - alertmanager:alertmanager
     depends_on:
-      - cadvisor
+      - prometheus
     restart: always
 
   node-exporter:
