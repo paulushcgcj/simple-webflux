@@ -31,7 +31,7 @@ services:
         max-file: "3"
 
   prometheus:
-    image: prom/prometheus:v2.1.0
+    image: prom/prometheus
     volumes:
       - ./prometheus/:/etc/prometheus/
       - pm_data:/prometheus
