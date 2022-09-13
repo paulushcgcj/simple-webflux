@@ -1,22 +1,6 @@
 version: '3.4'
 services:
 
-  database:
-    image: mariadb:10.3
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-    healthcheck:
-      test: [ "CMD", "mysql", "-u", "root", "-proot", "-e", "SHOW databases;" ]
-      interval: 5s
-      timeout: 10s
-      retries: 10
-    logging:
-      driver: "json-file"
-      options:
-        max-size: 10m
-        max-file: "3"
-
   service:
     image: ghcr.io/paulushcgcj/simple-webflux:${SIMPLEWEBFLUX}
     restart: always

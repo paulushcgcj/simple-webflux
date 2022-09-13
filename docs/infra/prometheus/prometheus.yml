@@ -1,0 +1,19 @@
+global:
+  scrape_interval:     15s
+  evaluation_interval: 15s
+  
+  external_labels:
+    monitor: 'gork'
+
+scrape_configs:
+    
+  - job_name: 'consul'
+    consul_sd_configs:
+      - server: 'discovery:8500'
+    relabel_configs:
+      - source_labels: [__meta_consul_tags]
+        regex: .*
+        action: keep
+      - source_labels: [__meta_consul_service]
+        target_label: job
+    
