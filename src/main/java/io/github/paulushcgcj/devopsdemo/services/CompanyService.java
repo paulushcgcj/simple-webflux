@@ -7,6 +7,7 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.cloud.sleuth.annotation.NewSpan;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BeanPropertyBindingResult;
@@ -39,6 +40,7 @@ public class CompanyService {
   private final CompanyValidator validator;
 
   @Timed(value = "service.service",longTask = true,description = "Monitors the service that process a request")
+  @NewSpan
   public Mono<List<Company>> listCompanies(long page, long size, String name) {
     log.info("Listing companies {} {} {}", page, size, name);
     return
@@ -53,6 +55,7 @@ public class CompanyService {
   }
 
   @Timed(value = "service.service",longTask = true,description = "Monitors the service that process a request")
+  @NewSpan
   public Mono<String> addCompany(Company company) {
     log.info("Adding company {}", company);
     if (company != null) {
@@ -68,6 +71,7 @@ public class CompanyService {
   }
 
   @Timed(value = "service.service",longTask = true,description = "Monitors the service that process a request")
+  @NewSpan
   public Mono<Company> getCompany(String id) {
     log.info("Searching for company with id {}", id);
     return
@@ -77,6 +81,7 @@ public class CompanyService {
   }
 
   @Timed(value = "service.service",longTask = true,description = "Monitors the service that process a request")
+  @NewSpan
   public Mono<Void> updateCompany(String id, Company company) {
     log.info("Updating company with ID {} to {}", id, company);
     if (company != null) {
@@ -92,6 +97,7 @@ public class CompanyService {
   }
 
   @Timed(value = "service.service",longTask = true,description = "Monitors the service that process a request")
+  @NewSpan
   public Mono<Void> removeCompany(String id) {
     log.info("Removing company with id {}", id);
     return
