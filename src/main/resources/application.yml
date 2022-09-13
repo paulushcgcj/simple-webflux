@@ -3,6 +3,8 @@ server:
     whitelabel:
       enabled: false
 spring:
+  application:
+    name: company
   main:
     lazy-initialization: false
     banner-mode: "off"
@@ -29,4 +31,7 @@ management:
         prometheus: metrics
       base-path: /
       exposure:
-        include: health,info,prometheus,httptrace
+        include: traces,info,metrics,health
+  trace:
+    http:
+      include: principal,request-headers,response-headers,cookie-headers,time-taken,authorization-header,remote-address,session-id
