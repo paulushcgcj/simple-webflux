@@ -1,10 +1,5 @@
 package io.github.paulushcgcj.devopsdemo.extensions;
 
-import java.net.URI;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
@@ -18,10 +13,15 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.testcontainers.containers.MariaDBContainer;
+import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Testcontainers;
-
 import reactor.core.publisher.Mono;
+
+import java.net.URI;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 @Testcontainers
 @AutoConfigureWebTestClient(timeout = "36000")
@@ -33,18 +33,21 @@ public abstract class AbstractTestContainerIntegrationTest {
   @Autowired
   protected WebTestClient client;
 
-  static final MariaDBContainer database;
+  static final PostgreSQLContainer database;
 
   static {
-     database = new MariaDBContainer("mariadb:10.3");
+     database = new PostgreSQLContainer("postgres")
+         .withDatabaseName("simple")
+         .withUsername("simple")
+         .withPassword(UUID.randomUUID().toString());
      database.start();
   }
 
   @DynamicPropertySource
   static void registerDynamicProperties(DynamicPropertyRegistry registry) {
 
-    registry.add("io.github.paulushcgcj.database", database::getDatabaseName);
-    registry.add("io.github.paulushcgcj.host", () -> String.format("%s:%d", database.getHost(), database.getMappedPort(3306)));
+    registry.add("io.github.paulushcgcj.database", () -> database.getDatabaseName().concat("?TC_INITSCRIPT=file:src/test/resources/init_pg.sql"));
+    registry.add("io.github.paulushcgcj.host", () -> String.format("%s:%d", database.getHost(), database.getMappedPort(5432)));
     registry.add("io.github.paulushcgcj.username", database::getUsername);
     registry.add("io.github.paulushcgcj.password", database::getPassword);
 

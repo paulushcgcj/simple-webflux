@@ -23,7 +23,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 @With
-@Table("companies")
+@Table(value = "companies",schema = "company")
 public class Company implements Persistable<String> {
 
   @Id
