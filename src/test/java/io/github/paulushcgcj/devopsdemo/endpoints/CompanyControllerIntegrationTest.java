@@ -1,41 +1,26 @@
 package io.github.paulushcgcj.devopsdemo.endpoints;
 
-import java.net.URI;
-import java.util.UUID;
-import java.util.stream.Stream;
-
+import io.github.paulushcgcj.devopsdemo.exceptions.CompanyAlreadyExistException;
+import io.github.paulushcgcj.devopsdemo.exceptions.CompanyNotFoundException;
+import io.github.paulushcgcj.devopsdemo.extensions.AbstractTestContainerIntegrationTest;
+import io.github.paulushcgcj.devopsdemo.models.Company;
+import io.github.paulushcgcj.devopsdemo.services.CompanyService;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.server.ResponseStatusException;
 
-import io.github.paulushcgcj.devopsdemo.exceptions.CompanyAlreadyExistException;
-import io.github.paulushcgcj.devopsdemo.exceptions.CompanyNotFoundException;
-import io.github.paulushcgcj.devopsdemo.models.Company;
-import io.github.paulushcgcj.devopsdemo.services.CompanyService;
-import lombok.extern.slf4j.Slf4j;
-import reactor.core.publisher.Mono;
+import java.util.Map;
+import java.util.UUID;
+import java.util.stream.Stream;
 
-@AutoConfigureWebTestClient(timeout = "36000")
-@ExtendWith({SpringExtension.class})
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Slf4j
 @DisplayName("Integrated Test | Company Controller")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class CompanyControllerIntegrationTest extends AbstractTestContainerIntegrationTest {
-
-  @Autowired
-  private WebTestClient client;
-
   @Autowired
   CompanyService service;
 
@@ -65,12 +50,8 @@ class CompanyControllerIntegrationTest extends AbstractTestContainerIntegrationT
   @Test
   @DisplayName("One Company after Insert")
   @Order(3)
-  void shouldListCreatedCompany() throws Exception {
-    client
-        .get()
-        .uri(URI.create("/api/companies"))
-        .headers(httpHeaders -> httpHeaders.putAll(getHttpHeaders()))
-        .exchange()
+  void shouldListCreatedCompany(){
+    doGet("/api/companies")
         .expectStatus().isOk()
         .expectBody()
         .consumeWith(System.out::println)
@@ -80,33 +61,15 @@ class CompanyControllerIntegrationTest extends AbstractTestContainerIntegrationT
   @Test
   @DisplayName("Look for DaCompany, not Gork")
   @Order(4)
-  void shouldListCompanyByName() throws Exception {
+  void shouldListCompanyByName(){
 
-    client
-        .get()
-        .uri(uriBuilder ->
-            uriBuilder
-                .path("/api/companies")
-                .queryParam("name", "Gork")
-                .build()
-        )
-        .headers(httpHeaders -> httpHeaders.putAll(getHttpHeaders()))
-        .exchange()
+    doGet("/api/companies", Map.of("name", "Gork"))
         .expectStatus().isOk()
         .expectBody()
         .consumeWith(System.out::println)
         .json("[]");
 
-    client
-        .get()
-        .uri(uriBuilder ->
-            uriBuilder
-                .path("/api/companies")
-                .queryParam("name", "DaCompany")
-                .build()
-        )
-        .headers(httpHeaders -> httpHeaders.putAll(getHttpHeaders()))
-        .exchange()
+    doGet("/api/companies", Map.of("name", "DaCompany"))
         .expectStatus().isOk()
         .expectBody()
         .consumeWith(System.out::println)
@@ -123,13 +86,9 @@ class CompanyControllerIntegrationTest extends AbstractTestContainerIntegrationT
   @Test
   @DisplayName("No Companies at the beginning")
   @Order(1)
-  void shouldHaveNoCompaniesOnList() throws Exception {
+  void shouldHaveNoCompaniesOnList(){
 
-    client
-        .get()
-        .uri(URI.create("/api/companies"))
-        .headers(httpHeaders -> httpHeaders.putAll(getHttpHeaders()))
-        .exchange()
+    doGet("/api/companies")
         .expectStatus().isOk()
         .expectBody()
         .consumeWith(System.out::println)
@@ -139,16 +98,9 @@ class CompanyControllerIntegrationTest extends AbstractTestContainerIntegrationT
   @Test
   @DisplayName("Insert works")
   @Order(2)
-  void shouldAddCompany() throws Exception {
+  void shouldAddCompany(){
 
-    client
-        .post()
-        .uri("/api/companies")
-        .headers(httpHeaders -> httpHeaders.putAll(getHttpHeaders()))
-        .contentType(MediaType.APPLICATION_JSON)
-        .accept(MediaType.APPLICATION_JSON)
-        .body(Mono.just(daCompany), Company.class)
-        .exchange()
+    doPost("/api/companies",daCompany, Company.class)
         .expectStatus().isCreated()
         .expectHeader()
         .exists("Location")
@@ -159,19 +111,15 @@ class CompanyControllerIntegrationTest extends AbstractTestContainerIntegrationT
   @Test
   @DisplayName("Get company when Exists")
   @Order(5)
-  void shouldGetExistingCompany() throws Exception {
+  void shouldGetExistingCompany(){
+
     String id = service
-        
         .listCompanies(0, 1, "DaCompany")
         .map(companies -> companies.get(0))
         .map(Company::getId)
         .block();
 
-    client
-        .get()
-        .uri("/api/companies/{id}", id)
-        .headers(httpHeaders -> httpHeaders.putAll(getHttpHeaders()))
-        .exchange()
+    doGet("/api/companies/"+id)
         .expectStatus().isOk()
         .expectBody()
         .consumeWith(System.out::println)
@@ -181,14 +129,10 @@ class CompanyControllerIntegrationTest extends AbstractTestContainerIntegrationT
   @Test
   @DisplayName("Get no Company with unexpected ID")
   @Order(6)
-  void shouldGetNoCompanyWithId() throws Exception {
+  void shouldGetNoCompanyWithId(){
     UUID id = UUID.randomUUID();
 
-    client
-        .get()
-        .uri("/api/companies/{id}", id)
-        .headers(httpHeaders -> httpHeaders.putAll(getHttpHeaders()))
-        .exchange()
+    doGet("/api/companies/"+ id)
         .expectStatus().isNotFound()
         .expectBody(String.class)
         .isEqualTo("No company with id " + id + " found")
@@ -199,38 +143,23 @@ class CompanyControllerIntegrationTest extends AbstractTestContainerIntegrationT
   @MethodSource("updateCases")
   @DisplayName("Update and see what happens")
   @Order(7)
-  void shouldExecuteUpdateAndHopeForTheBest(String id, Company company, ResponseStatusException exception) throws Exception {
+  void shouldExecuteUpdateAndHopeForTheBest(String id, Company company, ResponseStatusException exception){
 
     if (exception == null) {
 
       String myid = service
-          
           .listCompanies(0, 1, "DaCompany")
           .map(companies -> companies.get(0))
           .map(Company::getId)
           .block();
 
-      client
-          .put()
-          .uri("/api/companies/{id}", myid)
-          .headers(httpHeaders -> httpHeaders.putAll(getHttpHeaders()))
-          .contentType(MediaType.APPLICATION_JSON)
-          .accept(MediaType.APPLICATION_JSON)
-          .body(Mono.just(company), Company.class)
-          .exchange()
+      doPut("/api/companies/"+ myid,company, Company.class)
           .expectStatus().isAccepted()
           .expectBody()
           .isEmpty();
 
     } else {
-      client
-          .put()
-          .uri("/api/companies/{id}", id)
-          .headers(httpHeaders -> httpHeaders.putAll(getHttpHeaders()))
-          .contentType(MediaType.APPLICATION_JSON)
-          .accept(MediaType.APPLICATION_JSON)
-          .body(Mono.just(company), Company.class)
-          .exchange()
+      doPut("/api/companies/"+ id,company, Company.class)
           .expectStatus().isEqualTo(exception.getRawStatusCode())
           .expectBody(String.class)
           .isEqualTo(exception.getReason());
@@ -241,21 +170,15 @@ class CompanyControllerIntegrationTest extends AbstractTestContainerIntegrationT
   @Test
   @DisplayName("Remove company")
   @Order(8)
-  void shouldRemoveCompany() throws Exception {
+  void shouldRemoveCompany(){
 
     String id = service
-        
         .listCompanies(0, 1, leCompany.getName())
         .map(companies -> companies.get(0))
         .map(Company::getId)
         .block();
 
-    client
-        .delete()
-        .uri("/api/companies/{id}", id)
-        .headers(httpHeaders -> httpHeaders.putAll(getHttpHeaders()))
-        .accept(MediaType.APPLICATION_JSON)
-        .exchange()
+    doDelete("/api/companies/"+ id)
         .expectStatus().isNoContent()
         .expectBody()
         .isEmpty();
@@ -266,26 +189,13 @@ class CompanyControllerIntegrationTest extends AbstractTestContainerIntegrationT
   @Test
   @DisplayName("Don't remove cuz it's not there")
   @Order(9)
-  void shouldNotRemoveCompany() throws Exception {
+  void shouldNotRemoveCompany(){
     UUID id = UUID.randomUUID();
 
-    client
-        .delete()
-        .uri("/api/companies/{id}", id)
-        .headers(httpHeaders -> httpHeaders.putAll(getHttpHeaders()))
-        .accept(MediaType.APPLICATION_JSON)
-        .exchange()
+    doDelete("/api/companies/"+ id)
         .expectStatus().isNotFound()
         .expectBody(String.class)
         .isEqualTo("No company with id " + id + " found");
-  }
-
-  private HttpHeaders getHttpHeaders() {
-    HttpHeaders httpHeaders = new HttpHeaders();
-    httpHeaders.add("Content-Type", MediaType.APPLICATION_JSON_VALUE);
-    httpHeaders.add("Accept", MediaType.APPLICATION_JSON_VALUE);
-    httpHeaders.add("User-Agent", "JUnit5");
-    return httpHeaders;
   }
 
   private static Stream<Arguments> updateCases() {
