@@ -1,11 +1,9 @@
 package io.github.paulushcgcj.devopsdemo.endpoints;
 
-import io.github.paulushcgcj.devopsdemo.exceptions.CompanyAlreadyExistException;
-import io.github.paulushcgcj.devopsdemo.exceptions.CompanyNotFoundException;
-import io.github.paulushcgcj.devopsdemo.extensions.AbstractTestContainerIntegrationTest;
-import io.github.paulushcgcj.devopsdemo.models.Company;
-import io.github.paulushcgcj.devopsdemo.services.CompanyService;
-import lombok.extern.slf4j.Slf4j;
+import java.util.Map;
+import java.util.UUID;
+import java.util.stream.Stream;
+
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -13,9 +11,12 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Map;
-import java.util.UUID;
-import java.util.stream.Stream;
+import io.github.paulushcgcj.devopsdemo.exceptions.CompanyAlreadyExistException;
+import io.github.paulushcgcj.devopsdemo.exceptions.CompanyNotFoundException;
+import io.github.paulushcgcj.devopsdemo.extensions.AbstractTestContainerIntegrationTest;
+import io.github.paulushcgcj.devopsdemo.models.Company;
+import io.github.paulushcgcj.devopsdemo.services.CompanyService;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @DisplayName("Integrated Test | Company Controller")

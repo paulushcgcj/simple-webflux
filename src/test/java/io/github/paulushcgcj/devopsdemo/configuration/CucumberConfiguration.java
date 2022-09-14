@@ -1,10 +1,11 @@
 package io.github.paulushcgcj.devopsdemo.configuration;
 
-import io.cucumber.core.options.Constants;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.platform.suite.api.ConfigurationParameter;
 import org.junit.platform.suite.api.SelectClasspathResource;
 import org.junit.platform.suite.api.Suite;
+
+import io.cucumber.core.options.Constants;
 
 @Suite
 @SelectClasspathResource("bdd")
