@@ -1,3 +1,11 @@
 spring:
   aop:
     auto: false
+
+logging:
+  level:
+    org:
+      springframework.test: OFF
+      testcontainers: OFF
+    com.github.dockerjava: OFF
+
