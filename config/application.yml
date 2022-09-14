@@ -1,9 +1,9 @@
 io:
   github:
     paulushcgcj:
-      database: company
-      host: 127.0.0.1:3306
-      username: root
+      database: simple
+      host: 127.0.0.1:5432
+      username: simple
       password: root
 
 spring:

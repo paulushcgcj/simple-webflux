@@ -99,12 +99,15 @@ services:
         max-file: "3"
 
   database:
-    image: mariadb
+    image: postgres
     restart: always
     ports:
-      - "3306:3306"
+      - "5432:5432"
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_USER: simple
+    volumes:
+      - ./database/init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
     healthcheck:
       test: [ "CMD", "mysql", "-u", "root", "-proot", "-e", "SHOW databases;" ]
       interval: 5s
@@ -137,6 +140,8 @@ services:
       options:
         max-size: 10m
         max-file: "3"
+
+
 
 volumes:
   grafana_data: {}
