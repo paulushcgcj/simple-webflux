@@ -2,6 +2,8 @@ package io.github.paulushcgcj.devopsdemo.handlers;
 
 import java.util.Map;
 
+import org.apache.commons.lang3.BooleanUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.autoconfigure.web.WebProperties;
 import org.springframework.boot.autoconfigure.web.reactive.error.AbstractErrorWebExceptionHandler;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
@@ -50,21 +52,24 @@ public class ErrorHandlingController extends AbstractErrorWebExceptionHandler {
       ErrorAttributes errorAttributes) {
 
     Throwable exception = errorAttributes.getError(request).fillInStackTrace();
+    String errorMessage = exception.getMessage();
+    HttpStatus errorStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+
+    log.error("An error was generated during request", exception);
 
     if (exception instanceof ResponseStatusException) {
       ResponseStatusException responseStatusException = (ResponseStatusException) exception;
-
-      return ServerResponse.status(responseStatusException.getStatus())
-          .contentType(MediaType.APPLICATION_JSON)
-          .body(BodyInserters.fromValue(responseStatusException.getReason()));
+      errorMessage = responseStatusException.getReason();
+      errorStatus = responseStatusException.getStatus();
     }
 
-    Map<String, Object> errorPropertiesMap = getErrorAttributes(request,
-        ErrorAttributeOptions.defaults());
+    errorMessage = BooleanUtils.toString(StringUtils.isBlank(errorMessage), StringUtils.EMPTY, errorMessage);
 
-    return ServerResponse.status(HttpStatus.BAD_REQUEST)
+    log.error("{} - {}", HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage());
+
+    return ServerResponse.status(errorStatus)
         .contentType(MediaType.APPLICATION_JSON)
-        .body(BodyInserters.fromValue(errorPropertiesMap));
+        .body(BodyInserters.fromValue(errorMessage));
   }
 
 }
