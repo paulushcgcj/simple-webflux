@@ -12,6 +12,7 @@ services:
       IO_GITHUB_PAULUSHCGCJ_DATABASE: company
       IO_GITHUB_PAULUSHCGCJ_USERNAME: root
       IO_GITHUB_PAULUSHCGCJ_PASSWORD: root
+      SPRING_ZIPKIN_ENABLED: false
     healthcheck:
       test: wget --spider -S http://127.0.0.1:8080/health || exit 1
       interval: 30s
