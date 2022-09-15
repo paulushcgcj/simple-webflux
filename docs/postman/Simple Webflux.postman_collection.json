@@ -1,19 +1,146 @@
 {
 	"info": {
-		"_postman_id": "b164a73a-35f0-4280-a819-e93f3c3967f0",
-		"name": "Simple Webflux",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "17369587"
+		"_postman_id": "a9ee6590-97ca-483d-bd3d-4a1cdbf60f30",
+		"name": "Simple Webflux - Company",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
+			"name": "List Companies",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response time is less than 300ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"switch(utils.getStage(pm.environment)){\r",
+							"\r",
+							"    //Empty\r",
+							"    case 1:{\r",
+							"        pm.test(\"No entries found\", function () {\r",
+							"            var jsonData = pm.response.json();\r",
+							"            pm.expect(jsonData).to.be.an('array').that.is.empty;\r",
+							"            utils.advanceStage(pm.environment);\r",
+							"            postman.setNextRequest('Add Company');\r",
+							"        });\r",
+							"        break;\r",
+							"    }\r",
+							"\r",
+							"    //After creation\r",
+							"    case 2:{        \r",
+							"        pm.test(\"Should have a single entry\", function () {            \r",
+							"            var jsonData = pm.response.json();\r",
+							"            pm.expect(jsonData).to.be.an('array').that.is.not.empty;\r",
+							"            utils.advanceStage(pm.environment);\r",
+							"            postman.setNextRequest('Update Company');\r",
+							"        });\r",
+							"        break;\r",
+							"    }\r",
+							"\r",
+							"    //After Update\r",
+							"    case 3:{        \r",
+							"        pm.test(\"Entry Updated\", function () {\r",
+							"            var jsonData = pm.response.json();\r",
+							"            pm.expect(jsonData).to.be.an('array').that.is.not.empty;\r",
+							"            utils.advanceStage(pm.environment);\r",
+							"            postman.setNextRequest('Remove Company');\r",
+							"        });\r",
+							"        break;\r",
+							"    }\r",
+							"\r",
+							"    //After Delete\r",
+							"    case 4:{\r",
+							"        pm.test(\"No more entries found\", function () {\r",
+							"            var jsonData = pm.response.json();\r",
+							"            pm.expect(jsonData).to.be.an('array').that.is.empty;            \r",
+							"            utils.resetStage(pm.environment);\r",
+							"            postman.setNextRequest('End');\r",
+							"        });\r",
+							"        break;\r",
+							"    }\r",
+							"\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{DOMAINSCHEMA}}://{{DOMAIN}}/api/companies?name={{NAME}}",
+					"protocol": "{{DOMAINSCHEMA}}",
+					"host": [
+						"{{DOMAIN}}"
+					],
+					"path": [
+						"api",
+						"companies"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "{{NAME}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Add Company",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test('No body is present',function(){\r",
+							"     pm.response.to.not.be.withBody;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Location is present\", function () {\r",
+							"    pm.response.to.have.header(\"Location\");    \r",
+							"    pm.expect(pm.response.headers.get(\"Location\")).to.have.string('/api/companies/');\r",
+							"    utils.recordId(pm.environment,pm.response.headers.get(\"Location\").replace('/api/companies/',''));\r",
+							"    postman.setNextRequest('Get Company');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"utils.readOrSet(\"NAME\",pm.environment,pm.variables.replaceIn(\"{{$randomCompanyName}}\"))\r",
+							"utils.readOrSet(\"PERMALINK\",pm.environment,pm.variables.replaceIn(\"{{$randomUserName}}\"))\r",
+							"utils.readOrSet(\"DESCRIPTION\",pm.environment,pm.variables.replaceIn(\"{{$randomWords}}\"))\r",
+							"utils.readOrSet(\"OVERVIEW\",pm.environment,pm.variables.replaceIn(\"{{$randomWords}}\"))\r",
+							"utils.readOrSet(\"PHONE\",pm.environment,pm.variables.replaceIn(\"{{$randomPhoneNumber}}\"))\r",
+							"utils.readOrSet(\"EMPLOYEES\",pm.environment,10)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"name\":\"DaCompany\",\r\n  \"permalink\": \"https://dacompany.ca\",\r\n  \"email\":\"contact@dacompany.ca\",\r\n  \"phone\": \"+12502502550\",\r\n  \"description\":\"This is DA COMPANY\",\r\n  \"overview\": \"One of the best companies in the world\"\r\n}",
+					"raw": "{\r\n    \"name\": \"{{NAME}}\",\r\n    \"permalink\": \"{{PERMALINK}}\",\r\n    \"description\": \"{{DESCRIPTION}}\",\r\n    \"overview\": \"{{OVERVIEW}}\",\r\n    \"phone\": \"{{PHONE}}\",\r\n    \"employees\": {{EMPLOYEES}},\r\n    \"email\": \"getintouch@{{PERMALINK}}.ca\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -21,15 +148,11 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8080/api/companies",
-					"protocol": "http",
+					"raw": "{{DOMAINSCHEMA}}://{{DOMAIN}}/api/companies",
+					"protocol": "{{DOMAINSCHEMA}}",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"{{DOMAIN}}"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"companies"
@@ -39,27 +162,248 @@
 			"response": []
 		},
 		{
-			"name": "List Companies",
+			"name": "Get Company",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if(utils.getStage(pm.environment) !== 4){\r",
+							"\r",
+							"    pm.test(\"Status code is 200\", function () {\r",
+							"        pm.response.to.have.status(200);\r",
+							"    });\r",
+							"\r",
+							"    pm.test(\"Response time is less than 200ms\", function () {\r",
+							"        pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"    });\r",
+							"\r",
+							"    pm.test('Schema is valid', function () {\r",
+							"        pm.expect(tv4.validate(pm.response.json(), utils.entrySchema)).to.be.true;\r",
+							"        postman.setNextRequest('List Companies');\r",
+							"    });\r",
+							"}else{\r",
+							"\r",
+							"      pm.test(\"Status code is 404\", function () {\r",
+							"        pm.response.to.have.status(404);        \r",
+							"        postman.setNextRequest('List Companies');\r",
+							"    });\r",
+							"\r",
+							"    pm.test(\"Message is correct\", function () {        \r",
+							"        pm.expect(pm.response.text()).to.be.eq(`No company with id ${pm.environment.get('ID')} found`);\r",
+							"    });\r",
+							"\r",
+							"     pm.test(\"Response time is less than 200ms\", function () {\r",
+							"        pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"    });\r",
+							"\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:8080/api/companies",
-					"protocol": "http",
+					"raw": "{{DOMAINSCHEMA}}://{{DOMAIN}}/api/companies/{{ID}}",
+					"protocol": "{{DOMAINSCHEMA}}",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"{{DOMAIN}}"
 					],
-					"port": "8080",
 					"path": [
 						"api",
-						"companies"
+						"companies",
+						"{{ID}}"
 					]
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Update Company",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 202\", function () {\r",
+							"    pm.response.to.have.status(202);\r",
+							"    postman.setNextRequest('Get Company');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
+							"\r",
+							"pm.test('No body is present',function(){\r",
+							"    pm.response.to.not.be.withBody;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"{{NAME}}-UPD\",\r\n    \"permalink\": \"{{PERMALINK}}\",\r\n    \"description\": \"{{DESCRIPTION}}\",\r\n    \"overview\": \"{{OVERVIEW}}\",\r\n    \"phone\": \"{{PHONE}}\",\r\n    \"employees\": {{EMPLOYEES}},\r\n    \"email\": \"getintouch@{{PERMALINK}}.ca\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{DOMAINSCHEMA}}://{{DOMAIN}}/api/companies/{{ID}}",
+					"protocol": "{{DOMAINSCHEMA}}",
+					"host": [
+						"{{DOMAIN}}"
+					],
+					"path": [
+						"api",
+						"companies",
+						"{{ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove Company",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"     postman.setNextRequest('Get Company');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{DOMAINSCHEMA}}://{{DOMAIN}}/api/companies/{{ID}}",
+					"protocol": "{{DOMAINSCHEMA}}",
+					"host": [
+						"{{DOMAIN}}"
+					],
+					"path": [
+						"api",
+						"companies",
+						"{{ID}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"const entrySchema = {",
+					"    \"type\": \"object\",",
+					"    \"required\": [\"name\", \"permalink\", \"email\", \"phone\", \"description\", \"overview\"],",
+					"    \"additionalProperties\": false,",
+					"    \"properties\": {",
+					"        \"id\": {",
+					"            \"type\": \"string\",",
+					"            \"pattern\": \"^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$\"",
+					"        },",
+					"        \"name\": {",
+					"            \"type\": \"string\"",
+					"        },",
+					"        \"permalink\": {",
+					"            \"type\": \"string\"",
+					"        },",
+					"        \"email\": {",
+					"            \"type\": \"string\"",
+					"        },",
+					"        \"phone\": {",
+					"            \"type\": \"string\"",
+					"        },",
+					"        \"description\": {",
+					"            \"type\": \"string\"",
+					"        },",
+					"        \"overview\": {",
+					"            \"type\": \"string\"",
+					"        }",
+					"    }",
+					"};",
+					"",
+					"const listSchema = {",
+					"    \"type\": \"array\",",
+					"    \"items\": entrySchema",
+					"};",
+					"",
+					"utils = {",
+					"    listSchema,",
+					"    entrySchema,",
+					"    getStage: function (scope) {",
+					"        const value = scope.get(\"STAGE\");        ",
+					"        if(value)",
+					"            return parseInt(value);",
+					"        return 1;",
+					"    },",
+					"    advanceStage:function(scope){",
+					"        scope.set(\"STAGE\", this.getStage(scope)+1);",
+					"    },",
+					"    resetStage:function(scope){",
+					"        this.reset(scope);",
+					"    },",
+					"    recordId:function(scope,value){",
+					"        scope.set('ID',value);",
+					"    },",
+					"    readOrSet:function(key,scope,value){",
+					"        const variable = pm.variables.get(key);",
+					"        if(!variable){",
+					"            scope.set(key,value);",
+					"        }",
+					"    },",
+					"    reset:function(scope){",
+					"        scope.unset('NAME');",
+					"        scope.unset('PERMALINK');",
+					"        scope.unset('DESCRIPTION');",
+					"        scope.unset('OVERVIEW');",
+					"        scope.unset('PHONE');",
+					"        scope.unset('EMPLOYEES');",
+					"        scope.unset('ID');",
+					"        scope.unset('STAGE');",
+					"    }",
+					"};",
+					"",
+					"",
+					"",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "STAGE",
+			"value": ""
 		}
 	]
 }
