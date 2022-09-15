@@ -71,7 +71,7 @@ services:
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
     ports:
-      - 8080:8080
+      - 8888:8080
     restart: always
 
   alertmanager:
@@ -141,6 +141,32 @@ services:
         max-size: 10m
         max-file: "3"
 
+  keycloak:
+    image: quay.io/keycloak/keycloak
+    restart: always
+    ports:
+      - 8000:8080
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      DB_VENDOR: POSTGRES
+      DB_ADDR: database
+      DB_DATABASE: keycloak
+      DB_USER: keycloak
+      DB_SCHEMA: public
+      DB_PASSWORD: norestforme
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+      PROXY_ADDRESS_FORWARDING: false
+    depends_on:
+      - database
+    logging:
+      driver: "json-file"
+      options:
+        max-size: 10m
+        max-file: "3"
+    command:
+      - start-dev
 
 
 volumes:
