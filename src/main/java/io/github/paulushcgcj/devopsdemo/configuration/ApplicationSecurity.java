@@ -1,36 +1,42 @@
 package io.github.paulushcgcj.devopsdemo.configuration;
 
+import io.github.paulushcgcj.devopsdemo.repositories.UserRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.cloud.sleuth.annotation.NewSpan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
-import org.springframework.security.core.userdetails.MapReactiveUserDetailsService;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.ReactiveUserDetailsService;
 import org.springframework.security.web.server.SecurityWebFilterChain;
-
-import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebFluxSecurity
+@RequiredArgsConstructor
 public class ApplicationSecurity {
 
-  @Bean
-  public MapReactiveUserDetailsService userDetailsService() {
-    UserDetails user = User.withDefaultPasswordEncoder()
-        .username("user")
-        .password("user")
-        .roles("USER")
-        .build();
-    return new MapReactiveUserDetailsService(user);
-  }
+  private final UserRepository userRepository;
 
   @Bean
   public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
-    http
-        .authorizeExchange(exchanges -> exchanges.anyExchange().authenticated())
-        .httpBasic(withDefaults());
-    return http.build();
+    return
+        http
+            .authorizeExchange()
+            .anyExchange()
+            .authenticated()
+
+            .and()
+
+            .httpBasic()
+
+            .and()
+            .build();
+  }
+
+  @Bean
+  @NewSpan
+  public ReactiveUserDetailsService userDetailsService(){
+    return userRepository::findByUsername;
   }
 
 }

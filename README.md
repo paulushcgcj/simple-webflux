@@ -22,9 +22,9 @@ To run using the image, run the following command
 docker run -it --rm \
     -p 8080:8080 \
     -e MYSQL_ROOT_PASSWORD=root \
-    -e IO_GITHUB_PAULUSHCGCJ_HOST=mariadb \
-    -e IO_GITHUB_PAULUSHCGCJ_DATABASE=company \
-    -e IO_GITHUB_PAULUSHCGCJ_USERNAME=root \
+    -e IO_GITHUB_PAULUSHCGCJ_HOST=database \
+    -e IO_GITHUB_PAULUSHCGCJ_DATABASE=simple \
+    -e IO_GITHUB_PAULUSHCGCJ_USERNAME=simple \
     -e IO_GITHUB_PAULUSHCGCJ_PASSWORD=root \
     -e SPRING_ZIPKIN_ENABLED=false \
     ghcr.io/paulushcgcj/simple-webflux
