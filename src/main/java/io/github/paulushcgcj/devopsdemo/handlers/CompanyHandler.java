@@ -1,6 +1,7 @@
 package io.github.paulushcgcj.devopsdemo.handlers;
 
 import java.net.URI;
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.http.MediaType;
@@ -27,7 +28,7 @@ public class CompanyHandler extends AbstractValidatedHandler<Company, CompanyVal
     this.service = service;
   }
 
-  @Timed(value = "service.handler",longTask = true,description = "Monitors the handler that receives a request")
+  @Timed(value = "service.handler", longTask = true, description = "Monitors the handler that receives a request")
   public Mono<ServerResponse> listCompanies(ServerRequest request) {
 
     long page = request.queryParam("page").map(Long::parseLong).orElse(0L);
@@ -36,75 +37,91 @@ public class CompanyHandler extends AbstractValidatedHandler<Company, CompanyVal
 
     log.info("Requesting companies {} {} {}", page, size, name);
 
-    return ServerResponse
-        .ok()
-        .contentType(MediaType.APPLICATION_JSON)
-        .body(service.listCompanies(page, size, name), List.class)
-        .doOnError(ResponseStatusException.class, handleStatusResponse())
-        .doOnError(handleError());
+    return
+        logPrincipoal(request)
+            .then(
+                ServerResponse
+                    .ok()
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(service.listCompanies(page, size, name), List.class)
+                    .doOnError(ResponseStatusException.class, handleStatusResponse())
+                    .doOnError(handleError())
+            );
   }
 
-  @Timed(value = "service.handler",longTask = true,description = "Monitors the handler that receives a request")
+  @Timed(value = "service.handler", longTask = true, description = "Monitors the handler that receives a request")
   public Mono<ServerResponse> getCompany(ServerRequest request) {
     log.info("Requesting company details {}", request.pathVariable("id"));
 
     return
-        service
-            .getCompany(request.pathVariable("id"))
-            .flatMap(
-                company ->
-                    ServerResponse
-                        .ok()
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .body(Mono.just(company), Company.class)
-            )
-            .doOnError(ResponseStatusException.class, handleStatusResponse())
-            .doOnError(handleError());
+        logPrincipoal(request)
+            .then(
+                service
+                    .getCompany(request.pathVariable("id"))
+                    .flatMap(
+                        company ->
+                            ServerResponse
+                                .ok()
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .body(Mono.just(company), Company.class)
+                    )
+                    .doOnError(ResponseStatusException.class, handleStatusResponse())
+                    .doOnError(handleError())
+            );
   }
 
-  @Timed(value = "service.handler",longTask = true,description = "Monitors the handler that receives a request")
+  @Timed(value = "service.handler", longTask = true, description = "Monitors the handler that receives a request")
   public Mono<ServerResponse> addCompany(ServerRequest request) {
 
     return
-        request
-            .bodyToMono(Company.class)
-            .doOnNext(company -> log.info("Creating company {}", company))
-            .flatMap(validate())
-            .flatMap(service::addCompany)
-            .flatMap(companyId ->
-                ServerResponse
-                    .created(URI.create(String.format("/api/companies/%s", companyId)))
-                    .build()
-            )
-            .doOnError(ResponseStatusException.class, handleStatusResponse())
-            .doOnError(handleError());
+        logPrincipoal(request)
+            .then(
+                request
+                    .bodyToMono(Company.class)
+                    .doOnNext(company -> log.info("Creating company {}", company))
+                    .flatMap(validate())
+                    .flatMap(service::addCompany)
+                    .flatMap(companyId ->
+                        ServerResponse
+                            .created(URI.create(String.format("/api/companies/%s", companyId)))
+                            .build()
+                    )
+                    .doOnError(ResponseStatusException.class, handleStatusResponse())
+                    .doOnError(handleError())
+            );
   }
 
-  @Timed(value = "service.handler",longTask = true,description = "Monitors the handler that receives a request")
+  @Timed(value = "service.handler", longTask = true, description = "Monitors the handler that receives a request")
   public Mono<ServerResponse> updateCompany(ServerRequest request) {
     log.info("Requesting company update {}", request.pathVariable("id"));
 
     return
-        request
-            .bodyToMono(Company.class)
-            .doOnNext(company -> log.info("Updating company {}", company))
-            .flatMap(validate())
-            .flatMap(company -> service.updateCompany(request.pathVariable("id"),company))
-            .then(ServerResponse.accepted().build())
-            .doOnError(ResponseStatusException.class, handleStatusResponse())
-            .doOnError(handleError());
+        logPrincipoal(request)
+            .then(
+                request
+                    .bodyToMono(Company.class)
+                    .doOnNext(company -> log.info("Updating company {}", company))
+                    .flatMap(validate())
+                    .flatMap(company -> service.updateCompany(request.pathVariable("id"), company))
+                    .then(ServerResponse.accepted().build())
+                    .doOnError(ResponseStatusException.class, handleStatusResponse())
+                    .doOnError(handleError())
+            );
   }
 
-  @Timed(value = "service.handler",longTask = true,description = "Monitors the handler that receives a request")
+  @Timed(value = "service.handler", longTask = true, description = "Monitors the handler that receives a request")
   public Mono<ServerResponse> removeCompany(ServerRequest request) {
     log.info("Requesting company delete {}", request.pathVariable("id"));
 
     return
-        service
-            .removeCompany(request.pathVariable("id"))
-            .then(ServerResponse.noContent().build())
-            .doOnError(ResponseStatusException.class, handleStatusResponse())
-            .doOnError(handleError());
+        logPrincipoal(request)
+            .then(
+                service
+                    .removeCompany(request.pathVariable("id"))
+                    .then(ServerResponse.noContent().build())
+                    .doOnError(ResponseStatusException.class, handleStatusResponse())
+                    .doOnError(handleError())
+            );
   }
 
 
