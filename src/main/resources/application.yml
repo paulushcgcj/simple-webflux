@@ -20,7 +20,6 @@ spring:
     user: ${io.github.paulushcgcj.username}
     password: ${io.github.paulushcgcj.password}
     url: jdbc:postgresql://${io.github.paulushcgcj.host}/${io.github.paulushcgcj.database}
-    defaultSchema: company
 
 management:
   endpoint:

@@ -1,4 +1,6 @@
-CREATE TABLE companies (
+CREATE SCHEMA company;
+
+CREATE TABLE company.companies (
     id VARCHAR(36) PRIMARY KEY,
     name VARCHAR(255),
     permalink VARCHAR(255),
