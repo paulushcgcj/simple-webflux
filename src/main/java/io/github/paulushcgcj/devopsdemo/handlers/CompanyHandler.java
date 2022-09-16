@@ -1,7 +1,6 @@
 package io.github.paulushcgcj.devopsdemo.handlers;
 
 import java.net.URI;
-import java.security.Principal;
 import java.util.List;
 
 import org.springframework.http.MediaType;
@@ -10,7 +9,7 @@ import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import org.springframework.web.server.ResponseStatusException;
 
-import io.github.paulushcgcj.devopsdemo.models.Company;
+import io.github.paulushcgcj.devopsdemo.entities.Company;
 import io.github.paulushcgcj.devopsdemo.services.CompanyService;
 import io.github.paulushcgcj.devopsdemo.validators.CompanyValidator;
 import io.micrometer.core.annotation.Timed;
