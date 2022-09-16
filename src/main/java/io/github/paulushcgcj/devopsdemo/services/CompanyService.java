@@ -14,11 +14,11 @@ import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 
+import io.github.paulushcgcj.devopsdemo.entities.Company;
 import io.github.paulushcgcj.devopsdemo.exceptions.CompanyAlreadyExistException;
 import io.github.paulushcgcj.devopsdemo.exceptions.CompanyNotFoundException;
 import io.github.paulushcgcj.devopsdemo.exceptions.CompanyPersistenceException;
 import io.github.paulushcgcj.devopsdemo.exceptions.NullCompanyException;
-import io.github.paulushcgcj.devopsdemo.models.Company;
 import io.github.paulushcgcj.devopsdemo.repositories.CompanyRepository;
 import io.github.paulushcgcj.devopsdemo.validators.CompanyValidator;
 import io.micrometer.core.annotation.Timed;

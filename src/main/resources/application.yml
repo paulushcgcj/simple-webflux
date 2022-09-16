@@ -2,6 +2,7 @@ server:
   error:
     whitelabel:
       enabled: false
+
 spring:
   application:
     name: company
@@ -10,16 +11,16 @@ spring:
     banner-mode: "off"
     allow-bean-definition-overriding: true
   r2dbc:
-    url: r2dbc:postgresql://${io.github.paulushcgcj.host}/${io.github.paulushcgcj.database}
-    username: ${io.github.paulushcgcj.username}
-    password: ${io.github.paulushcgcj.password}
+    url: r2dbc:postgresql://${io.github.paulushcgcj.database.host}/${io.github.paulushcgcj.database.name}
+    username: ${io.github.paulushcgcj.database.username}
+    password: ${io.github.paulushcgcj.database.password}
   flyway:
     locations: classpath:db/migration
     enabled: true
     validate-on-migrate: true
-    user: ${io.github.paulushcgcj.username}
-    password: ${io.github.paulushcgcj.password}
-    url: jdbc:postgresql://${io.github.paulushcgcj.host}/${io.github.paulushcgcj.database}
+    user: ${io.github.paulushcgcj.database.username}
+    password: ${io.github.paulushcgcj.database.password}
+    url: jdbc:postgresql://${io.github.paulushcgcj.database.host}/${io.github.paulushcgcj.database.name}
 
 management:
   endpoint:

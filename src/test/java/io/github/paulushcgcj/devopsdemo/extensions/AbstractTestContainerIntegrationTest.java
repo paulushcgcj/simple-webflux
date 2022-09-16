@@ -47,10 +47,10 @@ public abstract class AbstractTestContainerIntegrationTest {
   @DynamicPropertySource
   static void registerDynamicProperties(DynamicPropertyRegistry registry) {
 
-    registry.add("io.github.paulushcgcj.database", () -> database.getDatabaseName().concat("?TC_INITSCRIPT=file:src/test/resources/init_pg.sql"));
-    registry.add("io.github.paulushcgcj.host", () -> String.format("%s:%d", database.getHost(), database.getMappedPort(5432)));
-    registry.add("io.github.paulushcgcj.username", database::getUsername);
-    registry.add("io.github.paulushcgcj.password", database::getPassword);
+    registry.add("io.github.paulushcgcj.database.name", () -> database.getDatabaseName().concat("?TC_INITSCRIPT=file:src/test/resources/init_pg.sql"));
+    registry.add("io.github.paulushcgcj.database.host", () -> String.format("%s:%d", database.getHost(), database.getMappedPort(5432)));
+    registry.add("io.github.paulushcgcj.database.username", database::getUsername);
+    registry.add("io.github.paulushcgcj.database.password", database::getPassword);
 
   }
 

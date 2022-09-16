@@ -1,5 +1,5 @@
 
-package io.github.paulushcgcj.devopsdemo.models;
+package io.github.paulushcgcj.devopsdemo.entities;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
