@@ -227,8 +227,11 @@
 			<artifactId>postgresql</artifactId>
 			<scope>test</scope>
 		</dependency>
-
-
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
 
 	</dependencies>
 
@@ -318,8 +321,13 @@
 						<exclude>**/dtos/**</exclude>
 						<exclude>**/entities/**</exclude>
 						<exclude>**/repositories/**</exclude>
+						<exclude>**/validators/**</exclude>
 						<exclude>**/*$*Builder*</exclude>
 						<exclude>**/DevopsdemoApplication*</exclude>
+						<exclude>**/test/**</exclude>
+						<exclude>**/bdd/**</exclude>
+						<exclude>**/extensions/**</exclude>
+						<exclude>**/*Test*</exclude>
 					</excludes>
 				</configuration>
 				<executions>
@@ -406,7 +414,7 @@
 										<limit>
 											<counter>LINE</counter>
 											<value>COVEREDRATIO</value>
-											<minimum>80%</minimum>
+											<minimum>70%</minimum>
 										</limit>
 									</limits>
 								</rule>

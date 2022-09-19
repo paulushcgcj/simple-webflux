@@ -6,12 +6,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -54,18 +56,25 @@ public abstract class AbstractTestContainerIntegrationTest {
 
   }
 
+  @WithMockUser("test")
   protected WebTestClient.ResponseSpec doGet(String uri) {
     return doGet(uri, null);
   }
 
+  @WithMockUser("test")
   protected WebTestClient.ResponseSpec doGet(String uri, Map<String, String> queryParams) {
+    return doGet(uri, queryParams,null);
+  }
+
+  @WithMockUser("test")
+  protected WebTestClient.ResponseSpec doGet(String uri, Map<String, String> queryParams,String bearer) {
 
     if (queryParams == null)
       return
           client
               .get()
               .uri(URI.create(uri))
-              .headers(httpHeaders -> httpHeaders.putAll(getHttpHeaders()))
+              .headers(httpHeaders -> httpHeaders.putAll(getHttpHeaders(bearer)))
               .exchange();
     return
         client
@@ -76,10 +85,11 @@ public abstract class AbstractTestContainerIntegrationTest {
                     .queryParams(buildMvM(queryParams))
                     .build()
             )
-            .headers(httpHeaders -> httpHeaders.putAll(getHttpHeaders()))
+            .headers(httpHeaders -> httpHeaders.putAll(getHttpHeaders(bearer)))
             .exchange();
   }
 
+  @WithMockUser("test")
   protected <T> WebTestClient.ResponseSpec doPost(String uri, T content, Class<T> clazz) {
     return
         client
@@ -92,6 +102,7 @@ public abstract class AbstractTestContainerIntegrationTest {
             .exchange();
   }
 
+  @WithMockUser("test")
   protected <T> WebTestClient.ResponseSpec doPut(String uri, T content, Class<T> clazz) {
     return
         client
@@ -104,6 +115,7 @@ public abstract class AbstractTestContainerIntegrationTest {
             .exchange();
   }
 
+  @WithMockUser("test")
   protected WebTestClient.ResponseSpec doDelete(String uri) {
     return
         client
@@ -115,9 +127,16 @@ public abstract class AbstractTestContainerIntegrationTest {
 
   private HttpHeaders getHttpHeaders() {
     HttpHeaders httpHeaders = new HttpHeaders();
-    httpHeaders.add("Content-Type", MediaType.APPLICATION_JSON_VALUE);
-    httpHeaders.add("Accept", MediaType.APPLICATION_JSON_VALUE);
-    httpHeaders.add("User-Agent", "JUnit5-Cucumber");
+    httpHeaders.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+    httpHeaders.add(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
+    httpHeaders.add(HttpHeaders.USER_AGENT, "JUnit5-Cucumber");
+    return httpHeaders;
+  }
+
+  private HttpHeaders getHttpHeaders(String bearer) {
+    HttpHeaders httpHeaders = getHttpHeaders();
+    if(StringUtils.isNotBlank(bearer))
+      httpHeaders.add(HttpHeaders.AUTHORIZATION, "Bearer " + bearer);
     return httpHeaders;
   }
 
