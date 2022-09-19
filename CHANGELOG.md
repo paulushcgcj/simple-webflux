@@ -1,3 +1,58 @@
+# [0.14.0](https://github.com/paulushcgcj/simple-webflux/compare/v0.13.0...v0.14.0) (2022-09-19)
+
+
+### Features
+
+* **security:jwt:** adding jwt full support with login and 401 ([fa667c2](https://github.com/paulushcgcj/simple-webflux/commit/fa667c2825846cc5f43ac8d53759538af2797a54))
+* **security:jwt:** adding support to JWT ([99a5dc7](https://github.com/paulushcgcj/simple-webflux/commit/99a5dc7f79f3653df9f0c3a727f9cf1b816f9b8a))
+* **security:** adding security with dummy user ([d772680](https://github.com/paulushcgcj/simple-webflux/commit/d772680b4cc1119c19292d4550d25dc6db27a7cd))
+* **security:** updating security to read from db ([8c24a75](https://github.com/paulushcgcj/simple-webflux/commit/8c24a75e746f5dec7b4b55ae7780fcea79397d78))
+
+
+
+# [0.13.0](https://github.com/paulushcgcj/simple-webflux/compare/v0.12.0...v0.13.0) (2022-09-14)
+
+
+### Features
+
+* **db:** migrating to postgres ([d2b5c3b](https://github.com/paulushcgcj/simple-webflux/commit/d2b5c3b4471865eb7746755cc33bf850654bac6b))
+
+
+
+# [0.12.0](https://github.com/paulushcgcj/simple-webflux/compare/v0.11.0...v0.12.0) (2022-09-14)
+
+
+### Features
+
+* **test:bdd:** introducing bdd ([a18cdc8](https://github.com/paulushcgcj/simple-webflux/commit/a18cdc8bb64861ecaaa0e510eed4e827d0bea9a0))
+
+
+
+# [0.11.0](https://github.com/paulushcgcj/simple-webflux/compare/v0.10.0...v0.11.0) (2022-09-13)
+
+
+### Features
+
+* **tracing:** adding tracing dependencies and configuration ([fe0c2cc](https://github.com/paulushcgcj/simple-webflux/commit/fe0c2ccb3858c44b4d91c943b276259b6a791cd1))
+* **tracing:** adding tracing functionality and external config ([7a77349](https://github.com/paulushcgcj/simple-webflux/commit/7a77349b580c25f0cb4745a866e01013c8bc9325))
+
+
+
+# [0.10.0](https://github.com/paulushcgcj/simple-webflux/compare/v0.9.0...v0.10.0) (2022-09-12)
+
+
+### Bug Fixes
+
+* **release:** fixing env updater ([e062c33](https://github.com/paulushcgcj/simple-webflux/commit/e062c33e0f1a898f88e068e579ed34b486a61a0b))
+
+
+### Features
+
+* **metrics:** adding metrics ([5584714](https://github.com/paulushcgcj/simple-webflux/commit/5584714377606df36ef2f50095f9617198ef5747))
+* **validator:** adding company validator ([45e7e24](https://github.com/paulushcgcj/simple-webflux/commit/45e7e24a4fd031c058104789754ab5c34711d272))
+
+
+
 # [0.13.0](https://github.com/paulushcgcj/simple-webflux/compare/v0.12.0...v0.13.0) (2022-09-14)
 
 
