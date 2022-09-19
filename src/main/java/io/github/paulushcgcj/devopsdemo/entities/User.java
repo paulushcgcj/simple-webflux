@@ -8,9 +8,11 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
+import org.springframework.data.domain.Persistable;
 import org.springframework.data.relational.core.mapping.Table;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -24,7 +26,7 @@ import lombok.*;
 @Builder
 @With
 @Table(value = "users", schema = "security")
-public class User implements UserDetails {
+public class User implements UserDetails, Persistable<String> {
 
   @Id
   @NotNull
@@ -47,6 +49,11 @@ public class User implements UserDetails {
   @Transient
   private Set<Authority> authorities;
 
+  @Transient
+  @Builder.Default
+  @JsonIgnore
+  private boolean newData = false;
+
   @Override
   public boolean isAccountNonExpired() {
     if (expiration != null) {
@@ -68,4 +75,14 @@ public class User implements UserDetails {
     return true;
   }
 
+  @Override
+  @JsonIgnore
+  public boolean isNew() {
+    return this.newData;
+  }
+
+  @Override
+  public String getId() {
+    return username;
+  }
 }
