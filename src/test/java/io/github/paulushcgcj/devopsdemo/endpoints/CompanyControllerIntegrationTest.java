@@ -9,6 +9,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.web.server.ResponseStatusException;
 
 import io.github.paulushcgcj.devopsdemo.entities.Company;
@@ -51,6 +52,7 @@ class CompanyControllerIntegrationTest extends AbstractTestContainerIntegrationT
   @Test
   @DisplayName("One Company after Insert")
   @Order(3)
+  @WithMockUser("test")
   void shouldListCreatedCompany(){
     doGet("/api/companies")
         .expectStatus().isOk()
@@ -62,6 +64,7 @@ class CompanyControllerIntegrationTest extends AbstractTestContainerIntegrationT
   @Test
   @DisplayName("Look for DaCompany, not Gork")
   @Order(4)
+  @WithMockUser("test")
   void shouldListCompanyByName(){
 
     doGet("/api/companies", Map.of("name", "Gork"))
@@ -87,6 +90,7 @@ class CompanyControllerIntegrationTest extends AbstractTestContainerIntegrationT
   @Test
   @DisplayName("No Companies at the beginning")
   @Order(1)
+  @WithMockUser("test")
   void shouldHaveNoCompaniesOnList(){
 
     doGet("/api/companies")
@@ -99,6 +103,7 @@ class CompanyControllerIntegrationTest extends AbstractTestContainerIntegrationT
   @Test
   @DisplayName("Insert works")
   @Order(2)
+  @WithMockUser("test")
   void shouldAddCompany(){
 
     doPost("/api/companies",daCompany, Company.class)
@@ -112,6 +117,7 @@ class CompanyControllerIntegrationTest extends AbstractTestContainerIntegrationT
   @Test
   @DisplayName("Get company when Exists")
   @Order(5)
+  @WithMockUser("test")
   void shouldGetExistingCompany(){
 
     String id = service
@@ -130,6 +136,7 @@ class CompanyControllerIntegrationTest extends AbstractTestContainerIntegrationT
   @Test
   @DisplayName("Get no Company with unexpected ID")
   @Order(6)
+  @WithMockUser("test")
   void shouldGetNoCompanyWithId(){
     UUID id = UUID.randomUUID();
 
@@ -144,6 +151,7 @@ class CompanyControllerIntegrationTest extends AbstractTestContainerIntegrationT
   @MethodSource("updateCases")
   @DisplayName("Update and see what happens")
   @Order(7)
+  @WithMockUser("test")
   void shouldExecuteUpdateAndHopeForTheBest(String id, Company company, ResponseStatusException exception){
 
     if (exception == null) {
@@ -171,6 +179,7 @@ class CompanyControllerIntegrationTest extends AbstractTestContainerIntegrationT
   @Test
   @DisplayName("Remove company")
   @Order(8)
+  @WithMockUser("test")
   void shouldRemoveCompany(){
 
     String id = service
@@ -190,6 +199,7 @@ class CompanyControllerIntegrationTest extends AbstractTestContainerIntegrationT
   @Test
   @DisplayName("Don't remove cuz it's not there")
   @Order(9)
+  @WithMockUser("test")
   void shouldNotRemoveCompany(){
     UUID id = UUID.randomUUID();
 

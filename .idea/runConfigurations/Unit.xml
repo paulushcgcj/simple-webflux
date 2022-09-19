@@ -3,21 +3,37 @@
     <module name="simple-webflux" />
     <extension name="coverage" sample_coverage="false" runner="jacoco">
       <pattern>
-        <option name="PATTERN" value="io.github.paulushcgcj.devopsdemo.exceptions.*" />
-        <option name="ENABLED" value="true" />
-        <option name="INCLUDE" value="false" />
-      </pattern>
-      <pattern>
-        <option name="PATTERN" value="io.github.paulushcgcj.devopsdemo.models.*" />
-        <option name="ENABLED" value="true" />
-      </pattern>
-      <pattern>
         <option name="PATTERN" value="io.github.paulushcgcj.devopsdemo.DevopsdemoApplication" />
         <option name="ENABLED" value="true" />
         <option name="INCLUDE" value="false" />
       </pattern>
       <pattern>
         <option name="PATTERN" value="io.github.paulushcgcj.devopsdemo.repositories.*" />
+        <option name="ENABLED" value="true" />
+        <option name="INCLUDE" value="false" />
+      </pattern>
+      <pattern>
+        <option name="PATTERN" value="io.github.paulushcgcj.devopsdemo.exceptions.*" />
+        <option name="ENABLED" value="true" />
+        <option name="INCLUDE" value="false" />
+      </pattern>
+      <pattern>
+        <option name="PATTERN" value="io.github.paulushcgcj.devopsdemo.entities.*" />
+        <option name="ENABLED" value="true" />
+        <option name="INCLUDE" value="false" />
+      </pattern>
+      <pattern>
+        <option name="PATTERN" value="io.github.paulushcgcj.devopsdemo.dtos.*" />
+        <option name="ENABLED" value="true" />
+        <option name="INCLUDE" value="false" />
+      </pattern>
+      <pattern>
+        <option name="PATTERN" value="io.github.paulushcgcj.devopsdemo.configuration.*" />
+        <option name="ENABLED" value="true" />
+        <option name="INCLUDE" value="false" />
+      </pattern>
+      <pattern>
+        <option name="PATTERN" value="io.github.paulushcgcj.devopsdemo.*" />
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>

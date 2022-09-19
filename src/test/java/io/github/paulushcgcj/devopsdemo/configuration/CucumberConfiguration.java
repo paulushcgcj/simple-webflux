@@ -12,5 +12,6 @@ import io.cucumber.core.options.Constants;
 @ConfigurationParameter(key = Constants.PLUGIN_PUBLISH_QUIET_PROPERTY_NAME, value = "true")
 @ConfigurationParameter(key = Constants.FILTER_TAGS_PROPERTY_NAME, value = "@book or @author")
 @DisplayName("Behaviour Test")
+
 public class CucumberConfiguration {
 }
