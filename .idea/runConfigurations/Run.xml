@@ -2,6 +2,7 @@
   <configuration default="false" name="Run" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="io.github.paulushcgcj.devopsdemo.DevopsdemoApplication" />
     <module name="simple-webflux" />
+    <option name="PROGRAM_PARAMETERS" value="--spring.security.oauth2.client.registration.keycloak.client-secret=vXUF78DYVLbpETkLvdV9pyuBRDUBSMCO" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="io.github.paulushcgcj.devopsdemo.endpoints.routes.*" />
