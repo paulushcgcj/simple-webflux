@@ -13,7 +13,6 @@ import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWeb
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -56,17 +55,14 @@ public abstract class AbstractTestContainerIntegrationTest {
 
   }
 
-  @WithMockUser("test")
   protected WebTestClient.ResponseSpec doGet(String uri) {
     return doGet(uri, null);
   }
 
-  @WithMockUser("test")
   protected WebTestClient.ResponseSpec doGet(String uri, Map<String, String> queryParams) {
-    return doGet(uri, queryParams,null);
+    return doGet(uri, queryParams,"token");
   }
 
-  @WithMockUser("test")
   protected WebTestClient.ResponseSpec doGet(String uri, Map<String, String> queryParams,String bearer) {
 
     if (queryParams == null)
@@ -89,39 +85,36 @@ public abstract class AbstractTestContainerIntegrationTest {
             .exchange();
   }
 
-  @WithMockUser("test")
   protected <T> WebTestClient.ResponseSpec doPost(String uri, T content, Class<T> clazz) {
     return
         client
             .post()
             .uri(uri)
-            .headers(httpHeaders -> httpHeaders.putAll(getHttpHeaders()))
+            .headers(httpHeaders -> httpHeaders.putAll(getHttpHeaders("token")))
             .contentType(MediaType.APPLICATION_JSON)
             .accept(MediaType.APPLICATION_JSON)
             .body(Mono.just(content), clazz)
             .exchange();
   }
 
-  @WithMockUser("test")
   protected <T> WebTestClient.ResponseSpec doPut(String uri, T content, Class<T> clazz) {
     return
         client
             .put()
             .uri(uri)
-            .headers(httpHeaders -> httpHeaders.putAll(getHttpHeaders()))
+            .headers(httpHeaders -> httpHeaders.putAll(getHttpHeaders("token")))
             .contentType(MediaType.APPLICATION_JSON)
             .accept(MediaType.APPLICATION_JSON)
             .body(Mono.just(content), clazz)
             .exchange();
   }
 
-  @WithMockUser("test")
   protected WebTestClient.ResponseSpec doDelete(String uri) {
     return
         client
             .delete()
             .uri(URI.create(uri))
-            .headers(httpHeaders -> httpHeaders.putAll(getHttpHeaders()))
+            .headers(httpHeaders -> httpHeaders.putAll(getHttpHeaders("token")))
             .exchange();
   }
 

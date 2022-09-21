@@ -21,6 +21,19 @@ spring:
     user: ${io.github.paulushcgcj.database.username}
     password: ${io.github.paulushcgcj.database.password}
     url: jdbc:postgresql://${io.github.paulushcgcj.database.host}/${io.github.paulushcgcj.database.name}
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: ${io.github.paulushcgcj.oauth.server}/realms/${io.github.paulushcgcj.oauth.realm}
+        registration:
+          keycloak:
+            client-id: ${spring.application.name}
+      resourceserver:
+        jwt:
+          issuer-uri: ${io.github.paulushcgcj.oauth.server}/realms/${io.github.paulushcgcj.oauth.realm}
+          jwk-set-uri: ${io.github.paulushcgcj.oauth.server}/realms/${io.github.paulushcgcj.oauth.realm}/protocol/openid-connect/certs
 
 management:
   endpoint:
