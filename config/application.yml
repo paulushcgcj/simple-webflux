@@ -6,9 +6,9 @@ io:
         host: 127.0.0.1:5432
         username: simple
         password: root
-      security:
-        saltSecret: ThisIsSecretForJWTHS512SignatureAlgorithmThatMUSTHave64ByteLength
-        expiration: 7D
+      oauth:
+        realm: Banter
+        server: http://127.0.0.1:8000
 
 spring:
   zipkin:

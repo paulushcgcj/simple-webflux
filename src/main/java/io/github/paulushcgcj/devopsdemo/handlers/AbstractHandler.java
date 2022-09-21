@@ -1,9 +1,11 @@
 package io.github.paulushcgcj.devopsdemo.handlers;
 
-import java.security.Principal;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
@@ -22,8 +24,9 @@ public abstract class AbstractHandler<T> {
     return
         request
             .principal()
-            .map(Principal::getName)
-            .doOnNext(principalName -> log.info("Requesting with user {}",principalName))
+            .map(JwtAuthenticationToken.class::cast)
+            .doOnNext(jwtPrincipal -> log.info("{} with email {} and id {} logged in",jwtPrincipal.getToken().getClaim("name"),jwtPrincipal.getToken().getClaim("email"),jwtPrincipal.getName()) )
+            .doOnNext(jwtPrincipal -> log.info("{} with authorities {}",jwtPrincipal.getName(),((Map<String, List<String>>)jwtPrincipal.getToken().getClaim("realm_access")).get("roles")) )
             .then();
   }
 
