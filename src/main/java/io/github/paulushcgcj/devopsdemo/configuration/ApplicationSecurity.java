@@ -1,5 +1,7 @@
 package io.github.paulushcgcj.devopsdemo.configuration;
 
+import io.github.paulushcgcj.devopsdemo.repositories.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -10,9 +12,6 @@ import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.oauth2.jwt.NimbusReactiveJwtDecoder;
 import org.springframework.security.oauth2.jwt.ReactiveJwtDecoder;
 import org.springframework.security.web.server.SecurityWebFilterChain;
-
-import io.github.paulushcgcj.devopsdemo.repositories.UserRepository;
-import lombok.RequiredArgsConstructor;
 
 @Configuration
 @EnableWebFluxSecurity
@@ -30,9 +29,16 @@ public class ApplicationSecurity {
     http
         .authorizeExchange()
 
-        .pathMatchers(HttpMethod.POST, "/login").permitAll()
+        .pathMatchers(HttpMethod.GET, "/traces").permitAll()
+        .pathMatchers(HttpMethod.POST, "/traces").permitAll()
+        .pathMatchers(HttpMethod.GET, "/info").permitAll()
         .pathMatchers(HttpMethod.GET, "/health").permitAll()
+        .pathMatchers(HttpMethod.GET, "/health/**").permitAll()
         .pathMatchers(HttpMethod.GET, "/metrics").permitAll()
+        .pathMatchers(HttpMethod.GET, "/metrics/**").permitAll()
+        .pathMatchers(HttpMethod.GET, "/swagger**").permitAll()
+        .pathMatchers(HttpMethod.GET, "/webjars/**").permitAll()
+        .pathMatchers(HttpMethod.GET, "/v3/api-docs/**").permitAll()
 
         .anyExchange().authenticated()
 
