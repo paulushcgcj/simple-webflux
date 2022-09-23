@@ -1,3 +1,51 @@
+# [0.16.0](https://github.com/paulushcgcj/simple-webflux/compare/v0.15.0...v0.16.0) (2022-09-23)
+
+
+### Features
+
+* **swagger:** adding swagger support ([d003b11](https://github.com/paulushcgcj/simple-webflux/commit/d003b1112ab5dba7afb60c91a5bfc069f2f99161))
+
+
+
+# [0.15.0](https://github.com/paulushcgcj/simple-webflux/compare/v0.14.0...v0.15.0) (2022-09-21)
+
+
+### Features
+
+* **oauth2:** updating security to use oauth2 ([6b55f19](https://github.com/paulushcgcj/simple-webflux/commit/6b55f19e946be4f51103ec39f3904af74e0d0593))
+
+
+
+# [0.14.0](https://github.com/paulushcgcj/simple-webflux/compare/v0.13.0...v0.14.0) (2022-09-19)
+
+
+### Features
+
+* **security:jwt:** adding jwt full support with login and 401 ([fa667c2](https://github.com/paulushcgcj/simple-webflux/commit/fa667c2825846cc5f43ac8d53759538af2797a54))
+* **security:jwt:** adding support to JWT ([99a5dc7](https://github.com/paulushcgcj/simple-webflux/commit/99a5dc7f79f3653df9f0c3a727f9cf1b816f9b8a))
+* **security:** adding security with dummy user ([d772680](https://github.com/paulushcgcj/simple-webflux/commit/d772680b4cc1119c19292d4550d25dc6db27a7cd))
+* **security:** updating security to read from db ([8c24a75](https://github.com/paulushcgcj/simple-webflux/commit/8c24a75e746f5dec7b4b55ae7780fcea79397d78))
+
+
+
+# [0.13.0](https://github.com/paulushcgcj/simple-webflux/compare/v0.12.0...v0.13.0) (2022-09-14)
+
+
+### Features
+
+* **db:** migrating to postgres ([d2b5c3b](https://github.com/paulushcgcj/simple-webflux/commit/d2b5c3b4471865eb7746755cc33bf850654bac6b))
+
+
+
+# [0.12.0](https://github.com/paulushcgcj/simple-webflux/compare/v0.11.0...v0.12.0) (2022-09-14)
+
+
+### Features
+
+* **test:bdd:** introducing bdd ([a18cdc8](https://github.com/paulushcgcj/simple-webflux/commit/a18cdc8bb64861ecaaa0e510eed4e827d0bea9a0))
+
+
+
 # [0.15.0](https://github.com/paulushcgcj/simple-webflux/compare/v0.14.0...v0.15.0) (2022-09-21)
 
 
