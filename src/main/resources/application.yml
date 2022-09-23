@@ -49,3 +49,9 @@ management:
   trace:
     http:
       include: principal,request-headers,response-headers,cookie-headers,time-taken,authorization-header,remote-address,session-id
+
+springdoc:
+  api-docs:
+    groups:
+      enabled: true
+  show-actuator: true
