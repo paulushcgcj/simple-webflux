@@ -39,7 +39,7 @@
         <timestamp>${maven.build.timestamp}</timestamp>
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
         <spring-cloud.version>2021.0.4</spring-cloud.version>
-        <cucumber.version>7.8.0</cucumber.version>
+        <cucumber.version>7.8.1</cucumber.version>
         <jjwt.version>0.11.5</jjwt.version>
     </properties>
 
