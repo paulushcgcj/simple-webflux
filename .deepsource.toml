@@ -1,5 +1,22 @@
 version = 1
 
+test_patterns = ["test/**"]
+
+exclude_patterns = [
+  "**/configuration/**",
+  "**/exceptions/**",
+  "**/dtos/**",
+  "**/entities/**",
+  "**/repositories/**",
+  "**/validators/**",
+  "**/*$*Builder*",
+  "**/DevopsdemoApplication*",
+  "**/test/**",
+  "**/bdd/**",
+  "**/extensions/**",
+  "**/*Test*"
+]
+
 [[analyzers]]
 name = "java"
 enabled = true
@@ -9,4 +26,8 @@ enabled = true
 
 [[analyzers]]
 name = "shell"
+enabled = true
+
+[[transformers]]
+name = "google-java-format"
 enabled = true
