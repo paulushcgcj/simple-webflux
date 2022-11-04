@@ -132,8 +132,6 @@
             <artifactId>spring-cloud-starter-consul-discovery</artifactId>
         </dependency>
 
-
-
         <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-prometheus</artifactId>
