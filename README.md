@@ -40,10 +40,14 @@ Here is a summarized feature list of what is already implemented or is part of o
 - [x] BDD with Cucumber
 - [x] Security with OAuth2 and JWT (at the moment using it from Keycloak)
 - [x] Consul
-- [ ] LoadBalancing
 - [ ] Remote Configuration
 - [ ] Cache
+
+Also we will introduce some other services to the stack to act as external services. With that we will also introduce:
+
+- [ ] LoadBalancing
 - [ ] Kubernetes
+- [ ] Environment Deployment
 
 
 ## How to run it
