@@ -1,5 +1,6 @@
 package io.github.paulushcgcj.devopsdemo.handlers;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.autoconfigure.web.WebProperties;
@@ -16,8 +17,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.*;
 import org.springframework.web.server.ResponseStatusException;
-
-import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
 @RestControllerAdvice
@@ -31,28 +30,29 @@ public class ErrorHandlingController extends AbstractErrorWebExceptionHandler {
       ErrorAttributes errorAttributes,
       WebProperties webProperties,
       ApplicationContext applicationContext,
-      ServerCodecConfigurer configurer
-  ) {
+      ServerCodecConfigurer configurer) {
     super(errorAttributes, webProperties.getResources(), applicationContext);
     this.setMessageWriters(configurer.getWriters());
   }
 
   @Override
-  protected RouterFunction<ServerResponse> getRoutingFunction(
-      ErrorAttributes errorAttributes) {
+  protected RouterFunction<ServerResponse> getRoutingFunction(ErrorAttributes errorAttributes) {
     return RouterFunctions.route(
         RequestPredicates.all(), request -> renderErrorResponse(request, errorAttributes));
   }
 
   private Mono<ServerResponse> renderErrorResponse(
-      ServerRequest request,
-      ErrorAttributes errorAttributes) {
+      ServerRequest request, ErrorAttributes errorAttributes) {
 
     Throwable exception = errorAttributes.getError(request).fillInStackTrace();
     String errorMessage = exception.getMessage();
     HttpStatus errorStatus = HttpStatus.INTERNAL_SERVER_ERROR;
 
-    log.error("An error was generated during request for {} {}",request.method(),request.requestPath(), exception);
+    log.error(
+        "An error was generated during request for {} {}",
+        request.method(),
+        request.requestPath(),
+        exception);
 
     if (exception instanceof ResponseStatusException) {
       ResponseStatusException responseStatusException = (ResponseStatusException) exception;
@@ -60,7 +60,8 @@ public class ErrorHandlingController extends AbstractErrorWebExceptionHandler {
       errorStatus = responseStatusException.getStatus();
     }
 
-    errorMessage = BooleanUtils.toString(StringUtils.isBlank(errorMessage), StringUtils.EMPTY, errorMessage);
+    errorMessage =
+        BooleanUtils.toString(StringUtils.isBlank(errorMessage), StringUtils.EMPTY, errorMessage);
 
     log.error("{} - {}", HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage());
 
@@ -68,5 +69,4 @@ public class ErrorHandlingController extends AbstractErrorWebExceptionHandler {
         .contentType(MediaType.APPLICATION_JSON)
         .body(BodyInserters.fromValue(errorMessage));
   }
-
 }
