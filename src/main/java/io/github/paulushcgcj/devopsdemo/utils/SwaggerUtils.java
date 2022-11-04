@@ -1,13 +1,5 @@
 package io.github.paulushcgcj.devopsdemo.utils;
 
-import java.util.function.Consumer;
-
-import org.springdoc.core.fn.builders.operation.Builder;
-
-import io.github.paulushcgcj.devopsdemo.entities.Company;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-
 import static org.springdoc.core.fn.builders.apiresponse.Builder.responseBuilder;
 import static org.springdoc.core.fn.builders.arrayschema.Builder.arraySchemaBuilder;
 import static org.springdoc.core.fn.builders.content.Builder.contentBuilder;
@@ -15,6 +7,12 @@ import static org.springdoc.core.fn.builders.header.Builder.headerBuilder;
 import static org.springdoc.core.fn.builders.requestbody.Builder.requestBodyBuilder;
 import static org.springdoc.core.fn.builders.schema.Builder.schemaBuilder;
 import static org.springdoc.core.fn.builders.securityrequirement.Builder.securityRequirementBuilder;
+
+import io.github.paulushcgcj.devopsdemo.entities.Company;
+import java.util.function.Consumer;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import org.springdoc.core.fn.builders.operation.Builder;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SwaggerUtils {
