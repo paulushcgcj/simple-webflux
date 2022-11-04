@@ -37,7 +37,7 @@ public class CompanyHandler extends AbstractValidatedHandler<Company, CompanyVal
     log.info("Requesting companies {} {} {}", page, size, name);
 
     return
-        logPrincipoal(request)
+        logPrincipal(request)
             .then(
                 ServerResponse
                     .ok()
@@ -45,7 +45,8 @@ public class CompanyHandler extends AbstractValidatedHandler<Company, CompanyVal
                     .body(service.listCompanies(page, size, name), List.class)
                     .doOnError(ResponseStatusException.class, handleStatusResponse())
                     .doOnError(handleError())
-            );
+            )
+           ;
   }
 
   @Timed(value = "service.handler", longTask = true, description = "Monitors the handler that receives a request")
@@ -53,7 +54,8 @@ public class CompanyHandler extends AbstractValidatedHandler<Company, CompanyVal
     log.info("Requesting company details {}", request.pathVariable("id"));
 
     return
-        logPrincipoal(request)
+        logPrincipal(request)
+
             .then(
                 service
                     .getCompany(request.pathVariable("id"))
@@ -66,14 +68,15 @@ public class CompanyHandler extends AbstractValidatedHandler<Company, CompanyVal
                     )
                     .doOnError(ResponseStatusException.class, handleStatusResponse())
                     .doOnError(handleError())
-            );
+            )
+           ;
   }
 
   @Timed(value = "service.handler", longTask = true, description = "Monitors the handler that receives a request")
   public Mono<ServerResponse> addCompany(ServerRequest request) {
 
     return
-        logPrincipoal(request)
+        logPrincipal(request)
             .then(
                 request
                     .bodyToMono(Company.class)
@@ -87,7 +90,8 @@ public class CompanyHandler extends AbstractValidatedHandler<Company, CompanyVal
                     )
                     .doOnError(ResponseStatusException.class, handleStatusResponse())
                     .doOnError(handleError())
-            );
+            )
+           ;
   }
 
   @Timed(value = "service.handler", longTask = true, description = "Monitors the handler that receives a request")
@@ -95,7 +99,7 @@ public class CompanyHandler extends AbstractValidatedHandler<Company, CompanyVal
     log.info("Requesting company update {}", request.pathVariable("id"));
 
     return
-        logPrincipoal(request)
+        logPrincipal(request)
             .then(
                 request
                     .bodyToMono(Company.class)
@@ -105,7 +109,8 @@ public class CompanyHandler extends AbstractValidatedHandler<Company, CompanyVal
                     .then(ServerResponse.accepted().build())
                     .doOnError(ResponseStatusException.class, handleStatusResponse())
                     .doOnError(handleError())
-            );
+            )
+           ;
   }
 
   @Timed(value = "service.handler", longTask = true, description = "Monitors the handler that receives a request")
@@ -113,14 +118,15 @@ public class CompanyHandler extends AbstractValidatedHandler<Company, CompanyVal
     log.info("Requesting company delete {}", request.pathVariable("id"));
 
     return
-        logPrincipoal(request)
+        logPrincipal(request)
             .then(
                 service
                     .removeCompany(request.pathVariable("id"))
                     .then(ServerResponse.noContent().build())
                     .doOnError(ResponseStatusException.class, handleStatusResponse())
                     .doOnError(handleError())
-            );
+            )
+           ;
   }
 
 
