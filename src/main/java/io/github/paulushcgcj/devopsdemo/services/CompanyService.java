@@ -1,5 +1,19 @@
 package io.github.paulushcgcj.devopsdemo.services;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.cloud.sleuth.annotation.NewSpan;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.BeanPropertyBindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
+
 import io.github.paulushcgcj.devopsdemo.entities.Company;
 import io.github.paulushcgcj.devopsdemo.exceptions.CompanyAlreadyExistException;
 import io.github.paulushcgcj.devopsdemo.exceptions.CompanyNotFoundException;
@@ -8,21 +22,9 @@ import io.github.paulushcgcj.devopsdemo.exceptions.NullCompanyException;
 import io.github.paulushcgcj.devopsdemo.repositories.CompanyRepository;
 import io.github.paulushcgcj.devopsdemo.validators.CompanyValidator;
 import io.micrometer.core.annotation.Timed;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.cloud.sleuth.annotation.NewSpan;
-import org.springframework.context.support.DefaultMessageSourceResolvable;
-import org.springframework.stereotype.Service;
-import org.springframework.validation.BeanPropertyBindingResult;
-import org.springframework.validation.Errors;
-import org.springframework.validation.FieldError;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
