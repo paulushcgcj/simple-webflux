@@ -1,7 +1,5 @@
 package io.github.paulushcgcj.devopsdemo.handlers;
 
-import java.util.List;
-import java.util.Map;
 import java.util.function.Consumer;
 
 import org.springframework.http.HttpStatus;
@@ -20,13 +18,21 @@ import reactor.core.publisher.Mono;
 public abstract class AbstractHandler<T> {
   protected final Class<T> contentClass;
 
-  protected static Mono<Void> logPrincipoal(ServerRequest request){
+  protected static Mono<Void> logPrincipal(ServerRequest request){
+
     return
         request
             .principal()
+
+            .tag("uri", request.attribute("org.springframework.web.reactive.function.server.RouterFunctions.matchingPattern").map(String::valueOf).orElse(request.path()))
+            .tag("method",request.method().name())
+            .tag("ops",request.methodName())
+            .metrics()
+
+
             .map(JwtAuthenticationToken.class::cast)
             .doOnNext(jwtPrincipal -> log.info("{} with email {} and id {} logged in",jwtPrincipal.getToken().getClaim("name"),jwtPrincipal.getToken().getClaim("email"),jwtPrincipal.getName()) )
-            .doOnNext(jwtPrincipal -> log.info("{} with authorities {}",jwtPrincipal.getName(),((Map<String, List<String>>)jwtPrincipal.getToken().getClaim("realm_access")).get("roles")) )
+            .doOnNext(jwtPrincipal -> log.info("{} with authorities {}",jwtPrincipal.getName(),jwtPrincipal.getAuthorities() ))
             .then();
   }
 
