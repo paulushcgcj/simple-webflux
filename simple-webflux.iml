@@ -3,7 +3,7 @@
   <component name="CheckStyle-IDEA-Module" serialisationVersion="2">
     <option name="activeLocationsIds" />
   </component>
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_11">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_17">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
@@ -120,6 +120,23 @@
     <orderEntry type="library" name="Maven: io.zipkin.reporter2:zipkin-sender-kafka:2.16.3" level="project" />
     <orderEntry type="library" name="Maven: io.zipkin.reporter2:zipkin-sender-activemq-client:2.16.3" level="project" />
     <orderEntry type="library" name="Maven: io.zipkin.reporter2:zipkin-sender-amqp-client:2.16.3" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-starter-consul-config:3.1.2" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-starter-consul:3.1.2" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-consul-core:3.1.2" level="project" />
+    <orderEntry type="library" name="Maven: com.ecwid.consul:consul-api:1.4.5" level="project" />
+    <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.9.1" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpclient:4.5.13" level="project" />
+    <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.15" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpcore:4.4.15" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-consul-config:3.1.2" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-starter-consul-discovery:3.1.2" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-consul-discovery:3.1.2" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-starter-loadbalancer:3.1.4" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-loadbalancer:3.1.4" level="project" />
+    <orderEntry type="library" name="Maven: io.projectreactor.addons:reactor-extra:3.4.8" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-cache:2.7.3" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-context-support:5.3.22" level="project" />
+    <orderEntry type="library" name="Maven: com.stoyanr:evictor:1.0.0" level="project" />
     <orderEntry type="library" name="Maven: io.micrometer:micrometer-registry-prometheus:1.9.3" level="project" />
     <orderEntry type="library" name="Maven: io.prometheus:simpleclient_common:0.15.0" level="project" />
     <orderEntry type="library" name="Maven: io.prometheus:simpleclient:0.15.0" level="project" />
@@ -160,7 +177,6 @@
     <orderEntry type="library" scope="RUNTIME" name="Maven: io.projectreactor.netty.incubator:reactor-netty-incubator-quic:0.0.11" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: io.netty.incubator:netty-incubator-codec-native-quic:linux-x86_64:0.0.28.Final" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: io.netty.incubator:netty-incubator-codec-classes-quic:0.0.28.Final" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: commons-codec:commons-codec:1.15" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: io.projectreactor.netty:reactor-netty-http-brave:1.0.22" level="project" />
     <orderEntry type="library" name="Maven: org.flywaydb:flyway-core:8.5.13" level="project" />
     <orderEntry type="library" name="Maven: io.jsonwebtoken:jjwt-api:0.11.5" level="project" />
