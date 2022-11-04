@@ -5,6 +5,9 @@
 [![Project CI](https://github.com/paulushcgcj/simple-webflux/actions/workflows/ci.yml/badge.svg)](https://github.com/paulushcgcj/simple-webflux/actions/workflows/ci.yml) 
 ![Coverage](.github/badges/jacoco.svg) 
 ![Branches](.github/badges/branches.svg)
+
+[![DeepSource](https://deepsource.io/gh/paulushcgcj/simple-webflux.svg/?label=active+issues&show_trend=true&token=FNRQx42bX3GBGa6s_xHQMdb7)](https://deepsource.io/gh/paulushcgcj/simple-webflux/?ref=repository-badge)
+[![DeepSource](https://deepsource.io/gh/paulushcgcj/simple-webflux.svg/?label=resolved+issues&show_trend=true&token=FNRQx42bX3GBGa6s_xHQMdb7)](https://deepsource.io/gh/paulushcgcj/simple-webflux/?ref=repository-badge)
 [![CodeFactor](https://www.codefactor.io/repository/github/paulushcgcj/simple-webflux/badge/main)](https://www.codefactor.io/repository/github/paulushcgcj/simple-webflux/overview/main)
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=paulushcgcj_simple-webflux&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=paulushcgcj_simple-webflux)

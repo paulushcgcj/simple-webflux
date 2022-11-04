@@ -108,6 +108,7 @@ jobs:
           report: 'target/**/TEST-*.xml'
 
       - name: Report results to DeepSource
+        if: ${{ always() }}
         run: |
           curl https://deepsource.io/cli | sh
           ./bin/deepsource report --analyzer test-coverage --key java --value-file ./target/coverage-reports/merged-test-report/jacoco.xml
