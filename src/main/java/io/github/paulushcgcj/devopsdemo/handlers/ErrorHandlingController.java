@@ -52,7 +52,7 @@ public class ErrorHandlingController extends AbstractErrorWebExceptionHandler {
     String errorMessage = exception.getMessage();
     HttpStatus errorStatus = HttpStatus.INTERNAL_SERVER_ERROR;
 
-    log.error("An error was generated during request", exception);
+    log.error("An error was generated during request for {} {}",request.method(),request.requestPath(), exception);
 
     if (exception instanceof ResponseStatusException) {
       ResponseStatusException responseStatusException = (ResponseStatusException) exception;
