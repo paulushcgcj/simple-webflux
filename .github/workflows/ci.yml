@@ -40,6 +40,13 @@ jobs:
       - name: Code Validation
         run: mvn -B validate --file pom.xml
 
+      - name: Archive CycloneDX
+        uses: actions/upload-artifact@v2
+        with:
+          name: cyclone
+          path: target/bom.json
+          retention-days: 5
+
       - name: Code Compilation
         run: mvn -B clean compile --file pom.xml
 
