@@ -39,10 +39,11 @@ public class CompanyService {
   @Getter
   private final CompanyValidator validator;
 
-  @Timed(value = "service.service",longTask = true,description = "Monitors the service that process a request")
+  @Timed(value = "service.service", description = "Monitors the service that process a request")
   @NewSpan
   public Mono<List<Company>> listCompanies(long page, long size, String name) {
     log.info("Listing companies {} {} {}", page, size, name);
+
     return
         companyRepository
             .findAll()
@@ -54,7 +55,7 @@ public class CompanyService {
             .doOnNext(companies -> log.info("{} companies found", companies.size()));
   }
 
-  @Timed(value = "service.service",longTask = true,description = "Monitors the service that process a request")
+  @Timed(value = "service.service", longTask = true, description = "Monitors the service that process a request")
   @NewSpan
   public Mono<String> addCompany(Company company) {
     log.info("Adding company {}", company);
@@ -70,7 +71,7 @@ public class CompanyService {
     return Mono.error(new NullCompanyException());
   }
 
-  @Timed(value = "service.service",longTask = true,description = "Monitors the service that process a request")
+  @Timed(value = "service.service", longTask = true, description = "Monitors the service that process a request")
   @NewSpan
   public Mono<Company> getCompany(String id) {
     log.info("Searching for company with id {}", id);
@@ -80,7 +81,7 @@ public class CompanyService {
             .switchIfEmpty(Mono.error(new CompanyNotFoundException(id)));
   }
 
-  @Timed(value = "service.service",longTask = true,description = "Monitors the service that process a request")
+  @Timed(value = "service.service", longTask = true, description = "Monitors the service that process a request")
   @NewSpan
   public Mono<Void> updateCompany(String id, Company company) {
     log.info("Updating company with ID {} to {}", id, company);
@@ -96,7 +97,7 @@ public class CompanyService {
     return Mono.error(new NullCompanyException());
   }
 
-  @Timed(value = "service.service",longTask = true,description = "Monitors the service that process a request")
+  @Timed(value = "service.service", longTask = true, description = "Monitors the service that process a request")
   @NewSpan
   public Mono<Void> removeCompany(String id) {
     log.info("Removing company with id {}", id);
