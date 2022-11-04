@@ -101,14 +101,16 @@ jobs:
       - name: Code Coverage
         run: mvn -B clean verify -P all-tests --file pom.xml
 
+      - name: Check Run Report
+        uses: check-run-reporter/action@v2.11.1
+        with:
+          token: ${{ secrets.CHECK_RUN_REPORTER_TOKEN }}
+          report: 'target/**/TEST-*.xml'
+
       - name: Report results to DeepSource
         run: |
-          # Install deepsource CLI
           curl https://deepsource.io/cli | sh
-
-          # From the root directory, run the report coverage command
           ./bin/deepsource report --analyzer test-coverage --key java --value-file ./target/coverage-reports/merged-test-report/jacoco.xml
-
         env:
           DEEPSOURCE_DSN: ${{ secrets.DEEPSOURCE_DSN }}
 
