@@ -1,0 +1,8 @@
+[licenses]
+#accepted = ["MIT", "MSC", "BSD"]
+unaccepted = ["LGPL"]
+[dependencies]
+ignored=["ignored_dep1", "ignored_dep2"]
+[behavior]
+run_only_on_dependency_modification = false
+do_not_block_pr = true
