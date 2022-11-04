@@ -4,6 +4,8 @@ server:
       enabled: false
 
 spring:
+  config:
+    import: consul:127.0.0.1:8500
   application:
     name: company
   main:
@@ -34,6 +36,27 @@ spring:
         jwt:
           issuer-uri: ${io.github.paulushcgcj.oauth.server}/realms/${io.github.paulushcgcj.oauth.realm}
           jwk-set-uri: ${io.github.paulushcgcj.oauth.server}/realms/${io.github.paulushcgcj.oauth.realm}/protocol/openid-connect/certs
+  cloud:
+    consul:
+      config:
+        enabled: true
+        format: YAML
+        prefix: simple
+      discovery:
+        health-check-tls-skip-verify: true
+        preferIpAddress: true
+        enabled: true
+        register: true
+        instanceId: ${spring.application.name}:${vcap.application.instance_id:${spring.application.instance_id:${random.value}}}
+        serviceName: ${spring.application.name}
+        healthCheckPath: /health
+        healthCheckInterval: 10s
+        deregister: true
+        ipAddress: 192.168.50.88
+        health-check-critical-timeout: 1m
+        tags: simple,profiles=${spring.profiles.active:default}
+      host: 127.0.0.1
+      port: 8500
 
 management:
   endpoint:
@@ -41,11 +64,9 @@ management:
       show-details: always
   endpoints:
     web:
-      path-mapping:
-        prometheus: metrics
       base-path: /
       exposure:
-        include: traces,info,metrics,health
+        include: traces,info,metrics,health,prometheus
   trace:
     http:
       include: principal,request-headers,response-headers,cookie-headers,time-taken,authorization-header,remote-address,session-id
