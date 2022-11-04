@@ -27,33 +27,40 @@ public class MetricConfiguration {
   public MeterRegistryCustomizer<MeterRegistry> metricsCommonTags() {
     return registry -> {
       registry.config()
-          .commonTags(
-              "version", "1.0.0",
-              "product", "company"
-          )
-          .meterFilter(
-              new MeterFilter() {
-                @Override
-                public DistributionStatisticConfig configure(Meter.Id id, DistributionStatisticConfig config) {
-                  return DistributionStatisticConfig.builder()
-                      .percentiles(0.5, 0.95, 0.99)
-                      .build()
-                      .merge(config);
-                }
-              });
+          .commonTags(tags())
+          .meterFilter(ignoreTag())
+          .meterFilter(distributionMeter());
     };
+  }
+
+  private MeterFilter distributionMeter() {
+    return new MeterFilter() {
+      @Override
+      public DistributionStatisticConfig configure(Meter.Id id, DistributionStatisticConfig config) {
+        return DistributionStatisticConfig
+            .builder()
+            .percentilePrecision(5)
+            .percentilesHistogram(true)
+            .percentiles(0.5, 0.95, 0.99)
+            .serviceLevelObjectives(0.1,0.01,0.001,0.0001,0.00001,0.000001)
+            .build()
+            .merge(config);
+      }
+    };
+  }
+
+  private MeterFilter ignoreTag() {
+    return MeterFilter.ignoreTags("type");
+  }
+
+  private String[] tags(){
+    return new String[]{"version", "1.0.0","product", "company"};
   }
 
   @Bean
   public MeterRegistryCustomizer<PrometheusMeterRegistry> prometheusConfiguration() {
     return MeterRegistry::config;
   }
-
-  @Bean
-  public MeterFilter ignoreTag() {
-    return MeterFilter.ignoreTags("type");
-  }
-
 
   @Bean
   @ConditionalOnProperty(value = "spring.zipkin.enabled", havingValue = "false")

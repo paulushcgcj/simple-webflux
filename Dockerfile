@@ -1,9 +1,9 @@
-FROM maven:3.6.0-jdk-11-slim AS build
+FROM maven:3.8.5-openjdk-17-slim AS build
 COPY src /home/app/src
 COPY pom.xml /home/app
-RUN mvn -f /home/app/pom.xml clean package
+RUN mvn -f /home/app/pom.xml clean package -DskipTests -Dtests.skip=true -Dskip.unit.tests=true
 
-FROM adoptopenjdk/openjdk11:alpine-jre
+FROM eclipse-temurin:17-jre-alpine
 LABEL maintainer="Paulo Gomes da Cruz Junior <paulushc@gmail.com>"
 
 WORKDIR /usr/share/service/
