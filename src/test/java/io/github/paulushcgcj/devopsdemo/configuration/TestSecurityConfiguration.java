@@ -1,10 +1,8 @@
 package io.github.paulushcgcj.devopsdemo.configuration;
 
 import java.time.Instant;
-import java.util.Arrays;
 import java.util.Map;
 
-import com.nimbusds.jose.shaded.json.JSONArray;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +11,8 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtClaimNames;
 import org.springframework.security.oauth2.jwt.JwtException;
 import org.springframework.security.oauth2.jwt.ReactiveJwtDecoder;
+
+import com.nimbusds.jose.shaded.json.JSONArray;
 
 import reactor.core.publisher.Mono;
 
