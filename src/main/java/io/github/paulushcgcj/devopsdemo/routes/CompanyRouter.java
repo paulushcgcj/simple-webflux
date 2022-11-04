@@ -1,23 +1,25 @@
 package io.github.paulushcgcj.devopsdemo.routes;
 
-import static org.springdoc.core.fn.builders.parameter.Builder.parameterBuilder;
-import static org.springdoc.core.fn.builders.schema.Builder.schemaBuilder;
-import static org.springdoc.webflux.core.fn.SpringdocRouteBuilder.route;
-import static org.springframework.web.reactive.function.server.RequestPredicates.accept;
-
-import io.github.paulushcgcj.devopsdemo.entities.Company;
-import io.github.paulushcgcj.devopsdemo.handlers.CompanyHandler;
-import io.github.paulushcgcj.devopsdemo.utils.SwaggerUtils;
-import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
-import lombok.RequiredArgsConstructor;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springdoc.core.fn.builders.operation.Builder;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
+
+import io.github.paulushcgcj.devopsdemo.entities.Company;
+import io.github.paulushcgcj.devopsdemo.handlers.CompanyHandler;
+import io.github.paulushcgcj.devopsdemo.utils.SwaggerUtils;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import lombok.RequiredArgsConstructor;
+
+import static org.springdoc.core.fn.builders.parameter.Builder.parameterBuilder;
+import static org.springdoc.core.fn.builders.schema.Builder.schemaBuilder;
+import static org.springdoc.webflux.core.fn.SpringdocRouteBuilder.route;
+import static org.springframework.web.reactive.function.server.RequestPredicates.accept;
 
 @Component
 @RequiredArgsConstructor
