@@ -221,14 +221,14 @@ jobs:
       - name: Backing up Changelog
         run: |
             mv CHANGELOG.md OLD.CHANGELOG.md
-            touch RELEASE.md
+            touch CHANGELOG.md
 
       - name: Conventional Changelog Update
         uses: TriPSs/conventional-changelog-action@v3
         id: changelog
         with:
           github-token: ${{ github.token }}
-          output-file: 'RELEASE.md'
+          output-file: 'CHANGELOG.md'
           skip-version-file: 'true'
           skip-commit: 'true'
           git-push: 'false'
@@ -243,7 +243,9 @@ jobs:
         run: sed -i -E "s/SIMPLEWEBFLUX=.*/SIMPLEWEBFLUX=${{ steps.changelog.outputs.version }}/g" docs/environment/.env
 
       - name: Merging Changelog
-        run: cat RELEASE.md OLD.CHANGELOG.md > CHANGELOG.md
+        run: |
+            mv CHANGELOG.md RELEASE.md
+            cat RELEASE.md OLD.CHANGELOG.md > CHANGELOG.md
 
       - name: Update resources
         uses: test-room-7/action-update-file@v1
