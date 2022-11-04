@@ -1,6 +1,23 @@
 spring:
   aop:
     auto: false
+  zipkin:
+    enabled: false
+  cloud:
+    discovery:
+      enabled: false
+    consul:
+      enabled: false
+      config:
+        enabled: false
+      discovery:
+        enabled: false
+        register: false
+server:
+  error:
+    whitelabel:
+      enabled: false
+
 
 logging:
   level:

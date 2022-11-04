@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.nimbusds.jose.shaded.json.JSONArray;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -23,6 +24,10 @@ public class TestSecurityConfiguration {
   public ReactiveJwtDecoder jwtDecoder(
       @Value("${spring.security.oauth2.resourceserver.jwt.jwk-set-uri}") String jwkSetUri
   ) {
+    JSONArray roles = new JSONArray();
+    roles.add("test");
+    roles.add("junit");
+
     return new ReactiveJwtDecoder() {
       @Override
       public Mono<Jwt> decode(String token) throws JwtException {
@@ -35,7 +40,7 @@ public class TestSecurityConfiguration {
                     JwtClaimNames.SUB, "junit",
                     "name", "JUnit",
                     "email", "test@junit.ca",
-                    "realm_access", Map.of("roles", Arrays.asList("test", "junit"))
+                    "realm_access", Map.of("roles",  roles)
                 )
             )
         );
