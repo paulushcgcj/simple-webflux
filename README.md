@@ -5,6 +5,7 @@
 [![Project CI](https://github.com/paulushcgcj/simple-webflux/actions/workflows/ci.yml/badge.svg)](https://github.com/paulushcgcj/simple-webflux/actions/workflows/ci.yml) 
 ![Coverage](.github/badges/jacoco.svg) 
 ![Branches](.github/badges/branches.svg)
+[![CodeFactor](https://www.codefactor.io/repository/github/paulushcgcj/simple-webflux/badge/main)](https://www.codefactor.io/repository/github/paulushcgcj/simple-webflux/overview/main)
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=paulushcgcj_simple-webflux&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=paulushcgcj_simple-webflux)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=paulushcgcj_simple-webflux&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=paulushcgcj_simple-webflux)
@@ -35,7 +36,7 @@ Here is a summarized feature list of what is already implemented or is part of o
 - [x] Tracing
 - [x] BDD with Cucumber
 - [x] Security with OAuth2 and JWT (at the moment using it from Keycloak)
-- [ ] Consul
+- [x] Consul
 - [ ] LoadBalancing
 - [ ] Remote Configuration
 - [ ] Cache

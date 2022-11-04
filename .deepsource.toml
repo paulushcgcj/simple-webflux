@@ -28,6 +28,10 @@ enabled = true
 name = "shell"
 enabled = true
 
+[[analyzers]]
+name = "test-coverage"
+enabled = true
+
 [[transformers]]
 name = "google-java-format"
 enabled = true
