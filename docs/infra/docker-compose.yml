@@ -108,6 +108,7 @@ services:
       POSTGRES_USER: simple
     volumes:
       - ./database/init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
+      - pg_data:/var/lib/postgresql/data
     healthcheck:
       test: [ "CMD", "mysql", "-u", "root", "-proot", "-e", "SHOW databases;" ]
       interval: 5s
@@ -172,3 +173,6 @@ services:
 volumes:
   grafana_data: {}
   pm_data: {}
+  pg_data: {}
+  keycloak_data: {}
+  tracing_data: {}
