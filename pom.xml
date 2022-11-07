@@ -46,7 +46,7 @@
 
         <spring-cloud.version>2021.0.5</spring-cloud.version>
         <testcontainers.version>1.17.5</testcontainers.version>
-        <cucumber.version>7.8.1</cucumber.version>
+        <cucumber.version>7.9.0</cucumber.version>
         <jjwt.version>0.11.5</jjwt.version>
         <junit-jupiter-api.version>5.9.0</junit-jupiter-api.version>
         <junit-platform.version>1.9.1</junit-platform.version>
