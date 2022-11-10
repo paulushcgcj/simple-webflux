@@ -1,6 +1,6 @@
-CREATE SCHEMA company;
+CREATE SCHEMA IF NOT EXISTS company;
 
-CREATE TABLE company.companies (
+CREATE TABLE IF NOT EXISTS company.companies (
     id VARCHAR(36) PRIMARY KEY,
     name VARCHAR(255),
     permalink VARCHAR(255),
