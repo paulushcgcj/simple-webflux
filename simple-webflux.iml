@@ -85,16 +85,16 @@
     <orderEntry type="library" name="Maven: com.github.stephenc.jcip:jcip-annotations:1.0-1" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-aop:2.7.5" level="project" />
     <orderEntry type="library" name="Maven: org.aspectj:aspectjweaver:1.9.7" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-starter-sleuth:3.1.4" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-starter:3.1.4" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-context:3.1.4" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-starter-sleuth:3.1.5" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-starter:3.1.5" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-context:3.1.5" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.security:spring-security-rsa:1.0.11.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.bouncycastle:bcpkix-jdk15on:1.69" level="project" />
     <orderEntry type="library" name="Maven: org.bouncycastle:bcprov-jdk15on:1.69" level="project" />
     <orderEntry type="library" name="Maven: org.bouncycastle:bcutil-jdk15on:1.69" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-sleuth-autoconfigure:3.1.4" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-sleuth-autoconfigure:3.1.5" level="project" />
     <orderEntry type="library" name="Maven: org.aspectj:aspectjrt:1.9.7" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-sleuth-brave:3.1.4" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-sleuth-brave:3.1.5" level="project" />
     <orderEntry type="library" name="Maven: io.zipkin.brave:brave:5.13.9" level="project" />
     <orderEntry type="library" name="Maven: io.zipkin.brave:brave-context-slf4j:5.13.9" level="project" />
     <orderEntry type="library" name="Maven: io.zipkin.brave:brave-instrumentation-messaging:5.13.9" level="project" />
@@ -109,10 +109,10 @@
     <orderEntry type="library" name="Maven: io.zipkin.brave:brave-instrumentation-mongodb:5.13.9" level="project" />
     <orderEntry type="library" name="Maven: io.zipkin.aws:brave-propagation-aws:0.21.3" level="project" />
     <orderEntry type="library" name="Maven: io.zipkin.reporter2:zipkin-reporter-metrics-micrometer:2.16.3" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-sleuth-zipkin:3.1.4" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-sleuth-instrumentation:3.1.4" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-sleuth-api:3.1.4" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-commons:3.1.4" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-sleuth-zipkin:3.1.5" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-sleuth-instrumentation:3.1.5" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-sleuth-api:3.1.5" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-commons:3.1.5" level="project" />
     <orderEntry type="library" name="Maven: io.zipkin.zipkin2:zipkin:2.23.2" level="project" />
     <orderEntry type="library" name="Maven: io.zipkin.reporter2:zipkin-reporter:2.16.3" level="project" />
     <orderEntry type="library" name="Maven: io.zipkin.reporter2:zipkin-reporter-brave:2.16.3" level="project" />
@@ -130,8 +130,8 @@
     <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-consul-config:3.1.2" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-starter-consul-discovery:3.1.2" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-consul-discovery:3.1.2" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-starter-loadbalancer:3.1.4" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-loadbalancer:3.1.4" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-starter-loadbalancer:3.1.5" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-loadbalancer:3.1.5" level="project" />
     <orderEntry type="library" name="Maven: io.projectreactor.addons:reactor-extra:3.4.8" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-cache:2.7.5" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-context-support:5.3.23" level="project" />
@@ -208,33 +208,33 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework:spring-test:5.3.23" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.xmlunit:xmlunit-core:2.9.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: io.projectreactor:reactor-test:3.4.24" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-api:5.9.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-api:5.9.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.opentest4j:opentest4j:1.2.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-commons:1.8.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.apiguardian:apiguardian-api:1.1.2" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-console:1.9.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-console:1.9.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-reporting:1.8.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-launcher:1.8.2" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-suite:1.9.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-suite:1.9.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-suite-api:1.8.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-suite-engine:1.8.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-suite-commons:1.8.2" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:cucumber-java:7.8.1" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:cucumber-core:7.8.1" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:cucumber-gherkin:7.8.1" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:cucumber-gherkin-messages:7.8.1" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:gherkin:24.0.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:cucumber-java:7.9.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:cucumber-core:7.9.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:cucumber-gherkin:7.9.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:cucumber-gherkin-messages:7.9.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:gherkin:24.1.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:messages:19.1.4" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:tag-expressions:4.1.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:cucumber-expressions:16.0.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:datatable:7.8.1" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:cucumber-plugin:7.8.1" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:docstring:7.8.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:datatable:7.9.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:cucumber-plugin:7.9.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:docstring:7.9.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:html-formatter:20.1.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:ci-environment:9.1.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:cucumber-junit-platform-engine:7.8.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:cucumber-junit-platform-engine:7.9.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-engine:1.8.2" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:cucumber-spring:7.8.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:cucumber-spring:7.9.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.testcontainers:testcontainers:1.17.5" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.13.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.hamcrest:hamcrest-core:2.2" level="project" />

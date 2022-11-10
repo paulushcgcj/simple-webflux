@@ -488,7 +488,7 @@
                                     <message>Invalid Maven version. It should be at least 3.2</message>
                                 </requireMavenVersion>
                                 <requireJavaVersion>
-                                    <version>1.8</version>
+                                    <version>17</version>
                                     <message>Invalid Java Version. It should be at least 1.8</message>
                                 </requireJavaVersion>
                                 <requireNoRepositories>
