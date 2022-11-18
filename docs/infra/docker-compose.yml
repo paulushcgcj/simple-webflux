@@ -120,7 +120,7 @@ services:
         max-size: 10m
         max-file: "3"
 
-  redis:
+  cache:
     image: redis:5-alpine
     restart: always
     ports:

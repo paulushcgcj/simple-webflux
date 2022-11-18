@@ -106,6 +106,12 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
         <dependency>
+            <!-- Added to fix https://www.cve.org/CVERecord?id=CVE-2022-31692 -->
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>5.7.5</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
         </dependency>
@@ -147,10 +153,12 @@
             <artifactId>commons-lang3</artifactId>
         </dependency>
         <dependency>
+            <!-- Added to fix CVE -->
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
             <version>1.33</version>
         </dependency>
+
 
         <dependency>
             <groupId>org.springdoc</groupId>
@@ -285,6 +293,18 @@
                 <version>${testcontainers.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-core</artifactId>
+                <version>5.7.5</version>
+                <type>jar</type>
+            </dependency>
+            <dependency>
+                <groupId>org.yaml</groupId>
+                <artifactId>snakeyaml</artifactId>
+                <version>1.33</version>
+                <type>jar</type>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -488,7 +508,7 @@
                                     <message>Invalid Maven version. It should be at least 3.2</message>
                                 </requireMavenVersion>
                                 <requireJavaVersion>
-                                    <version>1.8</version>
+                                    <version>17</version>
                                     <message>Invalid Java Version. It should be at least 1.8</message>
                                 </requireJavaVersion>
                                 <requireNoRepositories>

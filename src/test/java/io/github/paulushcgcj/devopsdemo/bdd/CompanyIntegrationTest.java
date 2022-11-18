@@ -14,7 +14,7 @@ import io.cucumber.java.en.When;
 import io.cucumber.spring.CucumberContextConfiguration;
 import io.github.paulushcgcj.devopsdemo.configuration.TestSecurityConfiguration;
 import io.github.paulushcgcj.devopsdemo.extensions.AbstractTestContainerIntegrationTest;
-import io.github.paulushcgcj.devopsdemo.repositories.UserRepository;
+import io.github.paulushcgcj.devopsdemo.repositories.CompanyRepository;
 import lombok.extern.slf4j.Slf4j;
 import reactor.test.StepVerifier;
 
@@ -25,7 +25,7 @@ import reactor.test.StepVerifier;
 public class CompanyIntegrationTest extends AbstractTestContainerIntegrationTest {
 
   @Autowired
-  private UserRepository repository;
+  private CompanyRepository repository;
 
   private WebTestClient.ResponseSpec result;
 
