@@ -15,14 +15,14 @@ import java.util.Map;
 
 public class JwtRoleConverter implements Converter<Jwt, Mono<AbstractAuthenticationToken>> {
 
-  public static final String REALM_ACCESS = "realm_access";
+  private static final String REALM_ACCESS = "realm_access";
 
   @Override
   public Mono<AbstractAuthenticationToken> convert(Jwt jwt) {
     return Mono.just(new JwtAuthenticationToken(jwt, getGrantedAuthorities(jwt)));
   }
 
-  private static List<? extends GrantedAuthority> getGrantedAuthorities(Jwt jwt) {
+  private static List<GrantedAuthority> getGrantedAuthorities(Jwt jwt) {
     if(
         jwt.getClaims().get(REALM_ACCESS) instanceof Map realmAccessMap &&
         realmAccessMap.get(REALM_ACCESS) instanceof Map realmClaim &&
@@ -31,6 +31,7 @@ public class JwtRoleConverter implements Converter<Jwt, Mono<AbstractAuthenticat
         return realmRoles.stream()
             .map(roleName -> "ROLE_" + roleName) // prefix to map to a Spring Security "role"
             .map(SimpleGrantedAuthority::new)
+            .map(GrantedAuthority.class::cast)
             .toList();
       }
     return new ArrayList<>();
