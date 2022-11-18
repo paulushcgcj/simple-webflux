@@ -23,17 +23,22 @@ public class JwtRoleConverter implements Converter<Jwt, Mono<AbstractAuthenticat
   }
 
   private static List<GrantedAuthority> getGrantedAuthorities(Jwt jwt) {
-    if(
-        jwt.getClaims().get(REALM_ACCESS) instanceof Map realmAccessMap &&
-        realmAccessMap.get(REALM_ACCESS) instanceof Map realmClaim &&
-        realmClaim.get("roles") instanceof JSONArray realmRoles
-    ) {
-        return realmRoles.stream()
-            .map(roleName -> "ROLE_" + roleName) // prefix to map to a Spring Security "role"
-            .map(SimpleGrantedAuthority::new)
-            .map(GrantedAuthority.class::cast)
-            .toList();
+
+    if(jwt.getClaims().get(REALM_ACCESS) instanceof Map){
+      Map realmAccessMap = (Map) jwt.getClaims().get(REALM_ACCESS);
+      if(realmAccessMap.get(REALM_ACCESS) instanceof Map){
+        Map realmClaim = (Map) realmAccessMap.get(REALM_ACCESS);
+        if(realmClaim.get("roles") instanceof JSONArray){
+          JSONArray realmRoles = (JSONArray) realmClaim.get("roles");
+          return realmRoles.stream()
+              .map(roleName -> "ROLE_" + roleName) // prefix to map to a Spring Security "role"
+              .map(SimpleGrantedAuthority::new)
+              .map(GrantedAuthority.class::cast)
+              .toList();
+        }
       }
+    }
+
     return new ArrayList<>();
   }
 
