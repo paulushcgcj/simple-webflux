@@ -67,3 +67,18 @@ docker run -it --rm \
     ghcr.io/paulushcgcj/simple-webflux
 
 ```
+
+## How to manage everything
+
+### Keycloak
+
+To export your current Banter realm, execute the following command:
+
+```shell
+docker exec -it infra-keycloak-1 /opt/keycloak/bin/kc.sh export \
+--dir /tmp/export \
+--realm Banter \
+--users realm_file
+```
+
+Remember to lookup inside the exported realm from type: js to type: resource

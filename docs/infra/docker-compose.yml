@@ -159,6 +159,9 @@ services:
       KEYCLOAK_USER: admin
       KEYCLOAK_PASSWORD: admin
       PROXY_ADDRESS_FORWARDING: false
+    volumes:
+      - ./keycloak/realms/export:/tmp/export
+      - ./keycloak/realms/Banter:/opt/keycloak/data/import
     depends_on:
       - database
     logging:
@@ -167,7 +170,8 @@ services:
         max-size: 10m
         max-file: "3"
     command:
-      - start-dev
+      - start-dev --import-realm
+
 
 
 volumes:
@@ -176,3 +180,4 @@ volumes:
   pg_data: {}
   keycloak_data: {}
   tracing_data: {}
+  vault_data: {}
