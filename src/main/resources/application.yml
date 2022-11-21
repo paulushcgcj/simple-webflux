@@ -16,6 +16,12 @@ spring:
     url: r2dbc:postgresql://${io.github.paulushcgcj.database.host}/${io.github.paulushcgcj.database.name}
     username: ${io.github.paulushcgcj.database.username}
     password: ${io.github.paulushcgcj.database.password}
+    pool:
+      enabled: true
+      initialSize: 1
+      maxSize: 7
+      maxLifeTime: 60000
+      maxIdleTime: 45000
   flyway:
     locations: classpath:db/migration
     enabled: true
