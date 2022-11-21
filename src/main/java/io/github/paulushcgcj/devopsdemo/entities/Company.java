@@ -25,7 +25,7 @@ import lombok.*;
 @Builder
 @With
 @Table(value = "companies",schema = "company")
-public class Company implements Persistable<String> {
+public class Company/* implements Persistable<String>*/ {
 
   @Id
   @Schema(name = "id",description = "ID of the object on database, should be a UUID",example = "84cd6994-97ad-3170-a58f-77974c0c6276")
@@ -64,14 +64,4 @@ public class Company implements Persistable<String> {
   @Schema(name = "overview",description = "Overview of all operations this company does",example = "We does all sorts of work such as...")
   private String overview;
 
-  @Transient
-  @Builder.Default
-  @JsonIgnore
-  private boolean newData = false;
-
-  @Override
-  @JsonIgnore
-  public boolean isNew() {
-    return this.newData || id == null;
-  }
 }

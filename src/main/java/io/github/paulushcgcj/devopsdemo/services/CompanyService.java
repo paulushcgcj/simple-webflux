@@ -65,7 +65,7 @@ public class CompanyService {
           .doOnNext(logger())
           .flatMap(
               companies ->
-                  saveCompany(company.withId(UUID.randomUUID().toString()).withNewData(true)))
+                  saveCompany(company.withId(null)))
           .doOnNext(id -> log.info("Company added with ID {}", id))
           .switchIfEmpty(Mono.error(new CompanyAlreadyExistException(company.getName())));
     }
