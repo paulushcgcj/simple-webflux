@@ -19,9 +19,12 @@ spring:
     pool:
       enabled: true
       initialSize: 1
+      minIdle: 1
       maxSize: 7
       maxLifeTime: 60000
       maxIdleTime: 45000
+      maxCreateConnectionTime: 90000
+      poolName: SimplePool
   flyway:
     locations: classpath:db/migration
     enabled: true
