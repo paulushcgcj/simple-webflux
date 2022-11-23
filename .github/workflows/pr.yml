@@ -62,7 +62,7 @@ jobs:
     name: Pull Request Code Validation
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       pull-requests: write
     steps:
       - uses: actions/checkout@v3
