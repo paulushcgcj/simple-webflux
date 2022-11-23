@@ -108,7 +108,6 @@ services:
       POSTGRES_USER: simple
     volumes:
       - ./database/init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
-      - pg_data:/var/lib/postgresql/data
     healthcheck:
       test: [ "CMD", "mysql", "-u", "root", "-proot", "-e", "SHOW databases;" ]
       interval: 5s
@@ -172,12 +171,27 @@ services:
     command:
       - start-dev --import-realm
 
+  secrets:
+    image: vault:latest
+    restart: always
+    ports:
+      - 8200:8200
+    environment:
+      VAULT_DEV_ROOT_TOKEN_ID: thetoken
+      VAULT_DEV_LISTEN_ADDRESS: 0.0.0.0:8200
+      VAULT_LOCAL_CONFIG: '{"backend": {"file": {"path": "/vault/file"}}, "default_lease_ttl": "168h", "max_lease_ttl": "720h"}'
+    cap_add:
+      - IPC_LOCK
+    logging:
+      driver: "json-file"
+      options:
+        max-size: 10m
+        max-file: "3"
 
 
 volumes:
   grafana_data: {}
   pm_data: {}
-  pg_data: {}
   keycloak_data: {}
   tracing_data: {}
   vault_data: {}
