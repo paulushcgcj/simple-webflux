@@ -135,3 +135,6 @@ buildNumber.properties
 .classpath
 
 # End of https://www.toptal.com/developers/gitignore/api/maven,java,intellij+all
+
+# Preventing Dev configurations from being persisted
+config/application-dev-*.yml

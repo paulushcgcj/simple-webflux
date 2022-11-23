@@ -5,7 +5,7 @@ server:
 
 spring:
   config:
-    import: optional:consul:127.0.0.1:8500
+    import: optional:consul:127.0.0.1:8500,vault://
   application:
     name: company
   main:
@@ -66,6 +66,15 @@ spring:
         tags: simple,profiles=${spring.profiles.active:default}
       host: 127.0.0.1
       port: 8500
+    vault:
+      authentication: TOKEN
+      token: thetoken
+      scheme: http
+      host: 127.0.0.1
+      port: 8200
+      kv:
+        enabled: true
+        backend: simple
 
 management:
   endpoint:
