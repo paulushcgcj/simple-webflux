@@ -36,7 +36,6 @@ jobs:
         with:
           name: service
           path: target/simple-webflux
-      
 
   push_to_registry:
     name: Push Docker image
