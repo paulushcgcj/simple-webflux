@@ -178,7 +178,7 @@ jobs:
           args: --severity-threshold=high --sarif-file-output=snyk.sarif
 
   vulnerability:
-    name: Security checks
+    name: Vulnerability checks
     runs-on: ubuntu-latest
     permissions:
       security-events: write
@@ -213,7 +213,6 @@ jobs:
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
 
-
   release:
     name: Release
     runs-on: ubuntu-latest
@@ -221,6 +220,7 @@ jobs:
     needs:
       - security
       - test
+      - vulnerability
     steps:
       - uses: actions/checkout@v3
         with:
