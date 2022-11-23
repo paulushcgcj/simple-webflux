@@ -1,18 +1,15 @@
 package io.github.paulushcgcj.devopsdemo.security;
 
+import com.nimbusds.jose.shaded.json.JSONArray;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
-
-import com.nimbusds.jose.shaded.json.JSONArray;
-
 import reactor.core.publisher.Mono;
 
 public class JwtRoleConverter implements Converter<Jwt, Mono<AbstractAuthenticationToken>> {
