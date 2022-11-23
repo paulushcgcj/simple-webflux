@@ -217,6 +217,9 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     if: github.ref_name == 'main'
+    permissions:
+      contents: write
+      discussions: write
     needs:
       - security
       - test
@@ -269,7 +272,7 @@ jobs:
             cat RELEASE.md OLD.CHANGELOG.md > CHANGELOG.md
 
       - name: Update resources
-        uses: test-room-7/action-update-file@v1
+        uses: test-room-7/action-update-file@v1.6.0
         with:
           file-path: |
             pom.xml
@@ -279,10 +282,11 @@ jobs:
           github-token: ${{ secrets.PAT }}
 
       - name: Create Release
-        uses: actions/create-release@v1
+        uses: softprops/action-gh-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
         with:
+          token: ${{ secrets.PAT }}
           tag_name: ${{ steps.changelog.outputs.tag }}
-          release_name: ${{ steps.changelog.outputs.tag }}
+          name: ${{ steps.changelog.outputs.tag }}
           body: ${{ steps.changelog.outputs.clean_changelog }}
