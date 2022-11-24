@@ -284,7 +284,7 @@ jobs:
             CHANGELOG.md
             docs/environment/.env
           commit-msg: "doc: updating pom to ${{ steps.changelog.outputs.version }}"
-          github-token: ${{ secrets.PAT }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
