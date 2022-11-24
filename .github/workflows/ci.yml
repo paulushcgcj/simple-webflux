@@ -262,7 +262,7 @@ jobs:
           name: service
           path: ~/download/path
       - name: Where and what
-        run: find . -type f -name "*.jar"
+        run: echo $(ls ~/download/path)
 
   release:
     name: Release
