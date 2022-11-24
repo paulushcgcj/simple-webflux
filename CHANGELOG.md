@@ -1,3 +1,57 @@
+## [3.4.1](https://github.com/paulushcgcj/simple-webflux/compare/v3.4.0...v3.4.1) (2022-11-24)
+
+
+### Bug Fixes
+
+* fixing java ops params for java 17 ([9c54074](https://github.com/paulushcgcj/simple-webflux/commit/9c540746cef0a9dd934c240bdf60b1fe78ff0dba))
+
+
+
+# [3.4.0](https://github.com/paulushcgcj/simple-webflux/compare/v3.3.0...v3.4.0) (2022-11-24)
+
+
+### Features
+
+* **release:** changing commit release ([7247b61](https://github.com/paulushcgcj/simple-webflux/commit/7247b61ae3f82023c4fc4a657f57f22b76eb98e0))
+
+
+
+# [3.3.0](https://github.com/paulushcgcj/simple-webflux/compare/v3.2.0...v3.3.0) (2022-11-24)
+
+
+### Features
+
+* **release:** fixing dockerfile ([cfd5911](https://github.com/paulushcgcj/simple-webflux/commit/cfd591175121f3cb7f7ff58f438f540170671e95))
+* **release:** updating ci to release ([b53e878](https://github.com/paulushcgcj/simple-webflux/commit/b53e8789d06ea826ee0df53dad66b457a91f3fa6))
+
+
+
+# [3.2.0](https://github.com/paulushcgcj/simple-webflux/compare/v3.1.0...v3.2.0) (2022-11-24)
+
+
+### Features
+
+* **none:** just a simple release ([df6cc02](https://github.com/paulushcgcj/simple-webflux/commit/df6cc02ac3af567fe4fdecce92ea84dc26dee081))
+
+
+
+# [3.1.0](https://github.com/paulushcgcj/simple-webflux/compare/v3.0.0...v3.1.0) (2022-11-23)
+
+
+### Bug Fixes
+
+* **ci:** fixing build for security issues on CI ([17ace9b](https://github.com/paulushcgcj/simple-webflux/commit/17ace9bf53f6cacd656e36a778afad69b74647d8))
+
+
+### Features
+
+* **db-callback:** changing uuid generation to a callback ([f43c0f8](https://github.com/paulushcgcj/simple-webflux/commit/f43c0f81ff25c0b3a2959f602a158cbd94d8798e))
+* **keycloak-realm:** adding backup and import of keycloak realm ([fb8f46e](https://github.com/paulushcgcj/simple-webflux/commit/fb8f46efcb4693748ce9e91d6454faef7a8d6c9b))
+* **r2bdc-pool:** introduced connection pool configuration ([e6f840d](https://github.com/paulushcgcj/simple-webflux/commit/e6f840d5e3d9ed59ebe0d1893dfb79c8008384cb))
+* **vault:** adding vault and moving some configuration out of the repo ([7bb1210](https://github.com/paulushcgcj/simple-webflux/commit/7bb12100d6e56aa16eb9eb814a1e5eb4ca549a63))
+
+
+
 # [3.4.0](https://github.com/paulushcgcj/simple-webflux/compare/v3.3.0...v3.4.0) (2022-11-24)
 
 
