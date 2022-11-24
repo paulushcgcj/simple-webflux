@@ -55,6 +55,11 @@ jobs:
       - name: Checkstyle
         run: mvn -B checkstyle:checkstyle -Dcheckstyle.skip=false --file pom.xml
 
+      - name: Use Checkstyle report
+        uses: jwgmeligmeyling/checkstyle-github-action@master
+        with:
+          path: '**/checkstyle-result.xml'
+
       - name: Archive Checkstyle
         uses: actions/upload-artifact@v2
         with:

@@ -35,7 +35,8 @@ jobs:
         uses: actions/upload-artifact@master
         with:
           name: service
-          path: target/simple-webflux
+          path: target/simple-webflux*.jar
+          retention-days: 1
 
   push_to_registry:
     name: Push Docker image
@@ -49,6 +50,12 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
+
+      - name: Getting artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: service
+          path: ~/download/path
 
       - name: Log in to the Container registry
         uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
