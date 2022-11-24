@@ -283,7 +283,7 @@ jobs:
             pom.xml
             CHANGELOG.md
             docs/environment/.env
-          commit-msg: "doc: updating pom to ${{ steps.changelog.outputs.version }} [ci skip]"
+          commit-msg: "doc: updating pom to ${{ steps.changelog.outputs.version }}"
           github-token: ${{ secrets.PAT }}
 
       - name: Create Release
