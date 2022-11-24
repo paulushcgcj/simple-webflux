@@ -1,3 +1,77 @@
+# [3.4.0](https://github.com/paulushcgcj/simple-webflux/compare/v3.3.0...v3.4.0) (2022-11-24)
+
+
+### Features
+
+* **release:** changing commit release ([7247b61](https://github.com/paulushcgcj/simple-webflux/commit/7247b61ae3f82023c4fc4a657f57f22b76eb98e0))
+
+
+
+# [3.3.0](https://github.com/paulushcgcj/simple-webflux/compare/v3.2.0...v3.3.0) (2022-11-24)
+
+
+### Features
+
+* **release:** fixing dockerfile ([cfd5911](https://github.com/paulushcgcj/simple-webflux/commit/cfd591175121f3cb7f7ff58f438f540170671e95))
+* **release:** updating ci to release ([b53e878](https://github.com/paulushcgcj/simple-webflux/commit/b53e8789d06ea826ee0df53dad66b457a91f3fa6))
+
+
+
+# [3.2.0](https://github.com/paulushcgcj/simple-webflux/compare/v3.1.0...v3.2.0) (2022-11-24)
+
+
+### Features
+
+* **none:** just a simple release ([df6cc02](https://github.com/paulushcgcj/simple-webflux/commit/df6cc02ac3af567fe4fdecce92ea84dc26dee081))
+
+
+
+# [3.1.0](https://github.com/paulushcgcj/simple-webflux/compare/v3.0.0...v3.1.0) (2022-11-23)
+
+
+### Bug Fixes
+
+* **ci:** fixing build for security issues on CI ([17ace9b](https://github.com/paulushcgcj/simple-webflux/commit/17ace9bf53f6cacd656e36a778afad69b74647d8))
+
+
+### Features
+
+* **db-callback:** changing uuid generation to a callback ([f43c0f8](https://github.com/paulushcgcj/simple-webflux/commit/f43c0f81ff25c0b3a2959f602a158cbd94d8798e))
+* **keycloak-realm:** adding backup and import of keycloak realm ([fb8f46e](https://github.com/paulushcgcj/simple-webflux/commit/fb8f46efcb4693748ce9e91d6454faef7a8d6c9b))
+* **r2bdc-pool:** introduced connection pool configuration ([e6f840d](https://github.com/paulushcgcj/simple-webflux/commit/e6f840d5e3d9ed59ebe0d1893dfb79c8008384cb))
+* **vault:** adding vault and moving some configuration out of the repo ([7bb1210](https://github.com/paulushcgcj/simple-webflux/commit/7bb12100d6e56aa16eb9eb814a1e5eb4ca549a63))
+
+
+
+# [3.0.0](https://github.com/paulushcgcj/simple-webflux/compare/v2.0.0...v3.0.0) (2022-11-18)
+
+
+### Bug Fixes
+
+* **deps-dev:** updating dependencies and setting security ([b0345d2](https://github.com/paulushcgcj/simple-webflux/commit/b0345d2e5a0141e57a7b1589e0c5f87f33f4d5d4)), closes [#56](https://github.com/paulushcgcj/simple-webflux/issues/56)
+* **deps-dev:** updating snakeyaml ([2ce647c](https://github.com/paulushcgcj/simple-webflux/commit/2ce647cfc6f1d38f166fb05dca2b7f8822e31655))
+* **depts:** updating snakeyaml dependency ([24e3e2d](https://github.com/paulushcgcj/simple-webflux/commit/24e3e2df7e3a6644960dd6c46c44d39f43f95bd7)), closes [#43](https://github.com/paulushcgcj/simple-webflux/issues/43)
+* **depts:** updating snakeyaml dependency ([f55c65e](https://github.com/paulushcgcj/simple-webflux/commit/f55c65e25a05b3a670791b8885017e5de225d80f)), closes [#43](https://github.com/paulushcgcj/simple-webflux/issues/43)
+* **depts:** updating snakeyaml dependency ([16b6e92](https://github.com/paulushcgcj/simple-webflux/commit/16b6e9275bed596bac5e61b9f7cd969e86cc0332))
+* **licrc:** updating file name ([65c244c](https://github.com/paulushcgcj/simple-webflux/commit/65c244cda607606bb77eb1106f9690d435fb7796))
+* **release:** fixing release ([3672c3a](https://github.com/paulushcgcj/simple-webflux/commit/3672c3a8bda075afc9c79c4340eab31f262e440d))
+* removing JEP 394 code ([82b9739](https://github.com/paulushcgcj/simple-webflux/commit/82b973945749d9bb22d70082440f21a5c5e05c7c))
+* **user:** removing auth data from old jwt ([c3dd7be](https://github.com/paulushcgcj/simple-webflux/commit/c3dd7be95ba5e0d83618ef5c73d80db83530d6a3))
+
+
+* feat(roadmap)!: updating roadmap ([ee401f6](https://github.com/paulushcgcj/simple-webflux/commit/ee401f6a3676c0fd46b7c87fbd60300620764c86))
+
+
+### BREAKING CHANGES
+
+* **deps-dev:** can mess up security
+* **depts:** This can cause spring to stop working accordingly
+* **depts:** This can cause spring to stop working accordingly
+* **depts:** This can cause spring to stop working accordingly
+* We moved to java 17, update your environment. Kinda late for it but better than nothing
+
+
+
 # [3.3.0](https://github.com/paulushcgcj/simple-webflux/compare/v3.2.0...v3.3.0) (2022-11-24)
 
 
