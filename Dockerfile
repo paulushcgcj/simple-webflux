@@ -1,8 +1,3 @@
-FROM maven:3.8.5-openjdk-17-slim AS build
-COPY src /home/app/src
-COPY pom.xml /home/app
-RUN mvn -f /home/app/pom.xml clean package -DskipTests -Dtests.skip=true -Dskip.unit.tests=true
-
 FROM eclipse-temurin:17-jre-alpine
 LABEL maintainer="Paulo Gomes da Cruz Junior <paulushc@gmail.com>"
 
@@ -20,7 +15,7 @@ ENV JAVA_OPS -Xms256m -Xmx512m -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=
 ENV JAVA_DEBUG_OPS -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -Xloggc:$HEAP_LOG_PATH/garbage-collection.log
 ENV DEBUG_MODE false
 
-COPY --from=build /home/app/target/*.jar /usr/share/service/service.jar
+COPY ~/download/path/*.jar /usr/share/service/service.jar
 COPY ./dockerfile-entrypoint.sh /usr/share/service/dockerfile-entrypoint.sh
 RUN chmod +x /usr/share/service/dockerfile-entrypoint.sh
 
