@@ -15,7 +15,7 @@ ENV JAVA_OPS -Xms256m -Xmx512m -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=
 ENV JAVA_DEBUG_OPS -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -Xloggc:$HEAP_LOG_PATH/garbage-collection.log
 ENV DEBUG_MODE false
 
-COPY ~/download/path/*.jar /usr/share/service/service.jar
+COPY ./*.jar /usr/share/service/service.jar
 COPY ./dockerfile-entrypoint.sh /usr/share/service/dockerfile-entrypoint.sh
 RUN chmod +x /usr/share/service/dockerfile-entrypoint.sh
 
