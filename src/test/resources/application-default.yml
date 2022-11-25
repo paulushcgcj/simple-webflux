@@ -4,6 +4,8 @@ spring:
   zipkin:
     enabled: false
   cloud:
+    vault:
+      enabled: false
     discovery:
       enabled: false
     consul:
