@@ -304,6 +304,18 @@
                 <version>5.7.5</version>
                 <type>jar</type>
             </dependency>
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>42.3.8</version>
+                <type>jar</type>
+            </dependency>
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>r2dbc-postgresql</artifactId>
+                <version>0.9.3.RELEASE</version>
+                <type>jar</type>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
