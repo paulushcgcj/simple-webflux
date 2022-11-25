@@ -1,3 +1,51 @@
+## [3.4.2](https://github.com/paulushcgcj/simple-webflux/compare/v3.4.1...v3.4.2) (2022-11-25)
+
+
+### Bug Fixes
+
+* **CVE:** fixing CVE-2022-41946 and ([69885f6](https://github.com/paulushcgcj/simple-webflux/commit/69885f6b9df443d81cf53ccb0218f289922c1272))
+* **docker:** removing entries from dockerfile ([5c2c25c](https://github.com/paulushcgcj/simple-webflux/commit/5c2c25c7b7767a1b1013e43e634d88c91644680e))
+* fixing ci ([ae38dcd](https://github.com/paulushcgcj/simple-webflux/commit/ae38dcd710bae4aee3c3000fcdd49ab646886532))
+
+
+
+## [3.4.1](https://github.com/paulushcgcj/simple-webflux/compare/v3.4.0...v3.4.1) (2022-11-24)
+
+
+### Bug Fixes
+
+* fixing java ops params for java 17 ([9c54074](https://github.com/paulushcgcj/simple-webflux/commit/9c540746cef0a9dd934c240bdf60b1fe78ff0dba))
+
+
+
+# [3.4.0](https://github.com/paulushcgcj/simple-webflux/compare/v3.3.0...v3.4.0) (2022-11-24)
+
+
+### Features
+
+* **release:** changing commit release ([7247b61](https://github.com/paulushcgcj/simple-webflux/commit/7247b61ae3f82023c4fc4a657f57f22b76eb98e0))
+
+
+
+# [3.3.0](https://github.com/paulushcgcj/simple-webflux/compare/v3.2.0...v3.3.0) (2022-11-24)
+
+
+### Features
+
+* **release:** fixing dockerfile ([cfd5911](https://github.com/paulushcgcj/simple-webflux/commit/cfd591175121f3cb7f7ff58f438f540170671e95))
+* **release:** updating ci to release ([b53e878](https://github.com/paulushcgcj/simple-webflux/commit/b53e8789d06ea826ee0df53dad66b457a91f3fa6))
+
+
+
+# [3.2.0](https://github.com/paulushcgcj/simple-webflux/compare/v3.1.0...v3.2.0) (2022-11-24)
+
+
+### Features
+
+* **none:** just a simple release ([df6cc02](https://github.com/paulushcgcj/simple-webflux/commit/df6cc02ac3af567fe4fdecce92ea84dc26dee081))
+
+
+
 ## [3.4.1](https://github.com/paulushcgcj/simple-webflux/compare/v3.4.0...v3.4.1) (2022-11-24)
 
 
