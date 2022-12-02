@@ -50,7 +50,8 @@ spring:
       config:
         enabled: true
         format: YAML
-        prefix: simple
+        prefix:
+          - simple
       discovery:
         health-check-tls-skip-verify: true
         preferIpAddress: true
@@ -84,9 +85,9 @@ management:
     web:
       base-path: /
       exposure:
-        include: traces,info,metrics,health,prometheus
-  trace:
-    http:
+        include: "*"
+  httpexchanges:
+    recording:
       include: principal,request-headers,response-headers,cookie-headers,time-taken,authorization-header,remote-address,session-id
 
 springdoc:

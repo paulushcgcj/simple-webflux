@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
+import io.micrometer.tracing.annotation.NewSpan;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.cloud.sleuth.annotation.NewSpan;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BeanPropertyBindingResult;

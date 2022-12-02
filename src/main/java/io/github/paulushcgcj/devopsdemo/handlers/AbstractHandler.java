@@ -30,7 +30,7 @@ public abstract class AbstractHandler<T> {
                 .map(String::valueOf)
                 .orElse(request.path()))
         .tag("method", request.method().name())
-        .tag("ops", request.methodName())
+        .tag("ops", request.method().name())
         .metrics()
         .map(JwtAuthenticationToken.class::cast)
         .doOnNext(
@@ -56,6 +56,6 @@ public abstract class AbstractHandler<T> {
   }
 
   protected static Consumer<ResponseStatusException> handleStatusResponse() {
-    return t -> ServerResponse.status(t.getStatus()).body(BodyInserters.fromValue(t.getReason()));
+    return t -> ServerResponse.status(t.getStatusCode()).body(BodyInserters.fromValue(t.getReason()));
   }
 }
