@@ -8,6 +8,7 @@ import org.springframework.boot.web.reactive.error.ErrorAttributes;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.codec.ServerCodecConfigurer;
 import org.springframework.stereotype.Component;
@@ -47,7 +48,7 @@ public class ErrorHandlingController extends AbstractErrorWebExceptionHandler {
 
     Throwable exception = errorAttributes.getError(request).fillInStackTrace();
     String errorMessage = exception.getMessage();
-    HttpStatus errorStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+    HttpStatusCode errorStatus = HttpStatus.INTERNAL_SERVER_ERROR;
 
     log.error(
         "An error was generated during request for {} {}",
@@ -58,13 +59,13 @@ public class ErrorHandlingController extends AbstractErrorWebExceptionHandler {
     if (exception instanceof ResponseStatusException) {
       ResponseStatusException responseStatusException = (ResponseStatusException) exception;
       errorMessage = responseStatusException.getReason();
-      errorStatus = responseStatusException.getStatus();
+      errorStatus = responseStatusException.getStatusCode();
     }
 
     errorMessage =
         BooleanUtils.toString(StringUtils.isBlank(errorMessage), StringUtils.EMPTY, errorMessage);
 
-    log.error("{} - {}", HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage());
+    log.error("{} - {}", errorStatus, errorMessage);
 
     return ServerResponse.status(errorStatus)
         .contentType(MediaType.APPLICATION_JSON)
