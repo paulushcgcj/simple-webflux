@@ -12,7 +12,7 @@ import org.springframework.security.oauth2.jwt.JwtClaimNames;
 import org.springframework.security.oauth2.jwt.JwtException;
 import org.springframework.security.oauth2.jwt.ReactiveJwtDecoder;
 
-import com.nimbusds.jose.shaded.json.JSONArray;
+import com.google.gson.JsonArray;
 
 import reactor.core.publisher.Mono;
 
@@ -24,7 +24,7 @@ public class TestSecurityConfiguration {
   public ReactiveJwtDecoder jwtDecoder(
       @Value("${spring.security.oauth2.resourceserver.jwt.jwk-set-uri}") String jwkSetUri
   ) {
-    JSONArray roles = new JSONArray();
+    JsonArray roles = new JsonArray();
     roles.add("test");
     roles.add("junit");
 

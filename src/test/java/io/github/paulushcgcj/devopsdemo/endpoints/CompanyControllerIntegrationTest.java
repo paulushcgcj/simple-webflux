@@ -171,7 +171,7 @@ class CompanyControllerIntegrationTest extends AbstractTestContainerIntegrationT
 
     } else {
       doPut("/api/companies/"+ id,company, Company.class)
-          .expectStatus().isEqualTo(exception.getRawStatusCode())
+          .expectStatus().isEqualTo(exception.getStatusCode())
           .expectBody(String.class)
           .isEqualTo(exception.getReason());
     }
