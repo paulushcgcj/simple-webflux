@@ -269,21 +269,26 @@ jobs:
           git-push: 'false'
 
       - name: Set new version
+        if: ${{ !steps.changelog.outputs.skipped }}
         run: mvn versions:set -DnewVersion='${{ steps.changelog.outputs.version }}' -f pom.xml -DskipTests -Dtests.skip=true -Dskip.unit.tests=true
 
       - name: Update POM
+        if: ${{ !steps.changelog.outputs.skipped }}
         run: mvn versions:commit
 
       - name: Updating Compose version
+        if: ${{ !steps.changelog.outputs.skipped }}
         run: sed -i -E "s/SIMPLEWEBFLUX=.*/SIMPLEWEBFLUX=${{ steps.changelog.outputs.version }}/g" docs/environment/.env
 
       - name: Merging Changelog
+        if: ${{ !steps.changelog.outputs.skipped }}
         run: |
             mv CHANGELOG.md RELEASE.md
             cat RELEASE.md OLD.CHANGELOG.md > CHANGELOG.md
 
       - name: Update resources
         uses: test-room-7/action-update-file@v1.6.0
+        if: ${{ !steps.changelog.outputs.skipped }}
         with:
           file-path: |
             pom.xml
@@ -294,6 +299,7 @@ jobs:
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
+        if: ${{ !steps.changelog.outputs.skipped }}
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
         with:
