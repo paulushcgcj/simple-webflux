@@ -1,0 +1,61 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Default preset for use with Renovate's repos",
+  "extends": [
+    "config:base",
+    ":maintainLockFilesWeekly",
+    ":rebaseStalePrs",
+    ":semanticCommits",
+    ":semanticCommitScope(deps)",
+    "docker:enableMajor",
+    "docker:pinDigests",
+    "group:linters"
+  ],
+  "ignorePresets": ["workarounds:javaLTSVersions"],
+  "onboarding": true,
+  "platform": "github",
+  "includeForks": false,
+  "configMigration": true,
+  "dependencyDashboard": true,
+  "prCreation": "not-pending",
+  "rebaseWhen": "behind-base-branch",
+  "repositories": [
+    "paulushcgcj/simple-webflux"
+  ],
+  "prConcurrentLimit": 5,
+  "packageRules": [
+    {
+      "matchManagers": [
+        "github-actions"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+      "groupName": "github actions all non-major dependencies",
+      "groupSlug": "github actions all-minor-patch",
+      "stabilityDays": 3
+    },
+    {
+      "description": "Require dashboard approval for major updates",
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "dependencyDashboardApproval": true,
+      "stabilityDays": 3
+    },
+    {
+      "matchManagers": [
+        "maven"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "lockFileMaintenance"
+      ],
+      "groupName": "maven all non-major dependencies",
+      "groupSlug": "maven all-minor-patch",
+      "stabilityDays": 3
+    }
+  ]
+}
