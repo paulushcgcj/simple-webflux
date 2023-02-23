@@ -150,7 +150,7 @@ services:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
       DB_VENDOR: POSTGRES
-      DB_ADDR: database
+      DB_ADDR: 172.19.62.169
       DB_DATABASE: keycloak
       DB_USER: keycloak
       DB_SCHEMA: public
@@ -161,8 +161,7 @@ services:
     volumes:
       - ./keycloak/realms/export:/tmp/export
       - ./keycloak/realms/Banter:/opt/keycloak/data/import
-    depends_on:
-      - database
+
     logging:
       driver: "json-file"
       options:
