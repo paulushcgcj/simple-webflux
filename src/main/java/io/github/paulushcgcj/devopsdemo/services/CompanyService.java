@@ -1,17 +1,5 @@
 package io.github.paulushcgcj.devopsdemo.services;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
-
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.context.support.DefaultMessageSourceResolvable;
-import org.springframework.stereotype.Service;
-import org.springframework.validation.BeanPropertyBindingResult;
-import org.springframework.validation.Errors;
-import org.springframework.validation.FieldError;
-
 import io.github.paulushcgcj.devopsdemo.entities.Company;
 import io.github.paulushcgcj.devopsdemo.exceptions.CompanyAlreadyExistException;
 import io.github.paulushcgcj.devopsdemo.exceptions.CompanyNotFoundException;
@@ -21,9 +9,20 @@ import io.github.paulushcgcj.devopsdemo.repositories.CompanyRepository;
 import io.github.paulushcgcj.devopsdemo.validators.CompanyValidator;
 import io.micrometer.core.annotation.Timed;
 import io.micrometer.tracing.annotation.NewSpan;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.BeanPropertyBindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -32,9 +31,11 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class CompanyService {
 
-  @Getter private final CompanyRepository companyRepository;
+  @Getter
+  private final CompanyRepository companyRepository;
 
-  @Getter private final CompanyValidator validator;
+  @Getter
+  private final CompanyValidator validator;
 
   @Timed(value = "service.service", description = "Monitors the service that process a request")
   @NewSpan
@@ -42,10 +43,8 @@ public class CompanyService {
     log.info("Listing companies {} {} {}", page, size, name);
 
     return companyRepository
-        .findAll()
+        .findBy(Pageable.ofSize((int) size).withPage((int) page))
         .filter(filterByName(name))
-        .skip(page * size)
-        .take(size)
         .collectList()
         .switchIfEmpty(Mono.just(new ArrayList<>()))
         .doOnNext(companies -> log.info("{} companies found", companies.size()));
@@ -109,12 +108,13 @@ public class CompanyService {
     Errors errors = new BeanPropertyBindingResult(company, Company.class.getName());
     validator.validate(company, errors);
 
-    if (!errors.hasErrors())
+    if (!errors.hasErrors()) {
       return companyRepository
           .save(company)
           .doOnNext(logger())
           .doOnError(logger())
           .map(Company::getId);
+    }
 
     return Flux.fromIterable(errors.getAllErrors())
         .map(FieldError.class::cast)
