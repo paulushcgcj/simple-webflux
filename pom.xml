@@ -49,7 +49,7 @@
         <cucumber.version>7.11.0</cucumber.version>
         <jjwt.version>0.11.5</jjwt.version>
         <junit-jupiter-api.version>5.9.2</junit-jupiter-api.version>
-        <junit-platform.version>1.9.1</junit-platform.version>
+        <junit-platform.version>1.9.2</junit-platform.version>
     </properties>
 
     <profiles>
