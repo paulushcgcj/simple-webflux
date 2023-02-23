@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,6 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Testcontainers;
-
 import reactor.core.publisher.Mono;
 
 @Testcontainers
@@ -37,6 +35,7 @@ public abstract class AbstractTestContainerIntegrationTest {
 
   static final PostgreSQLContainer database;
 
+
   static {
      database = new PostgreSQLContainer("postgres")
          .withDatabaseName("simple")
@@ -47,12 +46,10 @@ public abstract class AbstractTestContainerIntegrationTest {
 
   @DynamicPropertySource
   static void registerDynamicProperties(DynamicPropertyRegistry registry) {
-
     registry.add("io.github.paulushcgcj.database.name", () -> database.getDatabaseName().concat("?TC_INITSCRIPT=file:src/test/resources/init_pg.sql"));
     registry.add("io.github.paulushcgcj.database.host", () -> String.format("%s:%d", database.getHost(), database.getMappedPort(5432)));
     registry.add("io.github.paulushcgcj.database.username", database::getUsername);
     registry.add("io.github.paulushcgcj.database.password", database::getPassword);
-
   }
 
   protected WebTestClient.ResponseSpec doGet(String uri) {
