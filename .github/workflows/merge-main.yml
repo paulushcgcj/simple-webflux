@@ -138,31 +138,9 @@ jobs:
           skip-commit: 'true'
           git-push: 'true'
 
-      - name: Checking values
-        run: |
-          echo "tag_name: ${{ steps.changelog.outputs.tag }}"
-          echo "name: ${{ steps.changelog.outputs.tag }}"
-          echo "body: ${{ steps.changelog.outputs.clean_changelog }}"
-
-      - name: Set new version
-        if: ${{ !steps.changelog.outputs.skipped }}
-        run: mvn versions:set -DnewVersion='${{ steps.changelog.outputs.version }}' -f pom.xml -DskipTests -Dtests.skip=true -Dskip.unit.tests=true
-
-      - name: Update POM
-        if: ${{ !steps.changelog.outputs.skipped }}
-        run: mvn versions:commit
-
-      - name: Update resources
-        uses: test-room-7/action-update-file@v1.6.0
-        if: ${{ !steps.changelog.outputs.skipped }}
-        with:
-          file-path: pom.xml
-          commit-msg: "doc: updating pom to ${{ steps.changelog.outputs.version }}"
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Create Release
         uses: softprops/action-gh-release@v1
-        if: ${{ !steps.changelog.outputs.skipped }}
+        if: ${{ steps.changelog.outputs.tag != '' }}
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
         with:
