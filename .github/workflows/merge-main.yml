@@ -142,6 +142,10 @@ jobs:
           skip-version-file: 'true'
           skip-commit: 'false'
           git-push: 'true'
+          create-summary: 'true'
+          git-user-name: 'Conventional Changelog Action'
+          git-user-email: 'paulushc@gmail.com'
+          git-message: 'chore: updating changelog'
 
       - name: Set new version
         if: ${{ !steps.changelog.outputs.skipped }}
