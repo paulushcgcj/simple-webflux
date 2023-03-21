@@ -3,18 +3,6 @@ spring:
     auto: false
   zipkin:
     enabled: false
-  cloud:
-    vault:
-      enabled: false
-    discovery:
-      enabled: false
-    consul:
-      enabled: false
-      config:
-        enabled: false
-      discovery:
-        enabled: false
-        register: false
 server:
   error:
     whitelabel:

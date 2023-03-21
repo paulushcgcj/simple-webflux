@@ -37,17 +37,19 @@ public abstract class AbstractTestContainerIntegrationTest {
 
 
   static {
-     database = new PostgreSQLContainer("postgres")
-         .withDatabaseName("simple")
-         .withUsername("simple")
-         .withPassword(UUID.randomUUID().toString());
-     database.start();
+    database = new PostgreSQLContainer("postgres")
+        .withDatabaseName("simple")
+        .withUsername("simple")
+        .withPassword(UUID.randomUUID().toString());
+    database.start();
   }
 
   @DynamicPropertySource
   static void registerDynamicProperties(DynamicPropertyRegistry registry) {
-    registry.add("io.github.paulushcgcj.database.name", () -> database.getDatabaseName().concat("?TC_INITSCRIPT=file:src/test/resources/init_pg.sql"));
-    registry.add("io.github.paulushcgcj.database.host", () -> String.format("%s:%d", database.getHost(), database.getMappedPort(5432)));
+    registry.add("io.github.paulushcgcj.database.name", () -> database.getDatabaseName()
+        .concat("?TC_INITSCRIPT=file:src/test/resources/init_pg.sql"));
+    registry.add("io.github.paulushcgcj.database.host",
+        () -> String.format("%s:%d", database.getHost(), database.getMappedPort(5432)));
     registry.add("io.github.paulushcgcj.database.username", database::getUsername);
     registry.add("io.github.paulushcgcj.database.password", database::getPassword);
   }
@@ -57,18 +59,20 @@ public abstract class AbstractTestContainerIntegrationTest {
   }
 
   protected WebTestClient.ResponseSpec doGet(String uri, Map<String, String> queryParams) {
-    return doGet(uri, queryParams,"token");
+    return doGet(uri, queryParams, "token");
   }
 
-  protected WebTestClient.ResponseSpec doGet(String uri, Map<String, String> queryParams,String bearer) {
+  protected WebTestClient.ResponseSpec doGet(String uri, Map<String, String> queryParams,
+                                             String bearer) {
 
-    if (queryParams == null)
+    if (queryParams == null) {
       return
           client
               .get()
               .uri(URI.create(uri))
               .headers(httpHeaders -> httpHeaders.putAll(getHttpHeaders(bearer)))
               .exchange();
+    }
     return
         client
             .get()
@@ -125,8 +129,9 @@ public abstract class AbstractTestContainerIntegrationTest {
 
   private HttpHeaders getHttpHeaders(String bearer) {
     HttpHeaders httpHeaders = getHttpHeaders();
-    if(StringUtils.isNotBlank(bearer))
+    if (StringUtils.isNotBlank(bearer)) {
       httpHeaders.add(HttpHeaders.AUTHORIZATION, "Bearer " + bearer);
+    }
     return httpHeaders;
   }
 
