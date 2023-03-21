@@ -72,7 +72,9 @@ jobs:
             # Current changelog
             
             ${{ steps.changelog.outputs.clean_changelog }}
-          comment_includes: '# Current changelog'
+            
+             _(execution **${{ github.run_id }}** / attempt **${{ github.run_attempt }}**)_
+          comment_tag: execution
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   code-check:
