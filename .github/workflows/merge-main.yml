@@ -140,12 +140,8 @@ jobs:
           github-token: ${{ github.token }}
           output-file: 'CHANGELOG.md'
           skip-version-file: 'true'
-          skip-commit: 'false'
-          git-push: 'true'
-          create-summary: 'true'
-          git-user-name: 'Conventional Changelog Action'
-          git-user-email: 'paulushc@gmail.com'
-          git-message: 'chore: updating changelog'
+          skip-commit: 'true'
+          git-push: 'false'
 
       - name: Set new version
         if: ${{ !steps.changelog.outputs.skipped }}
@@ -158,6 +154,9 @@ jobs:
       - name: Updating Compose version
         if: ${{ !steps.changelog.outputs.skipped }}
         run: sed -i -E "s/SIMPLEWEBFLUX=.*/SIMPLEWEBFLUX=${{ steps.changelog.outputs.version }}/g" docs/environment/.env
+
+      - name: Checking changelog
+        run: cat CHANGELOG.md
 
       - name: Merging Changelog
         if: ${{ !steps.changelog.outputs.skipped }}
