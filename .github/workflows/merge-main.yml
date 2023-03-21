@@ -132,7 +132,7 @@ jobs:
         uses: TriPSs/conventional-changelog-action@v3
         id: changelog
         with:
-          github-token: ${{ github.token }}
+          github-token: ${{ secrets.PAT }}
           output-file: 'CHANGELOG.md'
           skip-version-file: 'true'
           skip-commit: 'true'
@@ -142,7 +142,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         if: ${{ steps.changelog.outputs.tag != '' }}
         env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
+          GITHUB_TOKEN: ${{ github.token }}
         with:
           token: ${{ secrets.PAT }}
           tag_name: ${{ steps.changelog.outputs.tag }}

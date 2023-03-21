@@ -1,9 +1,11 @@
 name: Release
 
 on:
-  push:
+  create:
     tags:
-      - '*'
+      - 'v*'
+  release:
+    types: [ published ]
   workflow_dispatch:
 
 concurrency:
