@@ -128,11 +128,6 @@ jobs:
           java-version: "17"
           cache: "maven"
 
-      - name: Backing up Changelog
-        run: |
-          mv CHANGELOG.md OLD.CHANGELOG.md
-          touch CHANGELOG.md
-
       - name: Conventional Changelog Update
         uses: TriPSs/conventional-changelog-action@v3
         id: changelog
@@ -143,6 +138,9 @@ jobs:
           skip-commit: 'true'
           git-push: 'false'
 
+      - name: Checking changelog
+        run: cat CHANGELOG.md
+
       - name: Set new version
         if: ${{ !steps.changelog.outputs.skipped }}
         run: mvn versions:set -DnewVersion='${{ steps.changelog.outputs.version }}' -f pom.xml -DskipTests -Dtests.skip=true -Dskip.unit.tests=true
@@ -151,27 +149,11 @@ jobs:
         if: ${{ !steps.changelog.outputs.skipped }}
         run: mvn versions:commit
 
-      - name: Updating Compose version
-        if: ${{ !steps.changelog.outputs.skipped }}
-        run: sed -i -E "s/SIMPLEWEBFLUX=.*/SIMPLEWEBFLUX=${{ steps.changelog.outputs.version }}/g" docs/environment/.env
-
-      - name: Checking changelog
-        run: cat CHANGELOG.md
-
-      - name: Merging Changelog
-        if: ${{ !steps.changelog.outputs.skipped }}
-        run: |
-          mv CHANGELOG.md RELEASE.md
-          cat RELEASE.md OLD.CHANGELOG.md > CHANGELOG.md
-
       - name: Update resources
         uses: test-room-7/action-update-file@v1.6.0
         if: ${{ !steps.changelog.outputs.skipped }}
         with:
-          file-path: |
-            pom.xml
-            CHANGELOG.md
-            docs/environment/.env
+          file-path: pom.xml
           commit-msg: "doc: updating pom to ${{ steps.changelog.outputs.version }}"
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
