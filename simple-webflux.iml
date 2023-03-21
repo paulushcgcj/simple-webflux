@@ -146,9 +146,17 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework:spring-test:6.0.6" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.xmlunit:xmlunit-core:2.9.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: io.projectreactor:reactor-test:3.5.3" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-api:${junit-jupiter-api.version}" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-console:${junit-platform.version}" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-suite:${junit-platform.version}" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-api:5.9.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.opentest4j:opentest4j:1.2.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-commons:1.9.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.apiguardian:apiguardian-api:1.1.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-console:1.9.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-reporting:1.9.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-launcher:1.9.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-suite:1.9.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-suite-api:1.9.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-suite-engine:1.9.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-suite-commons:1.9.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:cucumber-java:7.11.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:cucumber-core:7.11.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:cucumber-gherkin:7.11.1" level="project" />
@@ -163,11 +171,8 @@
     <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:html-formatter:20.2.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:junit-xml-formatter:0.1.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:ci-environment:9.1.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.apiguardian:apiguardian-api:1.1.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:cucumber-junit-platform-engine:7.11.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-engine:1.9.2" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.opentest4j:opentest4j:1.2.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-commons:1.9.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:cucumber-spring:7.11.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.testcontainers:testcontainers:1.17.6" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.13.2" level="project" />
