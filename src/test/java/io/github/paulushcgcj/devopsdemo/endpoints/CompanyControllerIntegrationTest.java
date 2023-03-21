@@ -1,29 +1,28 @@
 package io.github.paulushcgcj.devopsdemo.endpoints;
 
-import java.util.Map;
-import java.util.UUID;
-import java.util.stream.Stream;
-
-import org.junit.jupiter.api.*;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Import;
-import org.springframework.web.server.ResponseStatusException;
-
-import io.github.paulushcgcj.devopsdemo.configuration.TestSecurityConfiguration;
 import io.github.paulushcgcj.devopsdemo.entities.Company;
 import io.github.paulushcgcj.devopsdemo.exceptions.CompanyAlreadyExistException;
 import io.github.paulushcgcj.devopsdemo.exceptions.CompanyNotFoundException;
 import io.github.paulushcgcj.devopsdemo.extensions.AbstractTestContainerIntegrationTest;
 import io.github.paulushcgcj.devopsdemo.services.CompanyService;
+import java.util.Map;
+import java.util.UUID;
+import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.server.ResponseStatusException;
 
 @Slf4j
 @DisplayName("Integrated Test | Company Controller")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@Import(TestSecurityConfiguration.class)
 class CompanyControllerIntegrationTest extends AbstractTestContainerIntegrationTest {
   @Autowired
   CompanyService service;
@@ -54,8 +53,7 @@ class CompanyControllerIntegrationTest extends AbstractTestContainerIntegrationT
   @Test
   @DisplayName("One Company after Insert")
   @Order(3)
-  /*@WithMockUser*/
-  void shouldListCreatedCompany(){
+  void shouldListCreatedCompany() {
     doGet("/api/companies")
         .expectStatus().isOk()
         .expectBody()
@@ -66,8 +64,7 @@ class CompanyControllerIntegrationTest extends AbstractTestContainerIntegrationT
   @Test
   @DisplayName("Look for DaCompany, not Gork")
   @Order(4)
-  /*@WithMockUser*/
-  void shouldListCompanyByName(){
+  void shouldListCompanyByName() {
 
     doGet("/api/companies", Map.of("name", "Gork"))
         .expectStatus().isOk()
@@ -92,8 +89,7 @@ class CompanyControllerIntegrationTest extends AbstractTestContainerIntegrationT
   @Test
   @DisplayName("No Companies at the beginning")
   @Order(1)
-  /*@WithMockUser*/
-  void shouldHaveNoCompaniesOnList(){
+  void shouldHaveNoCompaniesOnList() {
 
     doGet("/api/companies")
         .expectStatus().isOk()
@@ -105,10 +101,9 @@ class CompanyControllerIntegrationTest extends AbstractTestContainerIntegrationT
   @Test
   @DisplayName("Insert works")
   @Order(2)
-  /*@WithMockUser*/
-  void shouldAddCompany(){
+  void shouldAddCompany() {
 
-    doPost("/api/companies",daCompany, Company.class)
+    doPost("/api/companies", daCompany, Company.class)
         .expectStatus().isCreated()
         .expectHeader()
         .exists("Location")
@@ -119,8 +114,7 @@ class CompanyControllerIntegrationTest extends AbstractTestContainerIntegrationT
   @Test
   @DisplayName("Get company when Exists")
   @Order(5)
-  /*@WithMockUser*/
-  void shouldGetExistingCompany(){
+  void shouldGetExistingCompany() {
 
     String id = service
         .listCompanies(0, 1, "DaCompany")
@@ -128,7 +122,7 @@ class CompanyControllerIntegrationTest extends AbstractTestContainerIntegrationT
         .map(Company::getId)
         .block();
 
-    doGet("/api/companies/"+id)
+    doGet("/api/companies/" + id)
         .expectStatus().isOk()
         .expectBody()
         .consumeWith(System.out::println)
@@ -138,11 +132,10 @@ class CompanyControllerIntegrationTest extends AbstractTestContainerIntegrationT
   @Test
   @DisplayName("Get no Company with unexpected ID")
   @Order(6)
-  /*@WithMockUser*/
-  void shouldGetNoCompanyWithId(){
+  void shouldGetNoCompanyWithId() {
     UUID id = UUID.randomUUID();
 
-    doGet("/api/companies/"+ id)
+    doGet("/api/companies/" + id)
         .expectStatus().isNotFound()
         .expectBody(String.class)
         .isEqualTo("No company with id " + id + " found")
@@ -153,8 +146,8 @@ class CompanyControllerIntegrationTest extends AbstractTestContainerIntegrationT
   @MethodSource("updateCases")
   @DisplayName("Update and see what happens")
   @Order(7)
-  /*@WithMockUser*/
-  void shouldExecuteUpdateAndHopeForTheBest(String id, Company company, ResponseStatusException exception){
+  void shouldExecuteUpdateAndHopeForTheBest(String id, Company company,
+                                            ResponseStatusException exception) {
 
     if (exception == null) {
 
@@ -164,13 +157,13 @@ class CompanyControllerIntegrationTest extends AbstractTestContainerIntegrationT
           .map(Company::getId)
           .block();
 
-      doPut("/api/companies/"+ myid,company, Company.class)
+      doPut("/api/companies/" + myid, company, Company.class)
           .expectStatus().isAccepted()
           .expectBody()
           .isEmpty();
 
     } else {
-      doPut("/api/companies/"+ id,company, Company.class)
+      doPut("/api/companies/" + id, company, Company.class)
           .expectStatus().isEqualTo(exception.getStatusCode())
           .expectBody(String.class)
           .isEqualTo(exception.getReason());
@@ -181,8 +174,7 @@ class CompanyControllerIntegrationTest extends AbstractTestContainerIntegrationT
   @Test
   @DisplayName("Remove company")
   @Order(8)
-  /*@WithMockUser*/
-  void shouldRemoveCompany(){
+  void shouldRemoveCompany() {
 
     String id = service
         .listCompanies(0, 1, leCompany.getName())
@@ -190,7 +182,7 @@ class CompanyControllerIntegrationTest extends AbstractTestContainerIntegrationT
         .map(Company::getId)
         .block();
 
-    doDelete("/api/companies/"+ id)
+    doDelete("/api/companies/" + id)
         .expectStatus().isNoContent()
         .expectBody()
         .isEmpty();
@@ -201,11 +193,10 @@ class CompanyControllerIntegrationTest extends AbstractTestContainerIntegrationT
   @Test
   @DisplayName("Don't remove cuz it's not there")
   @Order(9)
-  /*@WithMockUser*/
-  void shouldNotRemoveCompany(){
+  void shouldNotRemoveCompany() {
     UUID id = UUID.randomUUID();
 
-    doDelete("/api/companies/"+ id)
+    doDelete("/api/companies/" + id)
         .expectStatus().isNotFound()
         .expectBody(String.class)
         .isEqualTo("No company with id " + id + " found");

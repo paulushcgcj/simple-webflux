@@ -1,15 +1,10 @@
 package io.github.paulushcgcj.devopsdemo.services;
 
-import java.util.ArrayList;
-import java.util.UUID;
-import java.util.stream.Stream;
-
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
+import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import io.github.paulushcgcj.devopsdemo.entities.Company;
 import io.github.paulushcgcj.devopsdemo.exceptions.CompanyAlreadyExistException;
@@ -17,15 +12,18 @@ import io.github.paulushcgcj.devopsdemo.exceptions.CompanyNotFoundException;
 import io.github.paulushcgcj.devopsdemo.exceptions.NullCompanyException;
 import io.github.paulushcgcj.devopsdemo.repositories.CompanyRepository;
 import io.github.paulushcgcj.devopsdemo.validators.CompanyValidator;
+import java.util.ArrayList;
+import java.util.UUID;
+import java.util.stream.Stream;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
-
-import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 @DisplayName("Unit Test | Company Service")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -34,7 +32,7 @@ class CompanyServiceTest {
   private final CompanyRepository repository = mock(CompanyRepository.class);
   private final CompanyValidator validator = mock(CompanyValidator.class);
 
-  private final CompanyService service = new CompanyService(repository,validator);
+  private final CompanyService service = new CompanyService(repository, validator);
 
   @Test
   @DisplayName("One Company after Insert")
@@ -81,7 +79,8 @@ class CompanyServiceTest {
   void shouldAddCompany() {
 
     when(repository.save(any(Company.class)))
-        .thenReturn(Mono.just(Company.builder().id(UUID.randomUUID().toString()).name("DaCompany").build()));
+        .thenReturn(Mono.just(
+            Company.builder().id(UUID.randomUUID().toString()).name("DaCompany").build()));
 
     when(repository.findAll())
         .thenReturn(Flux.empty());
@@ -150,7 +149,8 @@ class CompanyServiceTest {
   void shouldRemoveCompany() {
 
     when(repository.findById(anyString()))
-        .thenReturn(Mono.just(Company.builder().id(UUID.randomUUID().toString()).name("DaCompany").build()));
+        .thenReturn(Mono.just(
+            Company.builder().id(UUID.randomUUID().toString()).name("DaCompany").build()));
 
     when(repository.deleteById(anyString()))
         .thenReturn(Mono.empty());
@@ -179,7 +179,8 @@ class CompanyServiceTest {
         Stream.of(
             Arguments.of(null, null, NullCompanyException.class),
             Arguments.of(UUID.randomUUID().toString(), null, NullCompanyException.class),
-            Arguments.of(UUID.randomUUID().toString(), Company.builder().name("LeCompany").build(), null)
+            Arguments.of(UUID.randomUUID().toString(), Company.builder().name("LeCompany").build(),
+                null)
         );
   }
 
@@ -187,7 +188,8 @@ class CompanyServiceTest {
     return
         Stream.of(
             Arguments.of(null, NullCompanyException.class),
-            Arguments.of(Company.builder().name("DaCompany").build(), CompanyAlreadyExistException.class)
+            Arguments.of(Company.builder().name("DaCompany").build(),
+                CompanyAlreadyExistException.class)
         );
   }
 
