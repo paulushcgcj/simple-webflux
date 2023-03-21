@@ -140,7 +140,7 @@ jobs:
           github-token: ${{ github.token }}
           output-file: 'CHANGELOG.md'
           skip-version-file: 'true'
-          skip-commit: 'true'
+          skip-commit: 'false'
           git-push: 'true'
 
       - name: Set new version
