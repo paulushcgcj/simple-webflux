@@ -128,18 +128,6 @@ jobs:
           java-version: "17"
           cache: "maven"
 
-      - name: "✏️ Generate release changelog"
-        uses: heinrichreimer/github-changelog-generator-action@v2.3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          output: CHANGEME.md
-          issues: true
-          author: true
-
-      - name: Checking changelog
-        run: cat CHANGEME.md
-
-
       - name: Conventional Changelog Update
         uses: TriPSs/conventional-changelog-action@v3
         id: changelog
@@ -150,8 +138,11 @@ jobs:
           skip-commit: 'true'
           git-push: 'true'
 
-      - name: Checking changelog
-        run: cat CHANGELOG.md
+      - name: Checking values
+        run: |
+          echo "tag_name: ${{ steps.changelog.outputs.tag }}"
+          echo "name: ${{ steps.changelog.outputs.tag }}"
+          echo "body: ${{ steps.changelog.outputs.clean_changelog }}"
 
       - name: Set new version
         if: ${{ !steps.changelog.outputs.skipped }}
