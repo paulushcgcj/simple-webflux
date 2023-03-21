@@ -128,6 +128,18 @@ jobs:
           java-version: "17"
           cache: "maven"
 
+      - name: "✏️ Generate release changelog"
+        uses: heinrichreimer/github-changelog-generator-action@v2.3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          output: CHANGEME.md
+          issues: true
+          author: true
+
+      - name: Checking changelog
+        run: cat CHANGEME.md
+
+
       - name: Conventional Changelog Update
         uses: TriPSs/conventional-changelog-action@v3
         id: changelog
@@ -136,7 +148,7 @@ jobs:
           output-file: 'CHANGELOG.md'
           skip-version-file: 'true'
           skip-commit: 'true'
-          git-push: 'false'
+          git-push: 'true'
 
       - name: Checking changelog
         run: cat CHANGELOG.md
