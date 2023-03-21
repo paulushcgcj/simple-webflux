@@ -27,6 +27,9 @@
 
         <java.version>17</java.version>
         <jdk.version>17</jdk.version>
+        <maven.compiler.version>3.10.1</maven.compiler.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
 
         <skip.integration.tests>true</skip.integration.tests>
         <skip.unit.tests>false</skip.unit.tests>
@@ -40,16 +43,25 @@
 
         <sonar.organization>paulushcgcj-github</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.coverage.jacoco.xmlReportPaths>target/coverage-reports/merged-test-report/jacoco.xml
+        </sonar.coverage.jacoco.xmlReportPaths>
+        <sonar.coverage.exclusions>
+            **/configuration/**,
+            **/exception/**,
+            **/dto/**,
+            **/entity/**,
+            **/repository/**,
+            **/*$*Builder*,
+            **/Application*
+            **/ApplicationConstants*
+        </sonar.coverage.exclusions>
+        <sonar.java.checkstyle.reportPaths>target/checkstyle-result.xml</sonar.java.checkstyle.reportPaths>
 
         <timestamp>${maven.build.timestamp}</timestamp>
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
 
-        <spring-cloud.version>2022.0.0-RC3</spring-cloud.version>
         <testcontainers.version>1.17.6</testcontainers.version>
         <cucumber.version>7.11.1</cucumber.version>
-        <jjwt.version>0.11.5</jjwt.version>
-        <junit-jupiter-api.version>5.9.2</junit-jupiter-api.version>
-        <junit-platform.version>1.9.2</junit-platform.version>
     </properties>
 
     <profiles>
@@ -234,13 +246,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring-cloud.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
             <dependency>
                 <groupId>org.testcontainers</groupId>
                 <artifactId>testcontainers-bom</artifactId>
