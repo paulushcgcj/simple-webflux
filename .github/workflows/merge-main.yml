@@ -141,7 +141,7 @@ jobs:
           output-file: 'CHANGELOG.md'
           skip-version-file: 'true'
           skip-commit: 'true'
-          git-push: 'false'
+          git-push: 'true'
 
       - name: Set new version
         if: ${{ !steps.changelog.outputs.skipped }}
