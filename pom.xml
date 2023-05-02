@@ -61,8 +61,8 @@
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
 
         <testcontainers.version>1.17.6</testcontainers.version>
-        <cucumber.version>7.11.2</cucumber.version>
         <junit-jupiter-api.version>5.9.3</junit-jupiter-api.version>
+        <cucumber.version>7.12.0</cucumber.version>
         <junit-platform.version>1.9.2</junit-platform.version>
     </properties>
 
