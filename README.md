@@ -13,7 +13,6 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=paulushcgcj_simple-webflux&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=paulushcgcj_simple-webflux)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=paulushcgcj_simple-webflux&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=paulushcgcj_simple-webflux)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=paulushcgcj_simple-webflux&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=paulushcgcj_simple-webflux)
-[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=paulushcgcj_simple-webflux&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=paulushcgcj_simple-webflux)
 
 **We use [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/)** so stick with it.
 
