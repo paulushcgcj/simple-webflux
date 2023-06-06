@@ -564,7 +564,7 @@
         <repository>
             <id>github</id>
             <name>Github Packages</name>
-            <url>https://maven.pkg.github.com/bcgov/nr-forest-client-commons</url>
+            <url>https://maven.pkg.github.com/paulushcgcj/simple-webflux</url>
         </repository>
     </distributionManagement>
 
