@@ -62,7 +62,7 @@
 
         <testcontainers.version>1.18.3</testcontainers.version>
         <cucumber.version>7.13.0</cucumber.version>
-        <junit-jupiter-api.version>5.9.2</junit-jupiter-api.version>
+        <junit-jupiter-api.version>5.10.0</junit-jupiter-api.version>
         <junit-platform.version>1.9.3</junit-platform.version>
     </properties>
 
